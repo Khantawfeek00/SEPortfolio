@@ -1,0 +1,159 @@
+.experience {
+    background: var(--bg-primary);
+}
+
+.experience__timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.experience__item {
+    display: flex;
+    gap: 2rem;
+}
+
+.experience__dot-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 20px;
+}
+
+.experience__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+    flex-shrink: 0;
+    margin-top: 1.75rem;
+    position: relative;
+}
+
+.experience__dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(6, 182, 212, 0.2);
+}
+
+.experience__line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, rgba(6, 182, 212, 0.3), rgba(6, 182, 212, 0.05));
+    margin-top: 4px;
+}
+
+.experience__card {
+    padding: 1.75rem;
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+.experience__card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.experience__role {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.experience__company {
+    font-size: var(--font-sm);
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.experience__client {
+    font-size: var(--font-xs);
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.experience__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.experience__period {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.experience__type {
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    font-size: var(--font-xs);
+    font-weight: 600;
+}
+
+.experience__type--full-time {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.experience__type--internship {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--accent-purple);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.experience__highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.experience__highlights li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.experience__bullet {
+    color: var(--accent-cyan);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+    .experience__card-header {
+        flex-direction: column;
+    }
+
+    .experience__meta {
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+
+    .experience__item {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .experience__dot-line {
+        display: none;
+    }
+}

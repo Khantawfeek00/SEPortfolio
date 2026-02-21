@@ -1,0 +1,138 @@
+.contact {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.contact__info-title {
+    font-size: var(--font-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.contact__info-desc {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.contact__channels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.contact__channel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+}
+
+.contact__channel-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 182, 212, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--accent-cyan);
+    flex-shrink: 0;
+}
+
+.contact__channel-icon--blue {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-blue);
+}
+
+.contact__channel-label {
+    font-size: var(--font-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact__channel-value {
+    font-size: var(--font-sm);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.contact__form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contact__field label {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.contact__field input,
+.contact__field textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    font-size: var(--font-sm);
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.08);
+}
+
+.contact__field textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact__submit {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.contact__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
