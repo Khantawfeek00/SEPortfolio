@@ -362,7 +362,6 @@
     max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
-    overscroll-behavior: contain;
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     /* Firefox support */

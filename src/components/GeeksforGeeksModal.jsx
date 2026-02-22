@@ -326,7 +326,23 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                             ))}
                         </div>
 
-                        <div className="gfg__recent-list" tabIndex={0} aria-label="Problems List">
+                        <div
+                            className="gfg__recent-list"
+                            tabIndex={0}
+                            aria-label="Problems List"
+                            onWheel={(e) => {
+                                const list = e.currentTarget;
+                                const modal = list.closest('.gfg__modal');
+                                if (!modal) return;
+
+                                const isAtTop = list.scrollTop === 0;
+                                const isAtBottom = Math.abs(list.scrollHeight - list.scrollTop - list.clientHeight) < 1;
+
+                                if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+                                    modal.scrollTop += e.deltaY;
+                                }
+                            }}
+                        >
                             {activeListData.length > 0 ? (
                                 activeListData.map((prob, i) => (
                                     <div key={i} className="gfg__recent-item">
