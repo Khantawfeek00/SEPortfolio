@@ -29,7 +29,7 @@
 .hero__glow--1 {
     width: 500px;
     height: 500px;
-    background: rgba(6, 182, 212, 0.12);
+    background: rgba(var(--glow-rgb), 0.12);
     top: -10%;
     right: -5%;
     animation: float 8s ease-in-out infinite;
@@ -47,7 +47,7 @@
 .hero__orb {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(var(--glow-rgb), 0.1);
     pointer-events: none;
 }
 
@@ -165,7 +165,7 @@
 
 .hero__cursor {
     display: inline-block;
-    color: var(--accent-cyan);
+    color: var(--accent-theme);
     animation: blink 1s step-end infinite;
     font-weight: 300;
     margin-left: 2px;
@@ -269,7 +269,7 @@
 .hero__scroll-wheel {
     width: 3px;
     height: 8px;
-    background: var(--accent-cyan);
+    background: var(--accent-theme);
     border-radius: 2px;
     animation: scroll-wheel 2s ease-in-out infinite;
 }

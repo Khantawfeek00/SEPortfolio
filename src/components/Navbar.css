@@ -31,12 +31,12 @@
 }
 
 .navbar__logo-bracket {
-    color: var(--accent-cyan);
+    color: var(--accent-theme);
     font-weight: 400;
 }
 
 .navbar__logo:hover {
-    color: var(--accent-cyan);
+    color: var(--accent-theme);
 }
 
 .navbar__links {
@@ -77,7 +77,7 @@
 }
 
 .navbar__link--active {
-    color: var(--accent-cyan);
+    color: var(--accent-theme);
 }
 
 .navbar__link--active::after {

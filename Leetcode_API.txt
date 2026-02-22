@@ -1,0 +1,490 @@
+curl ^"https://o6871.ingest.sentry.io/api/5806672/envelope/?sentry_key=2a051f9838e2450fbdd5a77eb62cc83c^&sentry_version=7^&sentry_client=sentry.javascript.nextjs^%^2F7.51.2^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"content-type: text/plain;charset=UTF-8^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  --data-raw ^"^{^\^"sent_at^\^":^\^"2026-02-21T11:49:09.950Z^\^",^\^"sdk^\^":^{^\^"name^\^":^\^"sentry.javascript.nextjs^\^",^\^"version^\^":^\^"7.51.2^\^"^}^}^
+
+^{^\^"type^\^":^\^"session^\^"^}^
+
+^{^\^"sid^\^":^\^"ff22ce88a66b4f2ab3859a37fc70592a^\^",^\^"init^\^":true,^\^"started^\^":^\^"2026-02-21T11:49:09.949Z^\^",^\^"timestamp^\^":^\^"2026-02-21T11:49:09.949Z^\^",^\^"status^\^":^\^"ok^\^",^\^"errors^\^":0,^\^"attrs^\^":^{^\^"release^\^":^\^"8e20d83f^\^",^\^"environment^\^":^\^"production^\^",^\^"user_agent^\^":^\^"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^\^"^}^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-a9f93717c9bca2c4-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query siteAnnouncements ^{^\^\n  siteAnnouncements ^{^\^\n    title^\^\n    content^\^\n    blacklistUrls^\^\n    whitelistUrls^\^\n    navbarItem^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^},^\^"operationName^\^":^\^"siteAnnouncements^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-a14c8bfe42b73ab1-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userPublicProfile(^$username: String^!) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    contestBadge ^{^\^\n      name^\^\n      expired^\^\n      hoverText^\^\n      icon^\^\n    ^}^\^\n    username^\^\n    githubUrl^\^\n    twitterUrl^\^\n    linkedinUrl^\^\n    profile ^{^\^\n      ranking^\^\n      userAvatar^\^\n      realName^\^\n      aboutMe^\^\n      school^\^\n      websites^\^\n      countryName^\^\n      company^\^\n      jobTitle^\^\n      skillTags^\^\n      postViewCount^\^\n      postViewCountDiff^\^\n      reputation^\^\n      reputationDiff^\^\n      solutionCountDiff^\^\n      categoryDiscussCountDiff^\^\n      certificationLevel^\^\n      isFollowingMe^\^\n      isFollowedByMe^\^\n    ^}^\^\n  ^}^\^\n  ugcArticleUserSolutionArticles(username: ^$username, skip: 0, first: 0) ^{^\^\n    totalNum^\^\n  ^}^\^\n  ugcArticleUserDiscussionArticles(username: ^$username, skip: 0, first: 0) ^{^\^\n    totalNum^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userPublicProfile^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-8585fe3eb79a972b-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query followCounts(^$userSlug: String^!) ^{^\^\n  followers(userSlug: ^$userSlug) ^{^\^\n    allNum^\^\n  ^}^\^\n  following(userSlug: ^$userSlug) ^{^\^\n    allNum^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"userSlug^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"followCounts^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-8b7de4c42faa3e54-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query languageStats(^$username: String^!) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    languageProblemCount ^{^\^\n      languageName^\^\n      problemsSolved^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"languageStats^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-82468fc37cd1895b-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query skillStats(^$username: String^!) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    tagProblemCounts ^{^\^\n      advanced ^{^\^\n        tagName^\^\n        tagSlug^\^\n        problemsSolved^\^\n      ^}^\^\n      intermediate ^{^\^\n        tagName^\^\n        tagSlug^\^\n        problemsSolved^\^\n      ^}^\^\n      fundamental ^{^\^\n        tagName^\^\n        tagSlug^\^\n        problemsSolved^\^\n      ^}^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"skillStats^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-9b776d8a1be4e694-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userContestRankingInfo(^$username: String^!) ^{^\^\n  userContestRanking(username: ^$username) ^{^\^\n    attendedContestsCount^\^\n    rating^\^\n    globalRanking^\^\n    totalParticipants^\^\n    topPercentage^\^\n    badge ^{^\^\n      name^\^\n    ^}^\^\n  ^}^\^\n  userContestRankingHistory(username: ^$username) ^{^\^\n    attended^\^\n    trendDirection^\^\n    problemsSolved^\^\n    totalProblems^\^\n    finishTimeInSeconds^\^\n    rating^\^\n    ranking^\^\n    contest ^{^\^\n      title^\^\n      startTime^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userContestRankingInfo^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-9727c993976368fd-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userProfileUserQuestionProgressV2(^$userSlug: String^!) ^{^\^\n  userProfileUserQuestionProgressV2(userSlug: ^$userSlug) ^{^\^\n    numAcceptedQuestions ^{^\^\n      count^\^\n      difficulty^\^\n    ^}^\^\n    numFailedQuestions ^{^\^\n      count^\^\n      difficulty^\^\n    ^}^\^\n    numUntouchedQuestions ^{^\^\n      count^\^\n      difficulty^\^\n    ^}^\^\n    userSessionBeatsPercentage ^{^\^\n      difficulty^\^\n      percentage^\^\n    ^}^\^\n    totalQuestionBeatsPercentage^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"userSlug^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userProfileUserQuestionProgressV2^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-9aef910bb410195d-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userSessionProgress(^$username: String^!) ^{^\^\n  allQuestionsCount ^{^\^\n    difficulty^\^\n    count^\^\n  ^}^\^\n  matchedUser(username: ^$username) ^{^\^\n    submitStats ^{^\^\n      acSubmissionNum ^{^\^\n        difficulty^\^\n        count^\^\n        submissions^\^\n      ^}^\^\n      totalSubmissionNum ^{^\^\n        difficulty^\^\n        count^\^\n        submissions^\^\n      ^}^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userSessionProgress^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-8b898a8a08095b9e-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userBadges(^$username: String^!) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    badges ^{^\^\n      id^\^\n      name^\^\n      shortName^\^\n      displayName^\^\n      icon^\^\n      hoverText^\^\n      medal ^{^\^\n        slug^\^\n        config ^{^\^\n          iconGif^\^\n          iconGifBackground^\^\n        ^}^\^\n      ^}^\^\n      creationDate^\^\n      category^\^\n    ^}^\^\n    upcomingBadges ^{^\^\n      name^\^\n      icon^\^\n      progress^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userBadges^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-9dd8b942351c1b4d-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query createdPublicFavoriteList(^$userSlug: String^!) ^{^\^\n  createdPublicFavoriteList(userSlug: ^$userSlug) ^{^\^\n    hasMore^\^\n    totalLength^\^\n    favorites ^{^\^\n      slug^\^\n      coverUrl^\^\n      coverEmoji^\^\n      coverBackgroundColor^\^\n      name^\^\n      isPublicFavorite^\^\n      lastQuestionAddedAt^\^\n      hasCurrentQuestion^\^\n      viewCount^\^\n      description^\^\n      questionNumber^\^\n      isDefaultList^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"userSlug^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"createdPublicFavoriteList^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-912bdd93f09cac26-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query canSeeOtherSubmissionHistory(^$userSlug: String^!) ^{^\^\n  canSeeOtherSubmissionHistory(userSlug: ^$userSlug)^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"userSlug^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"canSeeOtherSubmissionHistory^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-8f0a7eb03eb9a21b-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query canSeeOtherCalendar(^$userSlug: String^!) ^{^\^\n  canSeeOtherCalendar(userSlug: ^$userSlug)^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"userSlug^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"canSeeOtherCalendar^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-9cd4235ac6607bed-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"uuuserid: 9800cc1ff451e40305ef96a3a12ce389^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query globalData ^{^\^\n  userStatus ^{^\^\n    userId^\^\n    isSignedIn^\^\n    isMockUser^\^\n    isPremium^\^\n    isVerified^\^\n    username^\^\n    realName^\^\n    avatar^\^\n    isAdmin^\^\n    isSuperuser^\^\n    permissions^\^\n    isTranslator^\^\n    activeSessionId^\^\n    checkedInToday^\^\n    completedFeatureGuides^\^\n    premiumExpiredAt^\^\n    notificationStatus ^{^\^\n      lastModified^\^\n      numUnread^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^},^\^"operationName^\^":^\^"globalData^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-ab7312e3e222ce05-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"uuuserid: 9800cc1ff451e40305ef96a3a12ce389^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query getUserProfile(^$username: String^!) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    activeBadge ^{^\^\n      displayName^\^\n      icon^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"getUserProfile^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-931b4cbd2600ef1a-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"uuuserid: 9800cc1ff451e40305ef96a3a12ce389^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query contestRatingHistogram ^{^\^\n  contestRatingHistogram ^{^\^\n    userCount^\^\n    ratingStart^\^\n    ratingEnd^\^\n    topPercentage^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^},^\^"operationName^\^":^\^"contestRatingHistogram^\^"^}^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-91529e72a3f7ff27-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"uuuserid: 9800cc1ff451e40305ef96a3a12ce389^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query userProfileCalendar(^$username: String^!, ^$year: Int) ^{^\^\n  matchedUser(username: ^$username) ^{^\^\n    userCalendar(year: ^$year) ^{^\^\n      activeYears^\^\n      streak^\^\n      totalActiveDays^\^\n      dccBadges ^{^\^\n        timestamp^\^\n        badge ^{^\^\n          name^\^\n          icon^\^\n        ^}^\^\n      ^}^\^\n      submissionCalendar^\^\n    ^}^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^"^},^\^"operationName^\^":^\^"userProfileCalendar^\^"^}^" &
+curl ^"https://leetcode.com/_next/static/images/twemoji-sprite-17cddc0c3b5b6d444b24b9593af9bb2e.svg^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"if-modified-since: Fri, 13 Feb 2026 05:53:43 GMT^" ^
+  -H ^"if-none-match: W/^\^"c7524c23a0cc032cc3c052b102cc2bad^\^"^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-ae9caae7100b034a-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" &
+curl ^"https://leetcode.com/graphql/^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"authorization;^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -H ^"content-type: application/json^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _ga=GA1.2.1786266480.1754321486; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674549^$j60^$l0^$h0^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"random-uuid: 11392fe0-019c-a1c4-05c7-c9b99d4f3341^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-aaaa0dcc41c8d250-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"uuuserid: 9800cc1ff451e40305ef96a3a12ce389^" ^
+  -H ^"x-csrftoken: dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc^" ^
+  --data-raw ^"^{^\^"query^\^":^\^"^\^\n    query recentAcSubmissions(^$username: String^!, ^$limit: Int^!) ^{^\^\n  recentAcSubmissionList(username: ^$username, limit: ^$limit) ^{^\^\n    id^\^\n    title^\^\n    titleSlug^\^\n    timestamp^\^\n  ^}^\^\n^}^\^\n    ^\^",^\^"variables^\^":^{^\^"username^\^":^\^"TawfeekKhan^\^",^\^"limit^\^":15^},^\^"operationName^\^":^\^"recentAcSubmissions^\^"^}^" &
+curl ^"https://www.google-analytics.com/j/collect?v=1^&_v=j102^&a=1812218628^&t=pageview^&_s=1^&dl=https^%^3A^%^2F^%^2Fleetcode.com^%^2Fu^%^2FTawfeekKhan^%^2F^&ul=en-us^&dt=TawfeekKhan^%^20-^%^20LeetCode^%^20Profile^&sr=1920x1080^&vp=1350x945^&_u=QCCAgAABAAAAACAAIAB~^&jid=561194593^&gjid=855278503^&cid=1786266480.1754321486^&tid=UA-159258186-1^&_gid=951762194.1771673514^&_slc=1^&cd1=false^&cd2=^&z=1227037407^" ^
+  -X ^"POST^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"content-length: 0^" ^
+  -H ^"content-type: text/plain^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"sec-fetch-storage-access: active^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" &
+curl ^"https://stats.g.doubleclick.net/j/collect?t=dc^&aip=1^&_r=3^&v=1^&_v=j102^&tid=UA-159258186-1^&cid=1786266480.1754321486^&jid=561194593^&gjid=855278503^&_gid=951762194.1771673514^&_u=QCCAgAABAAAAAGAAIAB~^&z=1590035357^" ^
+  -X ^"POST^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"content-length: 0^" ^
+  -H ^"content-type: text/plain^" ^
+  -b ^"id=OPT_OUT^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"sec-fetch-storage-access: active^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-browser-channel: stable^" ^
+  -H ^"x-browser-copyright: Copyright 2026 Google LLC. All Rights reserved.^" ^
+  -H ^"x-browser-validation: xxrIX3dZRZi19rZl4YpAY8HN4/I=^" ^
+  -H ^"x-browser-year: 2026^" ^
+  -H ^"x-client-data: CIi2yQEIprbJAQipncoBCIn4ygEIlqHLAQiFoM0B^" &
+curl ^"https://api-os.growingio.com/v2/87b5a3c3f1a55520/web/pv^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" &
+curl ^"https://leetcode.com/_next/static/css/efb390a30d028f84.css^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"baggage: sentry-environment=production,sentry-release=8e20d83f,sentry-transaction=^%^2Fu^%^2F^%^5Busername^%^5D,sentry-public_key=2a051f9838e2450fbdd5a77eb62cc83c,sentry-trace_id=cdda3e9754d14024a9fba3949e338488,sentry-sample_rate=0.03^" ^
+  -b ^"gr_user_id=ab440150-ab47-4d02-b5b3-2ac0b34f8fd6; __stripe_mid=b512c335-88a6-43bb-a3c0-e0bc4f24fb47c75624; INGRESSCOOKIE=c2127f3ea085d10fa4dfb2a1f945a03a^|8e0876c7c1464cc0ac96bc2edceabd27; csrftoken=dpbMRJRAWD1X9AmR33wasEfiZgQo0rdc; ip_check=(false, ^\^"103.192.65.125^\^"); _gid=GA1.2.951762194.1771673514; 87b5a3c3f1a55520_gr_session_id=01800dcb-a575-4694-8153-12ecc02a1f14; 87b5a3c3f1a55520_gr_session_id_sent_vst=01800dcb-a575-4694-8153-12ecc02a1f14; __stripe_sid=f8d0bd48-45d4-47f9-8e07-dec7df52cfddc57a12; _gat=1; _ga_CDRWKZTDEX=GS2.1.s1771673514^$o2^$g1^$t1771674551^$j58^$l0^$h0; _ga=GA1.1.1786266480.1754321486^" ^
+  -H ^"if-modified-since: Fri, 13 Feb 2026 05:54:41 GMT^" ^
+  -H ^"if-none-match: W/^\^"32764da582f944fcccab9b3bad99db5e^\^"^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/u/TawfeekKhan/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: cors^" ^
+  -H ^"sec-fetch-site: same-origin^" ^
+  -H ^"sentry-trace: cdda3e9754d14024a9fba3949e338488-8c7456a64c86e6b3-0^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" &
+curl ^"https://analytics.google.com/g/collect?v=2^&tid=G-CDRWKZTDEX^&gtm=45je62i1v892315079za200zd892315079^&_p=1771674551130^&gcd=13l3l3l3l1l1^&npa=0^&dma=0^&cid=1786266480.1754321486^&ul=en-us^&sr=1920x1080^&uaa=x86^&uab=64^&uafvl=Not^%^253AA-Brand^%^3B99.0.0.0^%^7CGoogle^%^2520Chrome^%^3B145.0.7632.76^%^7CChromium^%^3B145.0.7632.76^&uamb=0^&uam=^&uap=Windows^&uapv=19.0.0^&uaw=0^&are=1^&frm=0^&pscdl=noapi^&_eu=AAAAAGQ^&_s=1^&tag_exp=103116026~103200004~104527907~104528501~104684208~104684211~115938465~115938468~117416194~117455676~117455678~117527079^&uid=^&sid=1771673514^&sct=2^&seg=1^&dl=https^%^3A^%^2F^%^2Fleetcode.com^%^2Fu^%^2FTawfeekKhan^%^2F^&dt=TawfeekKhan^%^20-^%^20LeetCode^%^20Profile^&en=page_view^&_ee=1^&up.is_premium=false^&tfd=7884^" ^
+  -X ^"POST^" ^
+  -H ^"accept: */*^" ^
+  -H ^"accept-language: en-US,en;q=0.9^" ^
+  -H ^"content-length: 0^" ^
+  -b ^"__Secure-3PAPISID=g4MU5R-2tX3y9JmL/ARTIhJbXJFVrTPx6D; __Secure-3PSID=g.a0006Qi8IU5cmFxfa5y-JihDZX1GcjtFUL9Rn-0pGo5x717F-2-cDdgWZ6e2CHud-IUvIh-_rAACgYKAcQSARISFQHGX2Mi6YvARoWDO7HUDf-Hz_Fl-xoVAUF8yKoTEsCz5cjg5JcOv7Wv-pTI0076; __Secure-3PSIDTS=sidts-CjEB7I_69F-Ln3n15Qxj60LjwwqgFAZEM3PYDQT_7_UAtM-egXaru39V8jhhPsXIGJGZEAA; NID=529=VFEFFD8sfayDwio2Qbn6lv9ekXd7H-3y2ythZWMUla4i58mcPOw4JOKM_4i_lE_UFEfTqSOi-mNaVO4OfjiIKHCjEO2IJ5ESNw-ovJu8J63e2oIz9mf1ZRCHHVAguiG44Lauyi0p7ehcTwk3T7t0xQ3flM3yvgUja5q1kjE-Fn8n1wU7JXyBQBSDev2VjDzLS5zFiePrMM1FckBfUO2hoQZiqHXXs0mE_2ykbu0ah433b3BM2HdIOuKWHH63869Pu6JsKWjuI84kkogbJ3ET0iEgswxvj0j0dm5lmIXcBaMmP22IHNCGnXrnTDMd_QP82-0nb-MUs1g2Ihoq89S4Wtta9YHrgsbqDpmlRN1FF6zeifPIr-2lkEotN47yn6EdXbi6DS8SUetiKl2rxmKPAjnp-qMFSYqx9M0fFEc0Er3fNvjhdFhKCAN7fy1IUpCScJLxR8_JdWl01R3zwkD2i0_Qqr2G4QUVIF7rgFtIcE2T5zT9UhotYMbDBksSpml84_SJwDW2JgDUdMF6-LSKO6WSGB2p-jnYJO-MNP3DlaYPd2Fm6F0KQ5GkBgI8ulg44fbTDy7E-wctaCvZp_QO-_nv5bEFykeYug1c_zw1uZQ_Jks8-pAFMMAJV7JwgCnXzfgr_93ZjPn9chv-Y_dVVLFTzuMYz-jzZOegpo9lc75mBsFY-MDtGEvJZZebP5NeQdaPH-3jesTwJi4Vt1oYYI9nZZ6Qi1VYO_451juuo2Y3PIVbW4A; __Secure-3PSIDCC=AKEyXzUKHRzni802w9K8ssqXGY7CxCLcVKrgfB4ZEBdGSfKBhB7NFPCt-EakMZe1O1qjI8SWmvU^" ^
+  -H ^"origin: https://leetcode.com^" ^
+  -H ^"priority: u=1, i^" ^
+  -H ^"referer: https://leetcode.com/^" ^
+  -H ^"sec-ch-ua: ^\^"Not:A-Brand^\^";v=^\^"99^\^", ^\^"Google Chrome^\^";v=^\^"145^\^", ^\^"Chromium^\^";v=^\^"145^\^"^" ^
+  -H ^"sec-ch-ua-mobile: ?0^" ^
+  -H ^"sec-ch-ua-platform: ^\^"Windows^\^"^" ^
+  -H ^"sec-fetch-dest: empty^" ^
+  -H ^"sec-fetch-mode: no-cors^" ^
+  -H ^"sec-fetch-site: cross-site^" ^
+  -H ^"sec-fetch-storage-access: active^" ^
+  -H ^"user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36^" ^
+  -H ^"x-browser-channel: stable^" ^
+  -H ^"x-browser-copyright: Copyright 2026 Google LLC. All Rights reserved.^" ^
+  -H ^"x-browser-validation: xxrIX3dZRZi19rZl4YpAY8HN4/I=^" ^
+  -H ^"x-browser-year: 2026^" ^
+  -H ^"x-client-data: CIi2yQEIprbJAQipncoBCIn4ygEIlqHLAQiFoM0B^"

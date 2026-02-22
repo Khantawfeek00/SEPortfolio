@@ -87,11 +87,6 @@ export default function Hero() {
                     </div>
                     <div className="hero__stat-divider"></div>
                     <div className="hero__stat">
-                        <span className="hero__stat-value">5+</span>
-                        <span className="hero__stat-label">Features</span>
-                    </div>
-                    <div className="hero__stat-divider"></div>
-                    <div className="hero__stat">
                         <span className="hero__stat-value">100%</span>
                         <span className="hero__stat-label">Stable Releases</span>
                     </div>

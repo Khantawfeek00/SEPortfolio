@@ -24,7 +24,7 @@
 }
 
 .footer__logo-bracket {
-    color: var(--accent-cyan);
+    color: var(--accent-theme);
     font-weight: 400;
 }
 
@@ -57,9 +57,9 @@
 }
 
 .footer__social:hover {
-    color: var(--accent-cyan);
-    border-color: rgba(6, 182, 212, 0.3);
-    background: rgba(6, 182, 212, 0.08);
+    color: var(--accent-theme);
+    border-color: rgba(var(--glow-rgb), 0.3);
+    background: rgba(var(--glow-rgb), 0.08);
     transform: translateY(-2px);
 }
 

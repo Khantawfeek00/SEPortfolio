@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { applyTheme } from './theme';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -6,11 +7,16 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
+import Certifications from './components/Certifications';
+import CodingProfiles from './components/CodingProfiles';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
     useEffect(() => {
+        // Apply theme colors
+        applyTheme();
+
         // Intersection Observer for scroll animations
         const observer = new IntersectionObserver(
             (entries) => {
@@ -44,6 +50,8 @@ function App() {
                 <Experience />
                 <Projects />
                 <Education />
+                <Certifications />
+                <CodingProfiles />
                 <Contact />
             </main>
             <Footer />
