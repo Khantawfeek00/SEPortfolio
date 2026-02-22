@@ -356,54 +356,57 @@ function ProfileCard({ profile, onClick }) {
     const hasBreakdown = stats.easy != null;
 
     return (
-        <div className="cp__card glass-card" onClick={() => onClick(profile, stats, isLive)}>
-            <div className="cp__card-header">
-                <span className="cp__icon" style={{ background: `${profile.color}15`, color: profile.color }}>
-                    {profile.icon}
-                </span>
-                <div>
-                    <h3 className="cp__name">{profile.name}</h3>
-                    <p className="cp__username">@{profile.username}</p>
+        <div className="cp__card glass-card fade-in" onClick={() => onClick(profile, stats, isLive)} style={{ '--comp-color': profile.color }}>
+            <div className="cp__card-glow"></div>
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%' }}>
+                <div className="cp__card-header">
+                    <span className="cp__icon" style={{ background: `${profile.color}15`, color: profile.color }}>
+                        {profile.icon}
+                    </span>
+                    <div>
+                        <h3 className="cp__name">{profile.name}</h3>
+                        <p className="cp__username">@{profile.username}</p>
+                    </div>
+                    {isLive && <span className="cp__live-dot" title="Live data">●</span>}
                 </div>
-                {isLive && <span className="cp__live-dot" title="Live data">●</span>}
-            </div>
 
-            {profile.highlight && (
-                <div className="cp__highlight" style={{ borderColor: `${profile.color}30`, background: `${profile.color}05` }}>
-                    <span className="cp__highlight-icon">{profile.highlight.icon}</span>
-                    <span className="cp__highlight-value" style={{ color: profile.color }}>{profile.highlight.value}</span>
-                    <span className="cp__highlight-label">{profile.highlight.label}</span>
-                </div>
-            )}
-
-            <div className="cp__stats">
-                <div className="cp__total">
-                    <span className="cp__total-value" style={{ color: profile.color }}>{stats.total}</span>
-                    <span className="cp__total-label">Solved</span>
-                </div>
-                {hasBreakdown && (
-                    <div className="cp__breakdown">
-                        <div className="cp__stat-row">
-                            <span className="cp__stat-label">Easy</span>
-                            <span className="cp__stat-value" style={{ color: '#10b981' }}>{stats.easy}</span>
-                        </div>
-                        <div className="cp__stat-row">
-                            <span className="cp__stat-label">Medium</span>
-                            <span className="cp__stat-value" style={{ color: '#f59e0b' }}>{stats.medium}</span>
-                        </div>
-                        <div className="cp__stat-row">
-                            <span className="cp__stat-label">Hard</span>
-                            <span className="cp__stat-value" style={{ color: '#ef4444' }}>{stats.hard}</span>
-                        </div>
+                {profile.highlight && (
+                    <div className="cp__highlight" style={{ borderColor: `${profile.color}30`, background: `${profile.color}05` }}>
+                        <span className="cp__highlight-icon">{profile.highlight.icon}</span>
+                        <span className="cp__highlight-value" style={{ color: profile.color }}>{profile.highlight.value}</span>
+                        <span className="cp__highlight-label">{profile.highlight.label}</span>
                     </div>
                 )}
-            </div>
 
-            <div className="cp__card-cta" style={{ color: profile.color }}>
-                <span>View Details</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="cp__cta-arrow">
-                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                </svg>
+                <div className="cp__stats">
+                    <div className="cp__total">
+                        <span className="cp__total-value" style={{ color: profile.color }}>{stats.total}</span>
+                        <span className="cp__total-label">Solved</span>
+                    </div>
+                    {hasBreakdown && (
+                        <div className="cp__breakdown">
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Easy</span>
+                                <span className="cp__stat-value" style={{ color: '#10b981' }}>{stats.easy}</span>
+                            </div>
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Medium</span>
+                                <span className="cp__stat-value" style={{ color: '#f59e0b' }}>{stats.medium}</span>
+                            </div>
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Hard</span>
+                                <span className="cp__stat-value" style={{ color: '#ef4444' }}>{stats.hard}</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="cp__card-cta" style={{ color: profile.color }}>
+                    <span>View Details</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="cp__cta-arrow">
+                        <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                    </svg>
+                </div>
             </div>
         </div>
     );

@@ -49,7 +49,8 @@ export default function Experience() {
                                 {i < experiences.length - 1 && <div className="experience__line"></div>}
                             </div>
                             <div className="experience__card glass-card">
-                                <div className="experience__card-header">
+                                <div className="card__glow"></div>
+                                <div className="experience__card-header" style={{ position: 'relative', zIndex: 1 }}>
                                     <div>
                                         <h3 className="experience__role">{exp.role}</h3>
                                         <p className="experience__company">{exp.company}</p>
@@ -64,7 +65,7 @@ export default function Experience() {
                                         </span>
                                     </div>
                                 </div>
-                                <ul className="experience__highlights">
+                                <ul className="experience__highlights" style={{ position: 'relative', zIndex: 1 }}>
                                     {exp.highlights.map((h, j) => (
                                         <li key={j}>
                                             <span className="experience__bullet">▹</span>
