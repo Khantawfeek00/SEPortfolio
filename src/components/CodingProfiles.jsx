@@ -145,9 +145,10 @@ function parseLeetCodeResponse(data) {
 
 function extractProblemNames(categoryObj) {
     if (!categoryObj) return [];
-    // GeeksForGeeks API returns { "700023": [{pname: "Title", userUrl: "..."}], "700028": [{...}] }
-    // We want the whole list!
-    return Object.values(categoryObj).map(arr => arr[0]?.pname).filter(Boolean);
+    return Object.values(categoryObj).map(item => {
+        if (Array.isArray(item)) return item[0]?.pname;
+        return item?.pname;
+    }).filter(Boolean);
 }
 
 async function fetchGFGLive(username) {
@@ -177,6 +178,40 @@ async function fetchGFGLive(username) {
             return null;
         }
 
+        // Fetch Heatmap Data (Merged current & previous year)
+        const currentYear = new Date().getFullYear();
+        const prevYear = currentYear - 1;
+        let heatmapJson = "{}";
+        let totalDays = 0;
+
+        const fetchYearHeatmap = async (yr) => {
+            try {
+                const res = await fetch('/api/gfg/api/v1/user/problems/submissions/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ handle: username, requestType: "getYearwiseUserSubmissions", year: yr.toString(), month: "" })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.result || {};
+                }
+            } catch (e) { }
+            return {};
+        };
+
+        try {
+            const [curHeatmap, prevHeatmap] = await Promise.all([
+                fetchYearHeatmap(currentYear),
+                fetchYearHeatmap(prevYear)
+            ]);
+            // Merge both objects (keys are completely unique strings like '2025-10-22')
+            const combinedHeatmap = { ...prevHeatmap, ...curHeatmap };
+            heatmapJson = JSON.stringify(combinedHeatmap);
+            totalDays = Object.keys(combinedHeatmap).length;
+        } catch (e) {
+            console.warn("Could not fetch GFG heatmap", e);
+        }
+
         const total = schoolList.length + basicList.length + easyList.length + mediumList.length + hardList.length;
 
         return {
@@ -184,6 +219,8 @@ async function fetchGFGLive(username) {
             easy: easyList.length || null,
             medium: mediumList.length || null,
             hard: hardList.length || null,
+            heatmapJson,
+            totalDays,
             ...(schoolList.length > 0 && { schoolList }),
             ...(basicList.length > 0 && { basicList }),
             ...(easyList.length > 0 && { easyList }),

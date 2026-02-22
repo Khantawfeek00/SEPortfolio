@@ -81,7 +81,7 @@ async function fetchRecentAC() {
         id title titleSlug timestamp
       }
     }`,
-        { username: USERNAME, limit: 5 },
+        { username: USERNAME, limit: 50 },
         'recentAcSubmissions'
     );
     return data?.data?.recentAcSubmissionList || [];

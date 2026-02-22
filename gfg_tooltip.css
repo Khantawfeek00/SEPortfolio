@@ -1,0 +1,52 @@
+/* ... existing CSS ... */
+
+.gfg__heatmap-grid-wrapper {
+    position: relative;
+}
+
+.gfg__heatmap-tooltip {
+    position: absolute;
+    background: #1f2937;
+    /* Dark slate background */
+    color: #e2e8f0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    z-index: 100;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    margin-top: -6px;
+    /* Space for the arrow */
+    opacity: 0;
+    animation: gfgTooltipFadeIn 0.15s ease forwards;
+}
+
+@keyframes gfgTooltipFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.gfg__heatmap-tooltip-arrow {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1f2937;
+}
+
+/* Ensure no default HTML title tooltip shows */
+.gfg__heatmap-cell {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    transition: transform 0.1s;
+    cursor: pointer;
+}

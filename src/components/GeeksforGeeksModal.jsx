@@ -50,6 +50,17 @@ function GFGDonut({ school, basic, easy, medium, hard, total, totalQ }) {
 function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
     const [cells, setCells] = useState([]);
     const [totalSubs, setTotalSubs] = useState(0);
+    const [hoveredCell, setHoveredCell] = useState(null);
+
+    // Format date like the screenshot: "Monday, February 2, 2026"
+    const formatDate = (date) => {
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
 
     useEffect(() => {
         if (!calendarJson) return;
@@ -60,9 +71,12 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
 
             const dayMap = {};
             for (const [ts, count] of Object.entries(map)) {
-                // If it's a Unix timestamp, convert it
-                const date = new Date(Number(ts) * 1000);
-                const key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+                let key = ts;
+                // If it's a Unix timestamp (no hyphens), convert it to YYYY-MM-DD
+                if (!ts.includes('-')) {
+                    const date = new Date(Number(ts) * 1000);
+                    key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+                }
                 dayMap[key] = (dayMap[key] || 0) + count;
             }
 
@@ -99,36 +113,71 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
     const months = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
 
     return (
-        <div className="gfg__heatmap-section" style={{ marginTop: '0.875rem' }}>
+        <div className="gfg__heatmap-section" style={{ marginTop: '0.875rem', position: 'relative' }}>
             <div className="gfg__heatmap-header">
                 <span><strong>{totalSubs}</strong> submissions in the past year</span>
                 <span className="gfg__heatmap-meta">Active: <strong>{totalDays}</strong>d &nbsp; Streak: <strong>{streak}</strong></span>
             </div>
             <div className="gfg__heatmap-scroll">
-                <div className="gfg__heatmap-grid">
-                    {weeks.map((week, wi) => (
-                        <div key={wi} className="gfg__heatmap-col">
-                            {week.map((cell, ci) => {
-                                let level = 0;
-                                if (cell.count >= 1) level = 1;
-                                if (cell.count >= 3) level = 2;
-                                if (cell.count >= 5) level = 3;
-                                if (cell.count >= 8) level = 4;
-                                return (
-                                    <div
-                                        key={ci}
-                                        className={`gfg__heatmap-cell gfg__heatmap-cell--${level}`}
-                                        title={`${cell.date.toLocaleDateString()}: ${cell.count} submissions`}
-                                    />
-                                );
-                            })}
-                        </div>
-                    ))}
+                <div className="gfg__heatmap-grid-wrapper">
+                    <div className="gfg__heatmap-grid" onMouseLeave={() => setHoveredCell(null)}>
+                        {weeks.map((week, wi) => (
+                            <div key={wi} className="gfg__heatmap-col">
+                                {week.map((cell, ci) => {
+                                    let level = 0;
+                                    if (cell.count >= 1) level = 1;
+                                    if (cell.count >= 3) level = 2;
+                                    if (cell.count >= 5) level = 3;
+                                    if (cell.count >= 8) level = 4;
+
+                                    const handleMouseEnter = (e) => {
+                                        const rect = e.target.getBoundingClientRect();
+                                        const containerRect = e.target.closest('.gfg__heatmap-section').getBoundingClientRect();
+                                        const xPos = rect.left - containerRect.left;
+
+                                        let positionClass = '';
+                                        // If cell is near right edge, shift tooltip left
+                                        if (xPos > containerRect.width - 120) positionClass = 'gfg__heatmap-tooltip--right';
+                                        // If cell is near left edge, shift tooltip right
+                                        else if (xPos < 60) positionClass = 'gfg__heatmap-tooltip--left';
+
+                                        setHoveredCell({
+                                            count: cell.count,
+                                            date: formatDate(cell.date),
+                                            x: xPos + (rect.width / 2),
+                                            y: rect.top - containerRect.top - 8,
+                                            positionClass
+                                        });
+                                    };
+
+                                    return (
+                                        <div
+                                            key={ci}
+                                            className={`gfg__heatmap-cell gfg__heatmap-cell--${level}`}
+                                            onMouseEnter={handleMouseEnter}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="gfg__heatmap-months">
                     {months.map((m) => <span key={m}>{m}</span>)}
                 </div>
             </div>
+            {hoveredCell && (
+                <div
+                    className={`gfg__heatmap-tooltip ${hoveredCell.positionClass || ''}`}
+                    style={{
+                        left: hoveredCell.x,
+                        top: hoveredCell.y
+                    }}
+                >
+                    {hoveredCell.count} submission{hoveredCell.count !== 1 ? 's' : ''} on {hoveredCell.date}
+                    <div className="gfg__heatmap-tooltip-arrow"></div>
+                </div>
+            )}
         </div>
     );
 }
@@ -155,6 +204,7 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
     const {
         total = 0, school = 0, basic = 0, easy = 0, medium = 0, hard = 0,
         codingScore = '-', instituteRank = '-', streak = '-', potd = '-',
+        heatmapJson = "{}", totalDays = 0,
         schoolList = [], basicList = [], easyList = [], mediumList = [], hardList = []
     } = data;
 
@@ -170,13 +220,6 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
     ];
 
     let activeListData = TABS.find(t => t.id === activeTab)?.list || [];
-
-    // Generate a mock calendarJson for the heatmap roughly mapping the screenshot where Feb has 1 activity
-    const nowStamp = Math.floor(Date.now() / 1000);
-    const mockCalendar = JSON.stringify({
-        // Add one submission a few days ago (Feb)
-        [nowStamp - (86400 * 2)]: 1
-    });
 
     return (
         <div className="gfg__overlay" onClick={onClose}>
@@ -262,6 +305,8 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                             </div>
                         </div>
                     </div>
+
+                    <SubmissionHeatmap calendarJson={heatmapJson} totalDays={totalDays} streak={streak === '-' ? 0 : streak} />
 
                     {/* Problems Breakdown Card (Moved to bottom) */}
                     <div className="gfg__badges-card" style={{ justifyContent: 'flex-start' }}>
