@@ -81,6 +81,11 @@
     /* For mobile stacking context */
 }
 
+/* Override the .glass-card hover from index.css to match certifications */
+.education__card.glass-card:hover {
+    transform: none;
+}
+
 .education__glow {
     position: absolute;
     inset: 0;
