@@ -142,6 +142,12 @@
     font-weight: 600;
     opacity: 0.7;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    outline: none;
+}
+
+.certs__action:focus,
+.certs__action:focus-visible {
+    outline: none;
 }
 
 .certs__action svg {
@@ -157,9 +163,96 @@
     transform: translateX(4px);
 }
 
+/* Modal Overlay & Animations */
+.certs__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.certs__modal {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.certs__modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10000;
+}
+
+.certs__modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.certs__modal-image {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.certs__modal-info {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.certs__modal-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+}
+
+.certs__modal-info p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
     .certs__grid {
         grid-template-columns: 1fr;
+    }
+
+    .certs__modal-close {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
     }
 }

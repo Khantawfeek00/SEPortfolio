@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import './Certifications.css';
+import awsCertImg from '../files/aws-certificate.png';
+import dsaCertImg from '../files/dsa-certificate.png';
 
 const certifications = [
     {
@@ -7,18 +10,18 @@ const certifications = [
         period: 'Jan 2024 — Jan 2027',
         badge: 'AWS',
         color: '#ff9900', // Official AWS Orange
-        link: 'https://www.credly.com/badges/abc-123', // Demo link structure
+        image: awsCertImg,
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z" /></svg>
         ),
     },
     {
         name: 'Data Structures & Algorithms Master Course',
-        issuer: 'GeeksForGeeks',
+        issuer: 'Code Help',
         period: 'Completed in 2023',
         badge: 'DSA',
         color: '#2f8d46', // GFG Green
-        link: '#',
+        image: dsaCertImg,
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
         ),
@@ -26,6 +29,8 @@ const certifications = [
 ];
 
 export default function Certifications() {
+    const [selectedCert, setSelectedCert] = useState(null);
+
     return (
         <section className="certs section" id="certifications">
             <div className="container">
@@ -38,10 +43,7 @@ export default function Certifications() {
 
                 <div className="certs__grid">
                     {certifications.map((cert, i) => (
-                        <a
-                            href={cert.link !== '#' ? cert.link : undefined}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <div
                             className="certs__card glass-card fade-in"
                             key={i}
                             style={{
@@ -72,16 +74,40 @@ export default function Certifications() {
 
                                 <div className="certs__footer">
                                     <span className="certs__period">{cert.period}</span>
-                                    <span className="certs__action" style={{ color: cert.color }}>
-                                        View Credential
+                                    <button
+                                        className="certs__action"
+                                        style={{ color: cert.color, background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer', outline: 'none' }}
+                                        onClick={() => setSelectedCert(cert)}
+                                    >
+                                        View Certificate
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
             </div>
+
+            {/* Certificate Modal Viewer */}
+            {selectedCert && (
+                <div className="certs__modal-overlay" onClick={() => setSelectedCert(null)}>
+                    <button className="certs__modal-close" onClick={() => setSelectedCert(null)}>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                    <div className="certs__modal glass-card" onClick={(e) => e.stopPropagation()}>
+                        <img
+                            src={selectedCert.image}
+                            alt={`${selectedCert.name} Certificate`}
+                            className="certs__modal-image"
+                        />
+                        <div className="certs__modal-info">
+                            <h3 style={{ color: selectedCert.color }}>{selectedCert.name}</h3>
+                            <p>Issued by {selectedCert.issuer}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
