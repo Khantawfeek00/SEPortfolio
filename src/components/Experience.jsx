@@ -7,6 +7,10 @@ const experiences = [
         client: 'QuickBooks Online (QBO) — Client: Intuit',
         period: 'Sept 2023 — Present',
         type: 'full-time',
+        color: 'var(--accent-theme)',
+        icon: (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        ),
         highlights: [
             'Designed and implemented 5+ new features for QuickBooks Online using Java, Spring Boot, GraphQL, and REST APIs to improve UX and platform functionality.',
             'Resolved high-priority (P0) issues under strict deadlines, ensuring uninterrupted business operations across cloud-based microservices.',
@@ -22,6 +26,10 @@ const experiences = [
         company: 'Persistent Systems Limited, Nagpur',
         period: 'Jan 2023 — July 2023',
         type: 'internship',
+        color: 'var(--accent-purple)',
+        icon: (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        ),
         highlights: [
             'Completed a 6-month intensive Java development training program.',
             'Focused on Spring Boot, Spring Framework, REST APIs, MySQL, Hibernate, and backend best practices.',
@@ -45,11 +53,15 @@ export default function Experience() {
                     {experiences.map((exp, i) => (
                         <div className="experience__item fade-in" key={i} style={{ transitionDelay: `${i * 0.15}s` }}>
                             <div className="experience__dot-line">
-                                <div className="experience__dot"></div>
+                                <div className="experience__dot" style={{ borderColor: `${exp.color}40`, boxShadow: `0 0 15px ${exp.color}20` }}>
+                                    <div className="experience__icon" style={{ color: exp.color }}>
+                                        {exp.icon}
+                                    </div>
+                                </div>
                                 {i < experiences.length - 1 && <div className="experience__line"></div>}
                             </div>
                             <div className="experience__card glass-card">
-                                <div className="card__glow"></div>
+                                <div className="experience__glow"></div>
                                 <div className="experience__card-header" style={{ position: 'relative', zIndex: 1 }}>
                                     <div>
                                         <h3 className="experience__role">{exp.role}</h3>
