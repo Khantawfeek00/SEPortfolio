@@ -357,7 +357,7 @@ function ProfileCard({ profile, onClick }) {
 
     return (
         <div className="cp__card glass-card fade-in" style={{ '--comp-color': profile.color }}>
-            <div className="cp__card-glow"></div>
+            <div className="cp__card-glow" style={{ background: `radial-gradient(circle at top right, ${profile.color}20 0%, transparent 60%)` }}></div>
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%' }}>
                 <div className="cp__card-header">
                     <span className="cp__icon" style={{ background: `${profile.color}15`, color: profile.color }}>

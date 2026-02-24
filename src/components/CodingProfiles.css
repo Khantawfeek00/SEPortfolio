@@ -20,15 +20,14 @@
 .cp__card-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, var(--comp-color) 0%, transparent 60%);
-    opacity: 0;
+    opacity: 0.3;
     transition: opacity 0.4s ease;
     pointer-events: none;
     z-index: 0;
 }
 
 .cp__card:hover .cp__card-glow {
-    opacity: 0.15;
+    opacity: 0.8;
 }
 
 .cp__card-header {
