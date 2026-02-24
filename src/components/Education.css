@@ -81,23 +81,20 @@
     /* For mobile stacking context */
 }
 
-/* Override the .glass-card hover from index.css to match certifications */
-.education__card.glass-card:hover {
-    transform: none;
-}
+/* Remove the override of .glass-card hover from index.css to restore the pop-out animation */
 
 .education__glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(var(--glow-rgb), 0.1), transparent 60%);
-    opacity: 0;
+    background: radial-gradient(circle at top right, rgba(var(--glow-rgb), 0.2), transparent 60%);
+    opacity: 0.3;
     transition: opacity 0.4s ease;
     pointer-events: none;
     z-index: 0;
 }
 
 .education__card:hover .education__glow {
-    opacity: 1;
+    opacity: 0.8;
 }
 
 .education__card-content {
