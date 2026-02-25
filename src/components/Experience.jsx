@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './Experience.css';
 
+import compassCertImg from '../files/Certificates/Career_Compass_Certificate.jpg';
+import martianCertImg from '../files/Certificates/Martian Tawfeek Certificate_page-0001.jpg';
+
 // ... experiences array defined here
 
 const experiences = [
@@ -39,6 +42,7 @@ const experiences = [
             'Leveraged GitHub Copilot to accelerate development and automate tasks, boosting team productivity by 20%.',
         ],
         details: 'Recognized for excellent performance during the QBO migration to Kubernetes. Actively contributed to the internal UI component library. Completed AWS certification to further cloud computing skills.',
+        certificate: martianCertImg,
     },
     {
         role: 'Software Engineer Intern',
@@ -55,6 +59,23 @@ const experiences = [
             'Studied design patterns and coding standards for enterprise software development.',
         ],
         details: 'Received exemplary feedback for final presentation on microservices architecture. Participated in multiple hackathons, securing 2nd place in the internal company-wide coding challenge.',
+        certificate: compassCertImg,
+    },
+    {
+        role: 'Martian Internship Program',
+        company: 'Persistent Systems, Nagpur, Maharashtra, India',
+        period: 'May 2022 — June 2022',
+        type: 'internship',
+        color: '#f43f5e', // Rose Red tone
+        icon: (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        ),
+        highlights: [
+            'Completed a 2-month summer internship program.',
+            'Gained foundational knowledge in software engineering practices.',
+        ],
+        details: 'Participated in the Martian Summer Internship, collaborating with peers on introductory development projects and learning industry-standard tools.',
+        certificate: martianCertImg,
     },
 ];
 
@@ -65,11 +86,14 @@ export default function Experience() {
     useEffect(() => {
         if (selectedExp) {
             document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
         return () => {
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         };
     }, [selectedExp]);
 
@@ -166,11 +190,17 @@ export default function Experience() {
                                 {selectedExp.details}
                             </p>
 
-                            {/* Placeholder for an actual certificate image if needed in the future:
-                            <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-                                <img src="..." alt="Certificate" style={{ maxWidth: '100%', borderRadius: '8px', border: `1px solid ${selectedExp.color}40` }} />
-                            </div>
-                            */}
+                            {/* Render the certificate image if available */}
+                            {selectedExp.certificate && (
+                                <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+                                    <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem', textAlign: 'left' }}>Certificate</h4>
+                                    <img
+                                        src={selectedExp.certificate}
+                                        alt={`${selectedExp.role} Certificate`}
+                                        style={{ maxWidth: '100%', borderRadius: '8px', border: `1px solid ${selectedExp.color}40`, boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

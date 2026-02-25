@@ -191,9 +191,11 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
         if (!isOpen) return;
         document.addEventListener('keydown', handleEsc);
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         return () => {
             document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         };
     }, [isOpen, handleEsc]);
 

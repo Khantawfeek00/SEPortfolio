@@ -221,9 +221,11 @@ export default function LeetCodeModal({ onClose }) {
     useEffect(() => {
         document.addEventListener('keydown', handleEsc);
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         return () => {
             document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         };
     }, [handleEsc]);
 

@@ -41,7 +41,7 @@ function App() {
     }, []);
 
     return (
-        <>
+        <div className="app-wrapper">
             <Navbar />
             <main>
                 <Hero />
@@ -55,7 +55,7 @@ function App() {
                 <Contact />
             </main>
             <Footer />
-        </>
+        </div>
     );
 }
 
