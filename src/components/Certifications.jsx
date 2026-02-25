@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Certifications.css';
 import awsCertImg from '../files/aws-certificate.png';
 import dsaCertImg from '../files/dsa-certificate.png';
@@ -30,6 +30,18 @@ const certifications = [
 
 export default function Certifications() {
     const [selectedCert, setSelectedCert] = useState(null);
+
+    // Prevent background scrolling when modal is open
+    useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedCert]);
 
     return (
         <section className="certs section" id="certifications">
