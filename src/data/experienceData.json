@@ -1,0 +1,65 @@
+[
+    {
+        "id": "senior-software-engineer",
+        "role": "Senior Software Engineer",
+        "company": "Persistent Systems Limited, Nagpur",
+        "client": "QuickBooks Online (QBO) — Client: Intuit",
+        "period": "Oct 2025 — Present",
+        "type": "full-time",
+        "color": "var(--accent-theme)",
+        "iconName": "monitor",
+        "highlights": [
+            "Leading technical initiatives for QuickBooks Online using Java, Spring Boot, GraphQL, and REST APIs.",
+            "Collaborating with the Global by Default team to architect features enabling global scaling and compliance."
+        ],
+        "details": "Spearheaded the redesign of user authentication workflows, reducing latency by 30%. Implemented a robust caching strategy using Redis. Continually mentoring junior developers and conducting weekly code-review sessions to ensure high coding standards."
+    },
+    {
+        "id": "software-engineer",
+        "role": "Software Engineer",
+        "company": "Persistent Systems Limited, Nagpur",
+        "client": "QuickBooks Online (QBO) — Client: Intuit",
+        "period": "Sept 2023 — Sept 2025",
+        "type": "full-time",
+        "color": "#10b981",
+        "iconName": "award",
+        "highlights": [
+            "Designed and implemented 5+ new features for QuickBooks Online to improve UX and platform functionality.",
+            "Resolved high-priority (P0) issues under strict deadlines, ensuring uninterrupted business operations across cloud-based microservices.",
+            "Developed 2+ microservices enhancing backend processing efficiency and system scalability.",
+            "Conducted detailed impact analysis for 50+ code changes and documented implementation strategies.",
+            "Maintained 85%+ code coverage using JUnit and Mockito, ensuring CI/CD readiness and production-grade quality.",
+            "Leveraged GitHub Copilot to accelerate development and automate tasks, boosting team productivity by 20%."
+        ],
+        "details": "Recognized for excellent performance during the QBO migration to Kubernetes. Actively contributed to the internal UI component library. Completed AWS certification to further cloud computing skills."
+    },
+    {
+        "id": "software-engineer-intern",
+        "role": "Software Engineer Intern",
+        "company": "Persistent Systems Limited, Nagpur",
+        "period": "Jan 2023 — June 2023",
+        "type": "internship",
+        "color": "var(--accent-purple)",
+        "iconName": "code",
+        "highlights": [
+            "Completed a 6-month intensive Java development training program.",
+            "Focused on Spring Boot, Spring Framework, REST APIs, MySQL, Hibernate, and backend best practices.",
+            "Studied design patterns and coding standards for enterprise software development."
+        ],
+        "details": "Received exemplary feedback for final presentation on microservices architecture. Participated in multiple hackathons, securing 2nd place in the internal company-wide coding challenge."
+    },
+    {
+        "id": "martian-internship",
+        "role": "Martian Internship Program",
+        "company": "Persistent Systems, Nagpur, Maharashtra, India",
+        "period": "May 2022 — June 2022",
+        "type": "internship",
+        "color": "#f43f5e",
+        "iconName": "compass",
+        "highlights": [
+            "Completed a 2-month summer internship program.",
+            "Gained foundational knowledge in software engineering practices."
+        ],
+        "details": "Participated in the Martian Summer Internship, collaborating with peers on introductory development projects and learning industry-standard tools."
+    }
+]

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './Experience.css';
 
+// Import our new external configuration file
+import experiencesData from '../data/experienceData.json';
+
 // Dynamically import all images in the Certificates folder and its subfolders
 const certImages = import.meta.glob('../files/Certificates/**/*.{png,jpg,jpeg,svg}', { eager: true });
 
@@ -21,79 +24,29 @@ for (const path in certImages) {
 
 // ... experiences array defined here
 
-const experiences = [
-    {
-        id: 'senior-software-engineer',
-        role: 'Senior Software Engineer',
-        company: 'Persistent Systems Limited, Nagpur',
-        client: 'QuickBooks Online (QBO) — Client: Intuit',
-        period: 'Oct 2025 — Present',
-        type: 'full-time',
-        color: 'var(--accent-theme)',
-        icon: (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-        ),
-        highlights: [
-            'Leading technical initiatives for QuickBooks Online using Java, Spring Boot, GraphQL, and REST APIs.',
-            'Collaborating with the Global by Default team to architect features enabling global scaling and compliance.',
-        ],
-        details: 'Spearheaded the redesign of user authentication workflows, reducing latency by 30%. Implemented a robust caching strategy using Redis. Continually mentoring junior developers and conducting weekly code-review sessions to ensure high coding standards.',
-    },
-    {
-        id: 'software-engineer',
-        role: 'Software Engineer',
-        company: 'Persistent Systems Limited, Nagpur',
-        client: 'QuickBooks Online (QBO) — Client: Intuit',
-        period: 'Sept 2023 — Sept 2025',
-        type: 'full-time',
-        color: '#10b981', // green theme
-        icon: (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        ),
-        highlights: [
-            'Designed and implemented 5+ new features for QuickBooks Online to improve UX and platform functionality.',
-            'Resolved high-priority (P0) issues under strict deadlines, ensuring uninterrupted business operations across cloud-based microservices.',
-            'Developed 2+ microservices enhancing backend processing efficiency and system scalability.',
-            'Conducted detailed impact analysis for 50+ code changes and documented implementation strategies.',
-            'Maintained 85%+ code coverage using JUnit and Mockito, ensuring CI/CD readiness and production-grade quality.',
-            'Leveraged GitHub Copilot to accelerate development and automate tasks, boosting team productivity by 20%.',
-        ],
-        details: 'Recognized for excellent performance during the QBO migration to Kubernetes. Actively contributed to the internal UI component library. Completed AWS certification to further cloud computing skills.',
-    },
-    {
-        id: 'software-engineer-intern',
-        role: 'Software Engineer Intern',
-        company: 'Persistent Systems Limited, Nagpur',
-        period: 'Jan 2023 — June 2023',
-        type: 'internship',
-        color: 'var(--accent-purple)',
-        icon: (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-        ),
-        highlights: [
-            'Completed a 6-month intensive Java development training program.',
-            'Focused on Spring Boot, Spring Framework, REST APIs, MySQL, Hibernate, and backend best practices.',
-            'Studied design patterns and coding standards for enterprise software development.',
-        ],
-        details: 'Received exemplary feedback for final presentation on microservices architecture. Participated in multiple hackathons, securing 2nd place in the internal company-wide coding challenge.',
-    },
-    {
-        id: 'martian-internship',
-        role: 'Martian Internship Program',
-        company: 'Persistent Systems, Nagpur, Maharashtra, India',
-        period: 'May 2022 — June 2022',
-        type: 'internship',
-        color: '#f43f5e', // Rose Red tone
-        icon: (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        ),
-        highlights: [
-            'Completed a 2-month summer internship program.',
-            'Gained foundational knowledge in software engineering practices.',
-        ],
-        details: 'Participated in the Martian Summer Internship, collaborating with peers on introductory development projects and learning industry-standard tools.',
-    },
-];
+// Helper function to map string icon identifiers from JSON to an actual SVG
+const getIcon = (iconName) => {
+    switch (iconName) {
+        case 'monitor':
+            return (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            );
+        case 'award':
+            return (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            );
+        case 'code':
+            return (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            );
+        case 'compass':
+            return (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            );
+        default:
+            return null;
+    }
+};
 
 export default function Experience() {
     const [selectedExp, setSelectedExp] = useState(null);
@@ -125,15 +78,15 @@ export default function Experience() {
                 </div>
 
                 <div className="experience__timeline">
-                    {experiences.map((exp, i) => (
+                    {experiencesData.map((exp, i) => (
                         <div className="experience__item fade-in" key={i} style={{ transitionDelay: `${i * 0.15}s` }}>
                             <div className="experience__dot-line">
                                 <div className="experience__dot" style={{ borderColor: `${exp.color}40`, boxShadow: `0 0 15px ${exp.color}20` }}>
                                     <div className="experience__icon" style={{ color: exp.color }}>
-                                        {exp.icon}
+                                        {getIcon(exp.iconName)}
                                     </div>
                                 </div>
-                                {i < experiences.length - 1 && <div className="experience__line"></div>}
+                                {i < experiencesData.length - 1 && <div className="experience__line"></div>}
                             </div>
                             <div className="experience__card glass-card">
                                 <div className="experience__glow"></div>
