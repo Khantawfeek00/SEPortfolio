@@ -348,6 +348,10 @@
     object-fit: contain;
     border-radius: 8px;
     grid-area: 1 / 1;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .carousel-nav {

@@ -186,13 +186,17 @@ export default function Experience() {
                                             src={groupedCertificates[selectedExp.id][currentCertIndex]}
                                             alt={`${selectedExp.role} Certificate ${currentCertIndex + 1}`}
                                             className="certificate-image"
+                                            draggable="false"
+                                            onContextMenu={(e) => e.preventDefault()}
                                             style={{
                                                 maxWidth: '100%',
                                                 objectFit: 'contain',
                                                 borderRadius: '8px',
                                                 border: `1px solid ${selectedExp.color}40`,
                                                 boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                                                transition: 'opacity 0.3s ease-in-out'
+                                                transition: 'opacity 0.3s ease-in-out',
+                                                userSelect: 'none',
+                                                WebkitUserSelect: 'none'
                                             }}
                                         />
 
