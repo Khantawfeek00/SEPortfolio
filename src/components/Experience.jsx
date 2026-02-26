@@ -232,10 +232,9 @@ export default function Experience() {
                                         <img
                                             src={groupedCertificates[selectedExp.id][currentCertIndex]}
                                             alt={`${selectedExp.role} Certificate ${currentCertIndex + 1}`}
+                                            className="certificate-image"
                                             style={{
                                                 maxWidth: '100%',
-                                                maxHeight: '400px', // Prevent the image from taking up too much vertical space 
-                                                height: '400px', // Force it to have a consistent height
                                                 objectFit: 'contain',
                                                 borderRadius: '8px',
                                                 border: `1px solid ${selectedExp.color}40`,
