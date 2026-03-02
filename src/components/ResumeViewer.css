@@ -1,0 +1,64 @@
+.resume-viewer {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    background-color: #323639;
+    /* Dark PDF background matching Chrome */
+    padding: 20px 0;
+}
+
+.resume-viewer__page {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.resume-viewer__loading,
+.resume-viewer__error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid var(--accent-theme);
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar styles for viewer */
+.resume-viewer::-webkit-scrollbar {
+    width: 10px;
+}
+
+.resume-viewer::-webkit-scrollbar-track {
+    background: var(--bg-card);
+    border-radius: 5px;
+}
+
+.resume-viewer::-webkit-scrollbar-thumb {
+    background: var(--border-glass);
+    border-radius: 5px;
+    border: 2px solid var(--bg-card);
+}

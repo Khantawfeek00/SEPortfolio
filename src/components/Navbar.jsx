@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ResumeViewer from './ResumeViewer';
 import './Navbar.css';
 
 const navLinks = [
@@ -16,6 +17,7 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
+    const [resumeOpen, setResumeOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -34,6 +36,20 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        if (resumeOpen) {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        };
+    }, [resumeOpen]);
 
     const handleLinkClick = () => {
         setMobileOpen(false);
@@ -59,14 +75,12 @@ export default function Navbar() {
                             {link.label}
                         </a>
                     ))}
-                    <a
-                        href="/Tawfeek_Khan_Resume.pdf"
+                    <button
                         className="btn-primary navbar__resume-btn"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => { setMobileOpen(false); setResumeOpen(true); }}
                     >
                         <span>Resume</span>
-                    </a>
+                    </button>
                 </div>
 
                 <button
@@ -79,6 +93,25 @@ export default function Navbar() {
                     <span></span>
                 </button>
             </div>
+
+            {resumeOpen && (
+                <div className="resume-modal" onClick={() => setResumeOpen(false)}>
+                    <div className="resume-modal__content" onClick={e => e.stopPropagation()}>
+                        <div className="resume-modal__header">
+                            <h3>Resume Preview</h3>
+                            <div className="resume-modal__actions">
+                                <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="btn-primary navbar__download-btn" onClick={() => setResumeOpen(false)}>
+                                    Download
+                                </a>
+                                <button className="resume-modal__close" onClick={() => setResumeOpen(false)} aria-label="Close modal">&times;</button>
+                            </div>
+                        </div>
+                        <div className="resume-modal__body">
+                            <ResumeViewer pdfUrl="/Resume.pdf" />
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }

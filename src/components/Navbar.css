@@ -160,3 +160,110 @@
         margin-top: 1rem;
     }
 }
+
+/* Resume Modal Styles */
+.resume-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 26, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 2rem;
+}
+
+.resume-modal__content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    /* Ensures the flex children can actually scroll within the fixed height */
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: modalSlideIn 0.3s ease forwards;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.resume-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.resume-modal__header h3 {
+    margin: 0;
+    font-size: var(--font-lg);
+    color: var(--text-primary);
+}
+
+.resume-modal__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar__download-btn {
+    padding: 0.4rem 1rem;
+    font-size: var(--font-sm);
+}
+
+.resume-modal__close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resume-modal__close:hover {
+    color: var(--text-primary);
+}
+
+.resume-modal__body {
+    flex: 1;
+    width: 100%;
+    background: #e6e6e6;
+    /* light background behind PDF */
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .resume-modal {
+        padding: 1rem;
+    }
+
+    .resume-modal__content {
+        height: 85vh;
+    }
+}
