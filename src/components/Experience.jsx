@@ -156,9 +156,20 @@ export default function Experience() {
                             </ul>
 
                             <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem' }}>More Details</h4>
-                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
-                                {selectedExp.details}
-                            </p>
+                            {Array.isArray(selectedExp.details) ? (
+                                <ul className="experience__highlights" style={{ marginBottom: '1.5rem' }}>
+                                    {selectedExp.details.map((detail, j) => (
+                                        <li key={j} style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '0.5rem' }}>
+                                            <span className="experience__bullet" style={{ color: selectedExp.color }}>▹</span>
+                                            {detail}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+                                    {selectedExp.details}
+                                </p>
+                            )}
 
                             {/* Render the certificate image if available */}
                             {groupedCertificates[selectedExp.id] && groupedCertificates[selectedExp.id].length > 0 && (
