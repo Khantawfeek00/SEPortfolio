@@ -101,7 +101,7 @@ export default function Navbar() {
                             <h3>Resume Preview</h3>
                             <div className="resume-modal__actions">
                                 <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="btn-primary navbar__download-btn" onClick={() => setResumeOpen(false)}>
-                                    Download
+                                    <span>Download</span>
                                 </a>
                                 <button className="resume-modal__close" onClick={() => setResumeOpen(false)} aria-label="Close modal">&times;</button>
                             </div>
