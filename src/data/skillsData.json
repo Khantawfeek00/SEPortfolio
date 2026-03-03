@@ -1,0 +1,75 @@
+[
+    {
+        "title": "Languages",
+        "icon": "💻",
+        "color": "#06b6d4",
+        "skills": [
+            "Java",
+            "SQL",
+            "GraphQL",
+            "JavaScript",
+            "HTML",
+            "CSS"
+        ]
+    },
+    {
+        "title": "Frameworks",
+        "icon": "⚙️",
+        "color": "#10b981",
+        "skills": [
+            "Spring Boot",
+            "Spring Security",
+            "Hibernate",
+            "JPA",
+            "JUnit",
+            "Mockito"
+        ]
+    },
+    {
+        "title": "Databases",
+        "icon": "🗄️",
+        "color": "#8b5cf6",
+        "skills": [
+            "PostgreSQL",
+            "MySQL",
+            "MongoDB"
+        ]
+    },
+    {
+        "title": "Architecture",
+        "icon": "🏛️",
+        "color": "#ec4899",
+        "skills": [
+            "Microservices",
+            "Distributed Systems",
+            "RESTful APIs"
+        ]
+    },
+    {
+        "title": "Cloud & DevOps",
+        "icon": "☁️",
+        "color": "#f59e0b",
+        "skills": [
+            "AWS",
+            "Docker",
+            "CI/CD",
+            "Git",
+            "Maven"
+        ]
+    },
+    {
+        "title": "Tools & Methodologies",
+        "icon": "🛠️",
+        "color": "#3b82f6",
+        "skills": [
+            "Jira",
+            "Postman",
+            "GitHub Copilot",
+            "Cursor",
+            "Figma",
+            "Agile",
+            "Scrum",
+            "SDLC"
+        ]
+    }
+]

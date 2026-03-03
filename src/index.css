@@ -260,15 +260,17 @@ button {
 
 /* ---- Tags / Badges ---- */
 .tag {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.875rem;
   background: rgba(var(--glow-rgb), 0.1);
   border: 1px solid rgba(var(--glow-rgb), 0.2);
   border-radius: 9999px;
-  font-size: var(--font-xs);
+  font-size: var(--font-sm);
   font-weight: 500;
   color: var(--accent-theme);
-  transition: all var(--transition-fast);
+  transition: all var(--transition-short);
 }
 
 .tag:hover {

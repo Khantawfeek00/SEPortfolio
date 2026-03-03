@@ -1,11 +1,12 @@
 import './Projects.css';
+import TagIcon from '../utils/TagIcon';
 
 const projects = [
     {
         title: 'Airbnb Backend Clone',
         description:
             'A production-grade backend system for an Airbnb-like platform built with clean architecture and SOLID principles, serving 100+ concurrent users.',
-        techStack: ['Java', 'Spring Boot', 'REST APIs', 'MySQL', 'JPA/Hibernate', 'Spring Security', 'JWT', 'JUnit', 'Mockito', 'Swagger', 'Maven'],
+        techStack: ['Java', 'Spring Boot', 'Spring Security', 'MySQL', 'JPA', 'Hibernate', 'REST APIs'],
         highlights: [
             'JWT authentication & role-based access control with Spring Security across 15+ endpoints',
             'Optimized ORM-based data access, reducing query response time by 40%',
@@ -65,7 +66,10 @@ export default function Projects() {
 
                                 <div className="projects__tech">
                                     {project.techStack.map(tech => (
-                                        <span className="tag" key={tech}>{tech}</span>
+                                        <span className="tag" key={tech}>
+                                            <TagIcon name={tech} />
+                                            {tech}
+                                        </span>
                                     ))}
                                 </div>
                             </div>
