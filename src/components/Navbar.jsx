@@ -18,6 +18,15 @@ export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const [resumeOpen, setResumeOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (resumeOpen) {
+            setIsLoading(true);
+            const timer = setTimeout(() => setIsLoading(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [resumeOpen]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -104,18 +113,26 @@ export default function Navbar() {
             {resumeOpen && (
                 <div className="resume-modal" onClick={() => setResumeOpen(false)}>
                     <div className="resume-modal__content" onClick={e => e.stopPropagation()}>
-                        <div className="resume-modal__header">
-                            <h3>Resume Preview</h3>
-                            <div className="resume-modal__actions">
-                                <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="btn-primary navbar__download-btn" onClick={() => setResumeOpen(false)}>
-                                    <span>Download</span>
-                                </a>
-                                <button className="resume-modal__close" onClick={() => setResumeOpen(false)} aria-label="Close modal">&times;</button>
+                        {isLoading ? (
+                            <div className="global-loader-container">
+                                <div className="global-spinner"></div>
                             </div>
-                        </div>
-                        <div className="resume-modal__body">
-                            <ResumeViewer pdfUrl="/Resume.pdf" />
-                        </div>
+                        ) : (
+                            <>
+                                <div className="resume-modal__header">
+                                    <h3>Resume Preview</h3>
+                                    <div className="resume-modal__actions">
+                                        <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="btn-primary navbar__download-btn" onClick={() => setResumeOpen(false)}>
+                                            <span>Download</span>
+                                        </a>
+                                        <button className="resume-modal__close" onClick={() => setResumeOpen(false)} aria-label="Close modal">&times;</button>
+                                    </div>
+                                </div>
+                                <div className="resume-modal__body">
+                                    <ResumeViewer pdfUrl="/Resume.pdf" />
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

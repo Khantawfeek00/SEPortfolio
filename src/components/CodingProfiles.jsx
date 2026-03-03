@@ -257,6 +257,14 @@ function DifficultyBar({ easy, medium, hard, total }) {
 }
 
 function Modal({ profile, stats, isLive, onClose }) {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const timer = setTimeout(() => setIsLoading(false), 300);
+        return () => clearTimeout(timer);
+    }, []);
+
     useEffect(() => {
         const handleEsc = (e) => { if (e.key === 'Escape') onClose(); };
         document.addEventListener('keydown', handleEsc);
@@ -274,66 +282,74 @@ function Modal({ profile, stats, isLive, onClose }) {
     return (
         <div className="cp__overlay" onClick={onClose}>
             <div className="cp__modal glass-card" onClick={(e) => e.stopPropagation()}>
-                <div className="cp__modal-header">
-                    <div className="cp__modal-identity">
-                        <span className="cp__modal-icon" style={{ background: `${profile.color}18`, color: profile.color }}>
-                            {profile.icon}
-                        </span>
-                        <div>
-                            <h3 className="cp__modal-name">{profile.name}</h3>
-                            <p className="cp__modal-user">@{profile.username}</p>
-                        </div>
+                {isLoading ? (
+                    <div className="global-loader-container">
+                        <div className="global-spinner"></div>
                     </div>
-                    <button className="cp__modal-close" onClick={onClose} aria-label="Close">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-                    </button>
-                </div>
-
-                <p className="cp__modal-desc">{profile.description}</p>
-
-                <div className="cp__modal-stats">
-                    <div className="cp__modal-total-card" style={{ borderColor: `${profile.color}30` }}>
-                        <span className="cp__modal-total-num" style={{ color: profile.color }}>{stats.total}</span>
-                        <div>
-                            <span className="cp__modal-total-label">Problems Solved</span>
-                            {isLive && <span className="cp__modal-live-badge">● Live</span>}
-                        </div>
-                    </div>
-
-                    {hasBreakdown && (
-                        <>
-                            <DifficultyBar easy={stats.easy} medium={stats.medium} hard={stats.hard} total={stats.total} />
-                            <div className="cp__modal-breakdown">
-                                {stats.easy != null && (
-                                    <div className="cp__modal-diff">
-                                        <div className="cp__modal-diff-dot" style={{ background: '#10b981' }}></div>
-                                        <span className="cp__modal-diff-label">Easy</span>
-                                        <span className="cp__modal-diff-value" style={{ color: '#10b981' }}>{stats.easy}</span>
-                                    </div>
-                                )}
-                                {stats.medium != null && (
-                                    <div className="cp__modal-diff">
-                                        <div className="cp__modal-diff-dot" style={{ background: '#f59e0b' }}></div>
-                                        <span className="cp__modal-diff-label">Medium</span>
-                                        <span className="cp__modal-diff-value" style={{ color: '#f59e0b' }}>{stats.medium}</span>
-                                    </div>
-                                )}
-                                {stats.hard != null && (
-                                    <div className="cp__modal-diff">
-                                        <div className="cp__modal-diff-dot" style={{ background: '#ef4444' }}></div>
-                                        <span className="cp__modal-diff-label">Hard</span>
-                                        <span className="cp__modal-diff-value" style={{ color: '#ef4444' }}>{stats.hard}</span>
-                                    </div>
-                                )}
+                ) : (
+                    <>
+                        <div className="cp__modal-header">
+                            <div className="cp__modal-identity">
+                                <span className="cp__modal-icon" style={{ background: `${profile.color}18`, color: profile.color }}>
+                                    {profile.icon}
+                                </span>
+                                <div>
+                                    <h3 className="cp__modal-name">{profile.name}</h3>
+                                    <p className="cp__modal-user">@{profile.username}</p>
+                                </div>
                             </div>
-                        </>
-                    )}
-                </div>
+                            <button className="cp__modal-close" onClick={onClose} aria-label="Close">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                            </button>
+                        </div>
 
-                <a href={profile.url} target="_blank" rel="noopener noreferrer" className="cp__modal-visit-btn" style={{ background: `${profile.color}15`, color: profile.color, borderColor: `${profile.color}30` }}>
-                    Visit {profile.name} Profile
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                </a>
+                        <p className="cp__modal-desc">{profile.description}</p>
+
+                        <div className="cp__modal-stats">
+                            <div className="cp__modal-total-card" style={{ borderColor: `${profile.color}30` }}>
+                                <span className="cp__modal-total-num" style={{ color: profile.color }}>{stats.total}</span>
+                                <div>
+                                    <span className="cp__modal-total-label">Problems Solved</span>
+                                    {isLive && <span className="cp__modal-live-badge">● Live</span>}
+                                </div>
+                            </div>
+
+                            {hasBreakdown && (
+                                <>
+                                    <DifficultyBar easy={stats.easy} medium={stats.medium} hard={stats.hard} total={stats.total} />
+                                    <div className="cp__modal-breakdown">
+                                        {stats.easy != null && (
+                                            <div className="cp__modal-diff">
+                                                <div className="cp__modal-diff-dot" style={{ background: '#10b981' }}></div>
+                                                <span className="cp__modal-diff-label">Easy</span>
+                                                <span className="cp__modal-diff-value" style={{ color: '#10b981' }}>{stats.easy}</span>
+                                            </div>
+                                        )}
+                                        {stats.medium != null && (
+                                            <div className="cp__modal-diff">
+                                                <div className="cp__modal-diff-dot" style={{ background: '#f59e0b' }}></div>
+                                                <span className="cp__modal-diff-label">Medium</span>
+                                                <span className="cp__modal-diff-value" style={{ color: '#f59e0b' }}>{stats.medium}</span>
+                                            </div>
+                                        )}
+                                        {stats.hard != null && (
+                                            <div className="cp__modal-diff">
+                                                <div className="cp__modal-diff-dot" style={{ background: '#ef4444' }}></div>
+                                                <span className="cp__modal-diff-label">Hard</span>
+                                                <span className="cp__modal-diff-value" style={{ color: '#ef4444' }}>{stats.hard}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        <a href={profile.url} target="_blank" rel="noopener noreferrer" className="cp__modal-visit-btn" style={{ background: `${profile.color}15`, color: profile.color, borderColor: `${profile.color}30` }}>
+                            Visit {profile.name} Profile
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                        </a>
+                    </>
+                )}
             </div>
         </div>
     );

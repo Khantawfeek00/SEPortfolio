@@ -51,6 +51,17 @@ const getIcon = (iconName) => {
 export default function Experience() {
     const [selectedExp, setSelectedExp] = useState(null);
     const [currentCertIndex, setCurrentCertIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Reset certificate index when opening a new experience
+    useEffect(() => {
+        if (selectedExp) {
+            setCurrentCertIndex(0);
+            setIsLoading(true);
+            const timer = setTimeout(() => setIsLoading(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [selectedExp]);
 
     // Prevent background scrolling when modal is open
     useEffect(() => {
@@ -143,123 +154,131 @@ export default function Experience() {
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                     <div className="experience__modal glass-card" onClick={(e) => e.stopPropagation()}>
-                        <div className="experience__modal-header" style={{ borderBottom: `1px solid ${selectedExp.color}30`, paddingBottom: '1rem', marginBottom: '1.5rem' }}>
-                            <div className="experience__icon" style={{ color: selectedExp.color, display: 'inline-block', marginBottom: '0.5rem' }}>
-                                {selectedExp.icon}
+                        {isLoading ? (
+                            <div className="global-loader-container">
+                                <div className="global-spinner"></div>
                             </div>
-                            <h3 className="experience__role" style={{ color: selectedExp.color, fontSize: '1.75rem', marginBottom: '0.25rem' }}>{selectedExp.role}</h3>
-                            <p className="experience__company">{selectedExp.company}</p>
-                            <span className="experience__period" style={{ marginTop: '0.5rem', display: 'block' }}>{selectedExp.period}</span>
-                        </div>
-                        <div className="experience__modal-body">
-                            <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem' }}>Key Highlights</h4>
-                            <ul className="experience__highlights" style={{ marginBottom: '1.5rem' }}>
-                                {selectedExp.highlights.map((h, j) => (
-                                    <li key={j}>
-                                        <span className="experience__bullet" style={{ color: selectedExp.color }}>▹</span>
-                                        {h}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem' }}>More Details</h4>
-                            {Array.isArray(selectedExp.details) ? (
-                                <ul className="experience__highlights" style={{ marginBottom: '1.5rem' }}>
-                                    {selectedExp.details.map((detail, j) => (
-                                        <li key={j} style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '0.5rem' }}>
-                                            <span className="experience__bullet" style={{ color: selectedExp.color }}>▹</span>
-                                            {detail}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-                                    {selectedExp.details}
-                                </p>
-                            )}
-
-                            {/* Render the certificate image if available */}
-                            {groupedCertificates[selectedExp.id] && groupedCertificates[selectedExp.id].length > 0 && (
-                                <div style={{ marginTop: '2.5rem', textAlign: 'center', position: 'relative' }}>
-                                    <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem', textAlign: 'left' }}>
-                                        {groupedCertificates[selectedExp.id].length > 1 ? 'Certificates' : 'Certificate'}
-                                    </h4>
-
-                                    <div className="certificate-carousel" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-
-                                        {/* Left Arrow */}
-                                        {groupedCertificates[selectedExp.id].length > 1 && (
-                                            <button
-                                                className="carousel-nav prev"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setCurrentCertIndex((prev) => (prev === 0 ? groupedCertificates[selectedExp.id].length - 1 : prev - 1));
-                                                }}
-                                            >
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                                            </button>
-                                        )}
-
-                                        <img
-                                            src={groupedCertificates[selectedExp.id][currentCertIndex]}
-                                            alt={`${selectedExp.role} Certificate ${currentCertIndex + 1}`}
-                                            className="certificate-image"
-                                            draggable="false"
-                                            onContextMenu={(e) => e.preventDefault()}
-                                            style={{
-                                                maxWidth: '100%',
-                                                objectFit: 'contain',
-                                                borderRadius: '8px',
-                                                border: `1px solid ${selectedExp.color}40`,
-                                                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                                                transition: 'opacity 0.3s ease-in-out',
-                                                userSelect: 'none',
-                                                WebkitUserSelect: 'none'
-                                            }}
-                                        />
-
-                                        {/* Right Arrow */}
-                                        {groupedCertificates[selectedExp.id].length > 1 && (
-                                            <button
-                                                className="carousel-nav next"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setCurrentCertIndex((prev) => (prev === groupedCertificates[selectedExp.id].length - 1 ? 0 : prev + 1));
-                                                }}
-                                            >
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                            </button>
-                                        )}
+                        ) : (
+                            <>
+                                <div className="experience__modal-header" style={{ borderBottom: `1px solid ${selectedExp.color}30`, paddingBottom: '1rem', marginBottom: '1.5rem' }}>
+                                    <div className="experience__icon" style={{ color: selectedExp.color, display: 'inline-block', marginBottom: '0.5rem' }}>
+                                        {selectedExp.icon}
                                     </div>
+                                    <h3 className="experience__role" style={{ color: selectedExp.color, fontSize: '1.75rem', marginBottom: '0.25rem' }}>{selectedExp.role}</h3>
+                                    <p className="experience__company">{selectedExp.company}</p>
+                                    <span className="experience__period" style={{ marginTop: '0.5rem', display: 'block' }}>{selectedExp.period}</span>
+                                </div>
+                                <div className="experience__modal-body">
+                                    <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem' }}>Key Highlights</h4>
+                                    <ul className="experience__highlights" style={{ marginBottom: '1.5rem' }}>
+                                        {selectedExp.highlights.map((h, j) => (
+                                            <li key={j}>
+                                                <span className="experience__bullet" style={{ color: selectedExp.color }}>▹</span>
+                                                {h}
+                                            </li>
+                                        ))}
+                                    </ul>
 
-                                    {/* Carousel Dots */}
-                                    {groupedCertificates[selectedExp.id].length > 1 && (
-                                        <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '1rem' }}>
-                                            {groupedCertificates[selectedExp.id].map((_, idx) => (
-                                                <button
-                                                    key={idx}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        setCurrentCertIndex(idx);
-                                                    }}
-                                                    style={{
-                                                        width: '10px',
-                                                        height: '10px',
-                                                        borderRadius: '50%',
-                                                        border: 'none',
-                                                        backgroundColor: idx === currentCertIndex ? selectedExp.color : 'rgba(255, 255, 255, 0.2)',
-                                                        cursor: 'pointer',
-                                                        transition: 'background-color 0.3s ease',
-                                                        padding: 0
-                                                    }}
-                                                    aria-label={`Go to certificate ${idx + 1}`}
-                                                />
+                                    <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem' }}>More Details</h4>
+                                    {Array.isArray(selectedExp.details) ? (
+                                        <ul className="experience__highlights" style={{ marginBottom: '1.5rem' }}>
+                                            {selectedExp.details.map((detail, j) => (
+                                                <li key={j} style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '0.5rem' }}>
+                                                    <span className="experience__bullet" style={{ color: selectedExp.color }}>▹</span>
+                                                    {detail}
+                                                </li>
                                             ))}
+                                        </ul>
+                                    ) : (
+                                        <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+                                            {selectedExp.details}
+                                        </p>
+                                    )}
+
+                                    {/* Render the certificate image if available */}
+                                    {groupedCertificates[selectedExp.id] && groupedCertificates[selectedExp.id].length > 0 && (
+                                        <div style={{ marginTop: '2.5rem', textAlign: 'center', position: 'relative' }}>
+                                            <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem', fontSize: '1.1rem', textAlign: 'left' }}>
+                                                {groupedCertificates[selectedExp.id].length > 1 ? 'Certificates' : 'Certificate'}
+                                            </h4>
+
+                                            <div className="certificate-carousel" style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+                                                {/* Left Arrow */}
+                                                {groupedCertificates[selectedExp.id].length > 1 && (
+                                                    <button
+                                                        className="carousel-nav prev"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setCurrentCertIndex((prev) => (prev === 0 ? groupedCertificates[selectedExp.id].length - 1 : prev - 1));
+                                                        }}
+                                                    >
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                                    </button>
+                                                )}
+
+                                                <img
+                                                    src={groupedCertificates[selectedExp.id][currentCertIndex]}
+                                                    alt={`${selectedExp.role} Certificate ${currentCertIndex + 1}`}
+                                                    className="certificate-image"
+                                                    draggable="false"
+                                                    onContextMenu={(e) => e.preventDefault()}
+                                                    style={{
+                                                        maxWidth: '100%',
+                                                        objectFit: 'contain',
+                                                        borderRadius: '8px',
+                                                        border: `1px solid ${selectedExp.color}40`,
+                                                        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                                                        transition: 'opacity 0.3s ease-in-out',
+                                                        userSelect: 'none',
+                                                        WebkitUserSelect: 'none'
+                                                    }}
+                                                />
+
+                                                {/* Right Arrow */}
+                                                {groupedCertificates[selectedExp.id].length > 1 && (
+                                                    <button
+                                                        className="carousel-nav next"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setCurrentCertIndex((prev) => (prev === groupedCertificates[selectedExp.id].length - 1 ? 0 : prev + 1));
+                                                        }}
+                                                    >
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                            {/* Carousel Dots */}
+                                            {groupedCertificates[selectedExp.id].length > 1 && (
+                                                <div className="carousel-dots" style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '1rem' }}>
+                                                    {groupedCertificates[selectedExp.id].map((_, idx) => (
+                                                        <button
+                                                            key={idx}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setCurrentCertIndex(idx);
+                                                            }}
+                                                            style={{
+                                                                width: '10px',
+                                                                height: '10px',
+                                                                borderRadius: '50%',
+                                                                border: 'none',
+                                                                backgroundColor: idx === currentCertIndex ? selectedExp.color : 'rgba(255, 255, 255, 0.2)',
+                                                                cursor: 'pointer',
+                                                                transition: 'background-color 0.3s ease',
+                                                                padding: 0
+                                                            }}
+                                                            aria-label={`Go to certificate ${idx + 1}`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
-                            )}
-                        </div>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

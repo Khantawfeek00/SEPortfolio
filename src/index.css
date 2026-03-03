@@ -384,3 +384,29 @@ button {
     font-size: var(--font-2xl);
   }
 }
+
+/* ---- Generic Loader ---- */
+.global-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.global-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(var(--glow-rgb), 0.1);
+  border-top-color: var(--accent-theme);
+  border-radius: 50%;
+  animation: global-spin 0.8s linear infinite;
+}
+
+@keyframes global-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

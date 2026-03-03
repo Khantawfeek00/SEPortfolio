@@ -293,9 +293,8 @@ export default function LeetCodeModal({ onClose }) {
                 </div>
 
                 {loading ? (
-                    <div className="lc__loading">
-                        <div className="lc__spinner"></div>
-                        <span>Loading LeetCode profile...</span>
+                    <div className="global-loader-container">
+                        <div className="global-spinner"></div>
                     </div>
                 ) : (
                     <div className="lc__body">
