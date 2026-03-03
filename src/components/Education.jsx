@@ -4,7 +4,7 @@ const educationData = [
     {
         degree: 'Bachelor of Engineering',
         field: 'Information Technology',
-        school: 'Yashwantrao Chavan College of Engineering',
+        school: 'Yeshwantrao Chavan College of Engineering, Nagpur',
         url: 'https://ycce.edu/',
         period: 'Sept 2019 — May 2023',
         cgpa: '8.4 / 10.0',
