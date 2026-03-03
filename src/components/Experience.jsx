@@ -54,14 +54,21 @@ export default function Experience() {
 
     // Prevent background scrolling when modal is open
     useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') setSelectedExp(null);
+        };
+
         if (selectedExp) {
+            document.addEventListener('keydown', handleEsc);
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else {
+            document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         }
         return () => {
+            document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         };

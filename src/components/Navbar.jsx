@@ -38,14 +38,21 @@ export default function Navbar() {
     }, []);
 
     useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') setResumeOpen(false);
+        };
+
         if (resumeOpen) {
+            document.addEventListener('keydown', handleEsc);
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else {
+            document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         }
         return () => {
+            document.removeEventListener('keydown', handleEsc);
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         };
