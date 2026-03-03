@@ -282,27 +282,27 @@ function Modal({ profile, stats, isLive, onClose }) {
     return (
         <div className="cp__overlay" onClick={onClose}>
             <div className="cp__modal glass-card" onClick={(e) => e.stopPropagation()}>
+                <div className="cp__modal-header">
+                    <div className="cp__modal-identity">
+                        <span className="cp__modal-icon" style={{ background: `${profile.color}18`, color: profile.color }}>
+                            {profile.icon}
+                        </span>
+                        <div>
+                            <h3 className="cp__modal-name">{profile.name}</h3>
+                            <p className="cp__modal-user">@{profile.username}</p>
+                        </div>
+                    </div>
+                    <button className="cp__modal-close" onClick={onClose} aria-label="Close">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                    </button>
+                </div>
+
                 {isLoading ? (
                     <div className="global-loader-container">
                         <div className="global-spinner"></div>
                     </div>
                 ) : (
                     <>
-                        <div className="cp__modal-header">
-                            <div className="cp__modal-identity">
-                                <span className="cp__modal-icon" style={{ background: `${profile.color}18`, color: profile.color }}>
-                                    {profile.icon}
-                                </span>
-                                <div>
-                                    <h3 className="cp__modal-name">{profile.name}</h3>
-                                    <p className="cp__modal-user">@{profile.username}</p>
-                                </div>
-                            </div>
-                            <button className="cp__modal-close" onClick={onClose} aria-label="Close">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-                            </button>
-                        </div>
-
                         <p className="cp__modal-desc">{profile.description}</p>
 
                         <div className="cp__modal-stats">

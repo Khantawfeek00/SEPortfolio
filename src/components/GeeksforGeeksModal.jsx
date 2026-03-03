@@ -235,38 +235,38 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
     return (
         <div className="gfg__overlay" onClick={onClose}>
             <div className="gfg__modal" onClick={(e) => e.stopPropagation()}>
+                {/* Close */}
+                <button className="gfg__close" onClick={onClose} aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                </button>
+
+                {/* Header with Visit Profile Button */}
+                <div className="gfg__header">
+                    <div className="gfg__avatar">
+                        <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg"
+                            alt="GeeksforGeeks"
+                            style={{ width: '22px', height: '22px', background: 'white', borderRadius: '4px', padding: '2px' }}
+                        />
+                    </div>
+                    <div className="gfg__header-info">
+                        <h2 className="gfg__name">Tawfeek Khan</h2>
+                        <p className="gfg__username">@{username}</p>
+                    </div>
+                    <a href={`https://auth.geeksforgeeks.org/user/${username}/`} target="_blank" rel="noopener noreferrer" className="gfg__visit-btn">
+                        View Full Profile
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                        </svg>
+                    </a>
+                </div>
+
                 {isLoading ? (
                     <div className="global-loader-container">
                         <div className="global-spinner"></div>
                     </div>
                 ) : (
                     <>
-                        {/* Close */}
-                        <button className="gfg__close" onClick={onClose} aria-label="Close">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-                        </button>
-
-                        {/* Header with Visit Profile Button */}
-                        <div className="gfg__header">
-                            <div className="gfg__avatar">
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg"
-                                    alt="GeeksforGeeks"
-                                    style={{ width: '22px', height: '22px', background: 'white', borderRadius: '4px', padding: '2px' }}
-                                />
-                            </div>
-                            <div className="gfg__header-info">
-                                <h2 className="gfg__name">Tawfeek Khan</h2>
-                                <p className="gfg__username">@{username}</p>
-                            </div>
-                            <a href={`https://auth.geeksforgeeks.org/user/${username}/`} target="_blank" rel="noopener noreferrer" className="gfg__visit-btn">
-                                View Full Profile
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M7 17L17 7" /><path d="M7 7h10v10" />
-                                </svg>
-                            </a>
-                        </div>
-
                         <div className="gfg__body">
                             {/* Top Stats Row */}
                             <div className="gfg__top-row" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
