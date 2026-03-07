@@ -96,13 +96,7 @@ const SKILLS = [
     { label: 'Others', val: 433, color: '#8b5cf6' }
 ];
 
-const RECENT_AC = [
-    { name: 'Merge Sort: Counting Inversions', slug: 'ctci-merge-sort', time: '2025-04-05T09:36:42.000Z' },
-    { name: 'Arrays Introduction', slug: 'arrays-introduction', time: '2023-02-26T18:27:52.000Z' },
-    { name: 'Functions', slug: 'c-tutorial-functions', time: '2023-02-26T18:24:13.000Z' },
-    { name: 'For Loop', slug: 'c-tutorial-for-loop', time: '2023-02-26T18:22:48.000Z' },
-    { name: 'Conditional Statements', slug: 'c-tutorial-conditional-if-else', time: '2023-02-26T18:18:59.000Z' }
-];
+
 
 // ---- Donut SVG ----
 function SkillsDonut() {
@@ -227,11 +221,12 @@ export default function HackerRankModal({ onClose }) {
     const [isLoading, setIsLoading] = useState(true);
     const [activeBadgeIndex, setActiveBadgeIndex] = useState(0);
     const [badges, setBadges] = useState([]);
+    const [recentAC, setRecentAC] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
         // HackerRank blocks direct browser fetches via CORS, so we must route through a secure proxy
-        fetch(`https://corsproxy.io/?https://www.hackerrank.com/rest/hackers/${USERNAME}/badges`)
+        const badgesReq = fetch(`https://corsproxy.io/?https://www.hackerrank.com/rest/hackers/${USERNAME}/badges`)
             .then(r => {
                 if (!r.ok) throw new Error("CORS Proxy Network ERror");
                 return r.json();
@@ -249,7 +244,6 @@ export default function HackerRankModal({ onClose }) {
             })
             .catch(err => {
                 console.error("Error fetching HackerRank badges:", err);
-                // Fallback to hardcoded safe data if proxy/network fails so UI never breaks
                 setBadges([
                     { name: 'Problem Solving', stars: 5 },
                     { name: 'Java', stars: 5 },
@@ -258,8 +252,37 @@ export default function HackerRankModal({ onClose }) {
                     { name: '30 Days of Code', stars: 2 },
                     { name: 'SQL', stars: 2 },
                 ]);
+            });
+
+        // Fetch Recent Challenges
+        const recentReq = fetch(`https://corsproxy.io/?https://www.hackerrank.com/rest/hackers/${USERNAME}/recent_challenges?limit=20`)
+            .then(r => {
+                if (!r.ok) throw new Error("CORS Proxy Network ERror for Recent Challenges");
+                return r.json();
             })
-            .finally(() => setIsLoading(false));
+            .then(data => {
+                if (data && data.models) {
+                    const recentList = data.models.map(ch => ({
+                        name: ch.name,
+                        slug: ch.ch_slug,
+                        time: ch.created_at
+                    }));
+                    setRecentAC(recentList);
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching HackerRank recent challenges:", err);
+                setRecentAC([
+                    { name: 'Merge Sort: Counting Inversions', slug: 'ctci-merge-sort', time: '2025-04-05T09:36:42.000Z' },
+                    { name: 'Arrays Introduction', slug: 'arrays-introduction', time: '2023-02-26T18:27:52.000Z' },
+                    { name: 'Functions', slug: 'c-tutorial-functions', time: '2023-02-26T18:24:13.000Z' }
+                ]);
+            });
+
+        Promise.all([badgesReq, recentReq]).finally(() => {
+            // Artificial delay to ensure loader is visible for testing
+            setTimeout(() => setIsLoading(false), 800);
+        });
     }, []);
 
     // Carousel Timer
@@ -324,11 +347,8 @@ export default function HackerRankModal({ onClose }) {
                 </div>
 
                 {isLoading ? (
-                    <div className="global-loader-container" style={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div className="global-spinner" style={{ width: '40px', height: '40px', border: '3px solid rgba(255, 255, 255, 0.1)', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-                        <style>{`
-                            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                        `}</style>
+                    <div className="global-loader-container">
+                        <div className="global-spinner"></div>
                     </div>
                 ) : (
                     <>
@@ -413,7 +433,7 @@ export default function HackerRankModal({ onClose }) {
                                         }
                                     }}
                                 >
-                                    {RECENT_AC.map((sub, idx) => (
+                                    {recentAC.map((sub, idx) => (
                                         <a key={idx} href={`https://www.hackerrank.com/challenges/${sub.slug}`} target="_blank" rel="noopener noreferrer" className="hr__recent-item">
                                             <span className="hr__recent-icon">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

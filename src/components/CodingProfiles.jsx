@@ -147,9 +147,11 @@ function parseLeetCodeResponse(data) {
 function extractProblemNames(categoryObj) {
     if (!categoryObj) return [];
     return Object.values(categoryObj).map(item => {
-        if (Array.isArray(item)) return item[0]?.pname;
-        return item?.pname;
-    }).filter(Boolean);
+        if (Array.isArray(item)) {
+            return { name: item[0]?.pname, slug: item[0]?.slug };
+        }
+        return { name: item?.pname, slug: item?.slug };
+    }).filter(i => i && i.name);
 }
 
 async function fetchGFGLive(username) {

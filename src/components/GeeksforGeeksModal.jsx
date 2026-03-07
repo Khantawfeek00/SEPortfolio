@@ -397,7 +397,11 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                                 >
                                     {activeListData.length > 0 ? (
                                         activeListData.map((prob, i) => {
-                                            const slug = prob.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                            const probName = typeof prob === 'string' ? prob : prob.name;
+                                            const slug = (typeof prob === 'object' && prob.slug)
+                                                ? prob.slug
+                                                : probName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
                                             return (
                                                 <a key={i} href={`https://www.geeksforgeeks.org/problems/${slug}/1`} target="_blank" rel="noopener noreferrer" className="gfg__recent-item">
                                                     <span className="gfg__recent-icon">
@@ -406,7 +410,7 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                                                             <polyline points="8 6 2 12 8 18"></polyline>
                                                         </svg>
                                                     </span>
-                                                    <span className="gfg__recent-name">{prob}</span>
+                                                    <span className="gfg__recent-name">{probName}</span>
                                                 </a>
                                             );
                                         })

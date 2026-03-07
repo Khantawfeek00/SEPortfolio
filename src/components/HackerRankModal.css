@@ -33,6 +33,10 @@
     animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.hr__modal.hr__modal-loading-state {
+    min-height: 400px;
+}
+
 .hr__close {
     position: absolute;
     top: 1.25rem;
