@@ -29,20 +29,28 @@ export default function Navbar() {
     }, [resumeOpen]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+        let isThrottled = false;
 
-            const sections = navLinks.map(l => l.href.replace('#', ''));
-            for (let i = sections.length - 1; i >= 0; i--) {
-                const el = document.getElementById(sections[i]);
-                if (el && el.getBoundingClientRect().top <= 120) {
-                    setActiveSection(sections[i]);
-                    break;
+        const handleScroll = () => {
+            if (isThrottled) return;
+            isThrottled = true;
+
+            setTimeout(() => {
+                setScrolled(window.scrollY > 50);
+
+                const sections = navLinks.map(l => l.href.replace('#', ''));
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const el = document.getElementById(sections[i]);
+                    if (el && el.getBoundingClientRect().top <= 120) {
+                        setActiveSection(sections[i]);
+                        break;
+                    }
                 }
-            }
+                isThrottled = false;
+            }, 50); // Throttle scroll active-section checks to run at most every 50ms
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
