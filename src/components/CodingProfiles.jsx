@@ -75,7 +75,7 @@ const PROFILES = {
         icon: <HackerRankLogo />,
         url: 'https://www.hackerrank.com/profile/khantawfeek00',
         description: 'Completing challenges in problem solving, Java, SQL, and earning skill badges across multiple domains.',
-        stats: { total: 138, easy: null, medium: null, hard: null, hrPoints: '1,884' },
+        stats: { total: null, easy: null, medium: null, hard: null, hrPoints: '1,884' },
         highlight: { value: '5★', label: 'Problem Solving', icon: '🎖️' },
     },
 };
@@ -235,10 +235,20 @@ async function fetchGFGLive(username) {
 }
 
 // ---- Profile list with fetchers ----
+
+// Mock fetcher for HackerRank to simulate the loading animation for consistency
+const fetchHackerRankMock = async () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ total: 138 });
+        }, 1200); // 1.2 second mock delay
+    });
+};
+
 const profileList = [
     { ...PROFILES.leetcode, key: 'leetcode', fetcher: () => fetchLeetCodeLive(PROFILES.leetcode.username) },
     { ...PROFILES.gfg, key: 'gfg', fetcher: () => fetchGFGLive(PROFILES.gfg.username) },
-    { ...PROFILES.hackerrank, key: 'hackerrank', fetcher: null },
+    { ...PROFILES.hackerrank, key: 'hackerrank', fetcher: fetchHackerRankMock },
 ];
 
 // ---- UI Components ----
@@ -357,16 +367,24 @@ function Modal({ profile, stats, isLive, onClose }) {
 }
 
 function ProfileCard({ profile, onClick }) {
-    const [stats, setStats] = useState(profile.stats);
+    // Only pre-fill stats if there's no fetcher (though we added a mock fetcher to HR now)
+    const [stats, setStats] = useState(profile.fetcher ? { ...profile.stats, total: null, easy: null, medium: null, hard: null } : profile.stats);
     const [isLive, setIsLive] = useState(false);
+    const [isFetching, setIsFetching] = useState(!!profile.fetcher);
 
     useEffect(() => {
         if (!profile.fetcher) return;
         let cancelled = false;
         profile.fetcher().then((liveData) => {
-            if (!cancelled && liveData && liveData.total != null) {
-                setStats(prev => ({ ...prev, ...liveData }));
-                setIsLive(true);
+            if (!cancelled) {
+                if (liveData && liveData.total != null) {
+                    setStats(prev => ({ ...prev, ...liveData }));
+                    setIsLive(true);
+                } else {
+                    // Fallback to static props if fetch completely failed
+                    setStats(profile.stats);
+                }
+                setIsFetching(false);
             }
         });
         return () => { cancelled = true; };
@@ -386,7 +404,12 @@ function ProfileCard({ profile, onClick }) {
                         <h3 className="cp__name">{profile.name}</h3>
                         <p className="cp__username">@{profile.username}</p>
                     </div>
-                    {isLive && <span className="cp__live-dot" title="Live data">●</span>}
+                    {isLive && (
+                        <div className="cp__live-badge" title="Live data">
+                            <div className="cp__live-badge-dot"></div>
+                            Live Data
+                        </div>
+                    )}
                 </div>
 
                 {profile.highlight && (
@@ -399,10 +422,14 @@ function ProfileCard({ profile, onClick }) {
 
                 <div className="cp__stats">
                     <div className="cp__total">
-                        <span className="cp__total-value" style={{ color: profile.color }}>{stats.total}</span>
+                        {isFetching ? (
+                            <div className="cp__spinner" style={{ borderColor: `${profile.color}40`, borderTopColor: profile.color, width: '32px', height: '32px', margin: '4px 0' }}></div>
+                        ) : (
+                            <span className="cp__total-value" style={{ color: profile.color }}>{stats.total}</span>
+                        )}
                         <span className="cp__total-label">Solved</span>
                     </div>
-                    {hasBreakdown && (
+                    {hasBreakdown && !isFetching && (
                         <div className="cp__breakdown">
                             <div className="cp__stat-row">
                                 <span className="cp__stat-label">Easy</span>
@@ -418,7 +445,7 @@ function ProfileCard({ profile, onClick }) {
                             </div>
                         </div>
                     )}
-                    {stats.hrPoints && (
+                    {stats.hrPoints && !isFetching && (
                         <div className="cp__breakdown">
                             <div className="cp__stat-row">
                                 <span className="cp__stat-label">Points</span>

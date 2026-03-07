@@ -321,6 +321,13 @@
     line-height: 1.7;
 }
 
+/* Base styles for the outer section */
+.cp {
+    position: relative;
+    padding: 6rem 0;
+    overflow: hidden;
+}
+
 /* Modal Loading */
 .cp__modal-loading {
     display: flex;
@@ -368,32 +375,47 @@
 }
 
 /* Live Badge */
-.cp__live-dot {
-    margin-left: auto;
-    color: #10b981;
-    font-size: 10px;
-    animation: cp-pulse 2s ease-in-out infinite;
-}
-
-.cp__modal-live-badge {
-    display: inline-block;
-    font-size: 10px;
-    color: #10b981;
+.cp__live-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.6875rem;
     font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    margin-left: auto;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 0.25rem;
-    animation: cp-pulse 2s ease-in-out infinite;
 }
 
-@keyframes cp-pulse {
+.cp__live-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    animation: cp-pulse-live 1.5s infinite;
+}
 
-    0%,
-    100% {
-        opacity: 1;
+@keyframes cp-pulse-live {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
     }
 
-    50% {
-        opacity: 0.4;
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        opacity: 0.7;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
     }
 }
 

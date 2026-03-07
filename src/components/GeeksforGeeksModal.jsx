@@ -113,7 +113,7 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
     const months = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
 
     return (
-        <div className="gfg__heatmap-section" style={{ marginTop: '0.875rem', position: 'relative' }}>
+        <div className="gfg__heatmap-section" style={{ position: 'relative' }}>
             <div className="gfg__heatmap-header">
                 <span><strong>{totalSubs}</strong> submissions in the past year</span>
                 <span className="gfg__heatmap-meta">Active: <strong>{totalDays}</strong>d &nbsp; Streak: <strong>{streak}</strong></span>
@@ -264,7 +264,9 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                     <a href={`https://auth.geeksforgeeks.org/user/${username}/`} target="_blank" rel="noopener noreferrer" className="gfg__visit-btn">
                         View Full Profile
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
                         </svg>
                     </a>
                 </div>
@@ -277,7 +279,7 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                     <>
                         <div className="gfg__body">
                             {/* Top Stats Row */}
-                            <div className="gfg__top-row" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                            <div className="gfg__top-row">
                                 <div className="gfg__top-stat">
                                     <span className="gfg__top-value" style={{ color: '#2f8d46' }}>{codingScore}</span>
                                     <span className="gfg__top-label">Coding Score</span>
@@ -297,8 +299,8 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                             </div>
 
                             {/* Solved Row */}
-                            <div className="gfg__main-row" style={{ gridTemplateColumns: '1fr' }}>
-                                <div className="gfg__solved-card" style={{ maxWidth: '400px', margin: '0 auto', width: '100%' }}>
+                            <div className="gfg__main-row">
+                                <div className="gfg__solved-card">
                                     <GFGDonut school={school} basic={basic} easy={easy} medium={medium} hard={hard} total={total} totalQ={totalQ} />
 
                                     <div className="gfg__diff-list">
@@ -329,12 +331,36 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* POTD Badge Card */}
+                                <div className="gfg__potd-card">
+                                    <div className="gfg__potd-header">
+                                        <div className="gfg__potd-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"></path>
+                                            </svg>
+                                        </div>
+                                        <span>{streak === '-' ? 0 : streak} Day POTD Streak</span>
+                                    </div>
+                                    <div className="gfg__potd-body">
+                                        <div className="gfg__potd-stat">
+                                            <span className="gfg__potd-stat-label">Longest Streak:</span>
+                                            <span className="gfg__potd-stat-value">{streak} Days</span>
+                                        </div>
+                                        <div className="gfg__potd-divider"></div>
+                                        <div className="gfg__potd-stat">
+                                            <span className="gfg__potd-stat-label">POTDs Solved:</span>
+                                            <span className="gfg__potd-stat-value">{potd}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <SubmissionHeatmap calendarJson={heatmapJson} totalDays={totalDays} streak={streak === '-' ? 0 : streak} />
 
                             {/* Problems Breakdown Card (Moved to bottom) */}
-                            <div className="gfg__badges-card" style={{ justifyContent: 'flex-start' }}>
+                            <div className="gfg__badges-card">
                                 <div className="gfg__badges-header">
                                     <span className="gfg__badges-title" style={{ fontSize: '0.9375rem' }}>Problems Breakdown (Total Problems : {total})</span>
                                 </div>

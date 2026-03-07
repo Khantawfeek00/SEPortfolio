@@ -4,15 +4,89 @@ import historyData from '../data/hackerrank_history.json';
 
 const USERNAME = 'khantawfeek00';
 
-// Hardcoded data based on live fetch
-const BADGES = [
-    { name: 'Problem Solving', stars: 5 },
-    { name: 'Java', stars: 5 },
-    { name: 'C++', stars: 2 },
-    { name: 'Python', stars: 2 },
-    { name: '30 Days of Code', stars: 2 },
-    { name: 'SQL', stars: 2 },
-];
+
+
+function getBadgeColor(stars) {
+    if (stars === 5) return '#fbbf24'; // gold
+    if (stars === 4) return '#94a3b8'; // silver
+    if (stars >= 1) return '#cd7f32'; // bronze
+    return '#475569';
+}
+
+function getBadgeIcon(name) {
+    const n = name.toLowerCase();
+    if (n.includes('java')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <path d="M18 10c0-3.3-3.6-6-8-6S2 6.7 2 10s3.6 6 8 6" />
+                <path d="M18 10c0-2-3-3-6-3" />
+                <path d="M12 21c-4.4 0-8-1.7-8-3.8" />
+                <path d="M22 17.5c0-1.4-1.8-2.5-4-2.5-1.5 0-3 .7-3.7 1.8" />
+                <path d="M16 19.3c1.2.7 2.8 1.2 4.2.7" />
+                <path d="M9 2v4" />
+                <path d="M13 2v4" />
+                <path d="M5 2v4" />
+            </svg>
+        );
+    }
+    if (n.includes('python')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <path d="M12 2C8.69 2 6 4.69 6 8v3h6v4H6v1c0 3.31 2.69 6 6 6s6-2.69 6-6v-3H12v-4h6V8c0-3.31-2.69-6-6-6z" />
+                <circle cx="9" cy="5" r="1" fill="currentColor" />
+                <circle cx="15" cy="19" r="1" fill="currentColor" />
+            </svg>
+        );
+    }
+    if (n.includes('c++') || n.includes('cpp') || n.includes('c ')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <path d="M18 9v6" />
+                <path d="M15 12h6" />
+                <path d="M10 9v6" />
+                <path d="M7 12h6" />
+                <path d="M5.5 16A4.5 4.5 0 0 1 1 12a4.5 4.5 0 0 1 4.5-4.5" />
+            </svg>
+        );
+    }
+    if (n.includes('sql') || n.includes('database')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            </svg>
+        );
+    }
+    if (n.includes('problem solving') || n.includes('algorithm')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+                <path d="M8.5 14l3.5-3.5 3.5 3.5" />
+            </svg>
+        );
+    }
+    if (n.includes('30 days') || n.includes('days of code')) {
+        return (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="M9 16l2 2 4-4" />
+            </svg>
+        );
+    }
+
+    // Default shield
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+    );
+}
 
 const SKILLS = [
     { label: 'Algorithms', val: 617, color: '#3b82f6' },
@@ -150,6 +224,52 @@ function SubmissionHeatmap({ historyMap }) {
 
 export default function HackerRankModal({ onClose }) {
     const handleEsc = useCallback((e) => { if (e.key === 'Escape') onClose(); }, [onClose]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [activeBadgeIndex, setActiveBadgeIndex] = useState(0);
+    const [badges, setBadges] = useState([]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        // HackerRank blocks direct browser fetches via CORS, so we must route through a secure proxy
+        fetch(`https://corsproxy.io/?https://www.hackerrank.com/rest/hackers/${USERNAME}/badges`)
+            .then(r => {
+                if (!r.ok) throw new Error("CORS Proxy Network ERror");
+                return r.json();
+            })
+            .then(data => {
+                if (data && data.models) {
+                    const earnedBadges = data.models
+                        .filter(b => b.stars > 0)
+                        .map(b => ({
+                            name: b.badge_name,
+                            stars: b.stars
+                        }));
+                    setBadges(earnedBadges);
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching HackerRank badges:", err);
+                // Fallback to hardcoded safe data if proxy/network fails so UI never breaks
+                setBadges([
+                    { name: 'Problem Solving', stars: 5 },
+                    { name: 'Java', stars: 5 },
+                    { name: 'C++', stars: 2 },
+                    { name: 'Python', stars: 2 },
+                    { name: '30 Days of Code', stars: 2 },
+                    { name: 'SQL', stars: 2 },
+                ]);
+            })
+            .finally(() => setIsLoading(false));
+    }, []);
+
+    // Carousel Timer
+    useEffect(() => {
+        if (badges.length <= 1) return;
+        const timer = setInterval(() => {
+            setActiveBadgeIndex(prev => (prev + 1) % badges.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [badges]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleEsc);
@@ -176,7 +296,7 @@ export default function HackerRankModal({ onClose }) {
 
     return (
         <div className="hr__overlay" onClick={onClose}>
-            <div className="hr__modal" onClick={(e) => e.stopPropagation()}>
+            <div className={`hr__modal ${isLoading ? 'hr__modal-loading-state' : ''}`} onClick={(e) => e.stopPropagation()}>
                 {/* Close */}
                 <button className="hr__close" onClick={onClose} aria-label="Close">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
@@ -196,93 +316,120 @@ export default function HackerRankModal({ onClose }) {
                     <a href={`https://www.hackerrank.com/profile/${USERNAME}`} target="_blank" rel="noopener noreferrer" className="hr__visit-btn">
                         View Full Profile
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
                         </svg>
                     </a>
                 </div>
 
-                <div className="hr__body">
-                    {/* Top Stats Row */}
-                    <div className="hr__top-row">
-                        <div className="hr__top-stat">
-                            <span className="hr__top-value" style={{ color: '#3b82f6' }}>1,884</span>
-                            <span className="hr__top-label">Total Points</span>
-                        </div>
-                        <div className="hr__top-stat">
-                            <span className="hr__top-value">138</span>
-                            <span className="hr__top-label">Solved</span>
-                        </div>
-                        <div className="hr__top-stat">
-                            <span className="hr__top-value">6</span>
-                            <span className="hr__top-label">Badges</span>
-                        </div>
-                        <div className="hr__top-stat">
-                            <span className="hr__top-value">5★</span>
-                            <span className="hr__top-label">Top Rank</span>
-                        </div>
+                {isLoading ? (
+                    <div className="global-loader-container" style={{ minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="global-spinner" style={{ width: '40px', height: '40px', border: '3px solid rgba(255, 255, 255, 0.1)', borderTopColor: '#3b82f6', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                        <style>{`
+                            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                        `}</style>
                     </div>
-                    {/* Chart + Badges Layout */}
-                    <div className="hr__main-row">
-                        <div className="hr__donut-box">
-                            <SkillsDonut />
-                        </div>
+                ) : (
+                    <>
 
-                        {/* Skill Badges Area */}
-                        <div className="hr__badges-container">
-                            <div className="hr__badges-header">
-                                <span className="hr__badges-header-title">Verified Badges</span>
+                        <div className="hr__body">
+                            {/* Top Stats Row */}
+                            <div className="hr__top-row">
+                                <div className="hr__top-stat">
+                                    <span className="hr__top-value" style={{ color: '#3b82f6' }}>1,884</span>
+                                    <span className="hr__top-label">Total Points</span>
+                                </div>
+                                <div className="hr__top-stat">
+                                    <span className="hr__top-value">138</span>
+                                    <span className="hr__top-label">Solved</span>
+                                </div>
+                                <div className="hr__top-stat">
+                                    <span className="hr__top-value">{badges.length}</span>
+                                    <span className="hr__top-label">Badges</span>
+                                </div>
+                                <div className="hr__top-stat">
+                                    <span className="hr__top-value">5★</span>
+                                    <span className="hr__top-label">Top Rank</span>
+                                </div>
                             </div>
-                            <div className="hr__badges-grid">
-                                {BADGES.map((badge, idx) => (
-                                    <div key={idx} className={`hr__badge-card ${badge.stars === 5 ? 'hr__badge-gold' : ''}`}>
-                                        <div className="hr__badge-info">
-                                            <span className="hr__badge-name">{badge.name}</span>
-                                            {renderStars(badge.stars)}
-                                        </div>
+                            {/* Chart + Badges Layout */}
+                            <div className="hr__main-row">
+                                <div className="hr__donut-box">
+                                    <SkillsDonut />
+                                </div>
+
+                                {/* Skill Badges Area */}
+                                <div className="hr__badges-container">
+                                    <div className="hr__badges-header">
+                                        <span className="hr__badges-header-title">Verified Badges</span>
                                     </div>
-                                ))}
+                                    <div className="hr__carousel">
+                                        {badges.map((badge, idx) => {
+                                            const badgeColor = getBadgeColor(badge.stars);
+                                            return (
+                                                <div key={idx} className={`hr__carousel-slide ${idx === activeBadgeIndex ? 'active' : ''}`}>
+                                                    <div className={`hr__badge-card ${badge.stars === 5 ? 'hr__badge-gold' : ''}`}>
+                                                        <div className="hr__badge-icon-wrap" style={{ color: badgeColor, background: `${badgeColor}15` }}>
+                                                            {getBadgeIcon(badge.name)}
+                                                        </div>
+                                                        <div className="hr__badge-info">
+                                                            <span className="hr__badge-name">{badge.name}</span>
+                                                            {renderStars(badge.stars)}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="hr__carousel-dots">
+                                        {badges.map((_, idx) => (
+                                            <div key={idx} className={`hr__carousel-dot ${idx === activeBadgeIndex ? 'active' : ''}`} />
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Heatmap */}
+                            <SubmissionHeatmap historyMap={historyData} />
+
+                            {/* Recent AC */}
+                            <div className="hr__recent">
+                                <h4 className="hr__section-title">Recent Accepted</h4>
+                                <div
+                                    className="hr__recent-list"
+                                    tabIndex={0}
+                                    aria-label="Recent Accepted List"
+                                    onWheel={(e) => {
+                                        const list = e.currentTarget;
+                                        const modal = list.closest('.hr__body');
+                                        if (!modal) return;
+
+                                        const isAtTop = list.scrollTop === 0;
+                                        const isAtBottom = Math.abs(list.scrollHeight - list.scrollTop - list.clientHeight) < 1;
+
+                                        if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+                                            modal.scrollTop += e.deltaY;
+                                        }
+                                    }}
+                                >
+                                    {RECENT_AC.map((sub, idx) => (
+                                        <a key={idx} href={`https://www.hackerrank.com/challenges/${sub.slug}`} target="_blank" rel="noopener noreferrer" className="hr__recent-item">
+                                            <span className="hr__recent-icon">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                                </svg>
+                                            </span>
+                                            <span className="hr__recent-name">{sub.name}</span>
+                                            <span className="hr__recent-time">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(sub.time))}</span>
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Heatmap */}
-                    <SubmissionHeatmap historyMap={historyData} />
-
-                    {/* Recent AC */}
-                    <div className="hr__recent">
-                        <h4 className="hr__section-title">Recent Accepted</h4>
-                        <div
-                            className="hr__recent-list"
-                            tabIndex={0}
-                            aria-label="Recent Accepted List"
-                            onWheel={(e) => {
-                                const list = e.currentTarget;
-                                const modal = list.closest('.hr__body');
-                                if (!modal) return;
-
-                                const isAtTop = list.scrollTop === 0;
-                                const isAtBottom = Math.abs(list.scrollHeight - list.scrollTop - list.clientHeight) < 1;
-
-                                if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
-                                    modal.scrollTop += e.deltaY;
-                                }
-                            }}
-                        >
-                            {RECENT_AC.map((sub, idx) => (
-                                <a key={idx} href={`https://www.hackerrank.com/challenges/${sub.slug}`} target="_blank" rel="noopener noreferrer" className="hr__recent-item">
-                                    <span className="hr__recent-icon">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="16 18 22 12 16 6"></polyline>
-                                            <polyline points="8 6 2 12 8 18"></polyline>
-                                        </svg>
-                                    </span>
-                                    <span className="hr__recent-name">{sub.name}</span>
-                                    <span className="hr__recent-time">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(sub.time))}</span>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </div>
     );
