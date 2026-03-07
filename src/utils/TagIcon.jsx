@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SiGithubcopilot, SiHibernate, SiMysql, SiFigma, SiPostman } from "react-icons/si";
+import { SiGithubcopilot, SiHibernate, SiMysql, SiFigma, SiPostman, SiApachekafka } from "react-icons/si";
 import { DiScrum } from "react-icons/di";
 import { FaCubes, FaNetworkWired, FaArrowPointer, FaInfinity, FaVial, FaArrowsRotate, FaMartiniGlassEmpty } from "react-icons/fa6";
 import { TbApi, TbSql } from "react-icons/tb";
@@ -10,6 +10,7 @@ export default function TagIcon({ name, size = 22 }) {
 
     const reactIcons = {
         'github copilot': <SiGithubcopilot size={size * 0.9} color="#fff" />,
+        'kafka': <SiApachekafka size={size * 1.1} color="#fff" />,
         'scrum': <DiScrum size={size * 1.2} color="#009CDE" />,
         'microservices': <FaCubes size={size * 0.9} color="#8743FF" />,
         'restful apis': <TbApi size={size * 1.1} color="#FF5722" />,

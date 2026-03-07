@@ -287,7 +287,9 @@ export default function LeetCodeModal({ onClose }) {
                     <a href={`https://leetcode.com/u/${USERNAME}`} target="_blank" rel="noopener noreferrer" className="lc__visit-btn">
                         View Full Profile
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
                         </svg>
                     </a>
                 </div>
@@ -383,10 +385,31 @@ export default function LeetCodeModal({ onClose }) {
                         {recentAC.length > 0 && (
                             <div className="lc__recent">
                                 <h4 className="lc__recent-title">Recent Accepted</h4>
-                                <div className="lc__recent-list">
+                                <div
+                                    className="lc__recent-list"
+                                    tabIndex={0}
+                                    aria-label="Recent Accepted List"
+                                    onWheel={(e) => {
+                                        const list = e.currentTarget;
+                                        const modal = list.closest('.lc__body');
+                                        if (!modal) return;
+
+                                        const isAtTop = list.scrollTop === 0;
+                                        const isAtBottom = Math.abs(list.scrollHeight - list.scrollTop - list.clientHeight) < 1;
+
+                                        if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+                                            modal.scrollTop += e.deltaY;
+                                        }
+                                    }}
+                                >
                                     {recentAC.map((sub) => (
                                         <a key={sub.id} href={`https://leetcode.com/problems/${sub.titleSlug}`} target="_blank" rel="noopener noreferrer" className="lc__recent-item">
-                                            <span className="lc__recent-check">✓</span>
+                                            <span className="lc__recent-icon">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                                </svg>
+                                            </span>
                                             <span className="lc__recent-name">{sub.title}</span>
                                             <span className="lc__recent-time">{timeAgo(sub.timestamp)}</span>
                                         </a>

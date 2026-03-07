@@ -9,9 +9,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(4, 6, 12, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     animation: lc-fade 0.25s ease-out;
     padding: 1rem;
 }
@@ -30,27 +30,15 @@
     width: 100%;
     max-width: 900px;
     max-height: 92vh;
-    overflow-y: auto;
-    background: #1a1a2e;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 2.25rem;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(20, 25, 35, 0.95), rgba(10, 12, 18, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
     position: relative;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
     animation: lc-slide 0.3s ease-out;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-}
-
-.lc__modal::-webkit-scrollbar {
-    width: 5px;
-}
-
-.lc__modal::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
 }
 
 @keyframes lc-slide {
@@ -68,22 +56,26 @@
 /* Close */
 .lc__close {
     position: absolute;
-    top: 0.875rem;
-    right: 0.875rem;
-    width: 30px;
-    height: 30px;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: #64748b;
+    color: #94a3b8;
     transition: all 0.2s;
-    z-index: 2;
+    z-index: 10;
+    cursor: pointer;
 }
 
 .lc__close:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: rotate(90deg);
 }
 
 /* Header */
@@ -91,7 +83,25 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding-right: 2rem;
+    padding: 2rem;
+    background: rgba(245, 158, 11, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.lc__header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
+    pointer-events: none;
 }
 
 .lc__avatar {
@@ -185,7 +195,18 @@
 .lc__body {
     display: flex;
     flex-direction: column;
-    gap: 0.875rem;
+    gap: 1.25rem;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.lc__body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lc__body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
 }
 
 /* Contest Row */
@@ -529,27 +550,58 @@
 .lc__recent-list {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.lc__recent-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lc__recent-list::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.lc__recent-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.lc__recent-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .lc__recent-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
     text-decoration: none;
     color: inherit;
-    transition: background 0.15s;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .lc__recent-item:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateX(2px);
 }
 
-.lc__recent-check {
-    color: #10b981;
-    font-size: 0.6875rem;
-    font-weight: 700;
+.lc__recent-icon {
+    color: #f59e0b;
+    display: flex;
+    align-items: center;
 }
 
 .lc__recent-name {
@@ -567,8 +619,11 @@
 /* Responsive */
 @media (max-width: 600px) {
     .lc__modal {
-        padding: 1rem;
         max-width: 100%;
+    }
+
+    .lc__body {
+        padding: 1.5rem 1rem;
     }
 
     .lc__contest-row {
@@ -580,7 +635,9 @@
     }
 
     .lc__header {
-        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 2rem 1.5rem 1.5rem;
+        text-align: center;
     }
 
     .lc__visit-btn {

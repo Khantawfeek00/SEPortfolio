@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './GeeksforGeeksModal.css';
 
 // ---- Donut SVG ----
@@ -187,6 +187,14 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
     const handleEsc = useCallback((e) => { if (e.key === 'Escape') onClose(); }, [onClose]);
     const [activeTab, setActiveTab] = useState('medium');
     const [isLoading, setIsLoading] = useState(false);
+    const listRef = useRef(null);
+
+    // Reset scroll when switching tabs
+    useEffect(() => {
+        if (listRef.current) {
+            listRef.current.scrollTop = 0;
+        }
+    }, [activeTab]);
 
     useEffect(() => {
         if (isOpen) {
@@ -345,11 +353,12 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
 
                                 <div
                                     className="gfg__recent-list"
+                                    ref={listRef}
                                     tabIndex={0}
                                     aria-label="Problems List"
                                     onWheel={(e) => {
                                         const list = e.currentTarget;
-                                        const modal = list.closest('.gfg__modal');
+                                        const modal = list.closest('.gfg__body');
                                         if (!modal) return;
 
                                         const isAtTop = list.scrollTop === 0;
@@ -361,12 +370,20 @@ export default function GeeksforGeeksModal({ isOpen, onClose, username, stats })
                                     }}
                                 >
                                     {activeListData.length > 0 ? (
-                                        activeListData.map((prob, i) => (
-                                            <div key={i} className="gfg__recent-item">
-                                                <span className="gfg__recent-check">•</span>
-                                                <span className="gfg__recent-name">{prob}</span>
-                                            </div>
-                                        ))
+                                        activeListData.map((prob, i) => {
+                                            const slug = prob.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                            return (
+                                                <a key={i} href={`https://www.geeksforgeeks.org/problems/${slug}/1`} target="_blank" rel="noopener noreferrer" className="gfg__recent-item">
+                                                    <span className="gfg__recent-icon">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <polyline points="16 18 22 12 16 6"></polyline>
+                                                            <polyline points="8 6 2 12 8 18"></polyline>
+                                                        </svg>
+                                                    </span>
+                                                    <span className="gfg__recent-name">{prob}</span>
+                                                </a>
+                                            );
+                                        })
                                     ) : (
                                         <div className="gfg__placeholder-content" style={{ gridColumn: '1 / -1' }}>
                                             <p style={{ color: '#a0aec0', fontSize: '1rem', lineHeight: '1.6' }}>

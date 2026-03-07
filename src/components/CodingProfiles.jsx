@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './CodingProfiles.css';
 import LeetCodeModal from './LeetCodeModal';
 import GeeksforGeeksModal from './GeeksforGeeksModal';
+import HackerRankModal from './HackerRankModal';
 
 // Official SVG Logos
 const LeetCodeLogo = () => (
@@ -74,7 +75,7 @@ const PROFILES = {
         icon: <HackerRankLogo />,
         url: 'https://www.hackerrank.com/profile/khantawfeek00',
         description: 'Completing challenges in problem solving, Java, SQL, and earning skill badges across multiple domains.',
-        stats: { total: 50, easy: null, medium: null, hard: null },
+        stats: { total: 138, easy: null, medium: null, hard: null, hrPoints: '1,884' },
         highlight: { value: '5★', label: 'Problem Solving', icon: '🎖️' },
     },
 };
@@ -417,6 +418,22 @@ function ProfileCard({ profile, onClick }) {
                             </div>
                         </div>
                     )}
+                    {stats.hrPoints && (
+                        <div className="cp__breakdown">
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Points</span>
+                                <span className="cp__stat-value" style={{ color: '#3b82f6' }}>{stats.hrPoints}</span>
+                            </div>
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Top Badge</span>
+                                <span className="cp__stat-value" style={{ color: '#f59e0b' }}>5 Stars</span>
+                            </div>
+                            <div className="cp__stat-row">
+                                <span className="cp__stat-label">Verified</span>
+                                <span className="cp__stat-value" style={{ color: '#10b981' }}>6 Badges</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div
@@ -438,6 +455,7 @@ export default function CodingProfiles() {
     const [modal, setModal] = useState(null);
     const [showLCModal, setShowLCModal] = useState(false);
     const [showGFGModal, setShowGFGModal] = useState(false);
+    const [showHRModal, setShowHRModal] = useState(false);
     const [gfgStats, setGfgStats] = useState(null);
 
     const openModal = (profile, stats, isLive) => {
@@ -450,6 +468,11 @@ export default function CodingProfiles() {
         if (profile.key === 'gfg') {
             setGfgStats(stats);
             setShowGFGModal(true);
+            return;
+        }
+        // HackerRank gets the rich modal
+        if (profile.key === 'hackerrank') {
+            setShowHRModal(true);
             return;
         }
         setModal({ profile, stats, isLive });
@@ -494,6 +517,10 @@ export default function CodingProfiles() {
                     username="khantawfeek00"
                     stats={gfgStats}
                 />
+            )}
+
+            {showHRModal && (
+                <HackerRankModal onClose={() => setShowHRModal(false)} />
             )}
         </section>
     );
