@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import './HackerRankModal.css';
 import historyData from '../data/hackerrank_history.json';
-
+import { FcIdea, FcCalendar } from "react-icons/fc";
 const USERNAME = 'khantawfeek00';
 
 
@@ -15,74 +15,35 @@ function getBadgeColor(stars) {
 
 function getBadgeIcon(name) {
     const n = name.toLowerCase();
+
+    // Unified sizing attributes for all SVGs to match LeetCode
+    const size = 68;
+
     if (n.includes('java')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <path d="M18 10c0-3.3-3.6-6-8-6S2 6.7 2 10s3.6 6 8 6" />
-                <path d="M18 10c0-2-3-3-6-3" />
-                <path d="M12 21c-4.4 0-8-1.7-8-3.8" />
-                <path d="M22 17.5c0-1.4-1.8-2.5-4-2.5-1.5 0-3 .7-3.7 1.8" />
-                <path d="M16 19.3c1.2.7 2.8 1.2 4.2.7" />
-                <path d="M9 2v4" />
-                <path d="M13 2v4" />
-                <path d="M5 2v4" />
-            </svg>
-        );
+        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width={size} height={size} alt="Java" />;
     }
     if (n.includes('python')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <path d="M12 2C8.69 2 6 4.69 6 8v3h6v4H6v1c0 3.31 2.69 6 6 6s6-2.69 6-6v-3H12v-4h6V8c0-3.31-2.69-6-6-6z" />
-                <circle cx="9" cy="5" r="1" fill="currentColor" />
-                <circle cx="15" cy="19" r="1" fill="currentColor" />
-            </svg>
-        );
+        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width={size} height={size} alt="Python" />;
+    }
+    if (n === 'c') {
+        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" width={size} height={size} alt="C" />;
     }
     if (n.includes('c++') || n.includes('cpp') || n.includes('c ')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <path d="M18 9v6" />
-                <path d="M15 12h6" />
-                <path d="M10 9v6" />
-                <path d="M7 12h6" />
-                <path d="M5.5 16A4.5 4.5 0 0 1 1 12a4.5 4.5 0 0 1 4.5-4.5" />
-            </svg>
-        );
+        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" width={size} height={size} alt="C++" />;
     }
     if (n.includes('sql') || n.includes('database')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <ellipse cx="12" cy="5" rx="9" ry="3" />
-                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
-        );
+        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" width={size} height={size} alt="MySQL" />;
     }
     if (n.includes('problem solving') || n.includes('algorithm')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 16v-4" />
-                <path d="M12 8h.01" />
-                <path d="M8.5 14l3.5-3.5 3.5 3.5" />
-            </svg>
-        );
+        return <FcIdea size={size * 0.9} />;
     }
     if (n.includes('30 days') || n.includes('days of code')) {
-        return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-                <path d="M9 16l2 2 4-4" />
-            </svg>
-        );
+        return <FcCalendar size={size * 0.85} />;
     }
 
     // Default shield
     return (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
     );
