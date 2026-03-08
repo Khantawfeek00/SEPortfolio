@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import './HackerRankModal.css';
 import historyData from '../data/hackerrank_history.json';
 
@@ -143,31 +143,74 @@ function SkillsDonut() {
 function SubmissionHeatmap({ historyMap }) {
     const [cells, setCells] = useState([]);
     const [totalSubs, setTotalSubs] = useState(0);
+    const [totalDays, setTotalDays] = useState(0);
+    const [streak, setStreak] = useState(0);
+    const [hoveredCell, setHoveredCell] = useState(null);
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+        }
+    }, [cells]);
 
     useEffect(() => {
         if (!historyMap) return;
         try {
-            const total = Object.values(historyMap).reduce((sum, n) => sum + n, 0);
-            setTotalSubs(total);
+            // Calculate current streak
+            let currentStreak = 0;
+            const today = new Date();
+            let dStreak = new Date(today);
+            while (true) {
+                const key = `${dStreak.getFullYear()}-${String(dStreak.getMonth() + 1).padStart(2, '0')}-${String(dStreak.getDate()).padStart(2, '0')}`;
+                if (historyMap[key] > 0) {
+                    currentStreak++;
+                    dStreak.setDate(dStreak.getDate() - 1);
+                } else if (currentStreak === 0 && historyMap[key] === undefined && new Date().getTime() - dStreak.getTime() < 86400000) {
+                    dStreak.setDate(dStreak.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            setStreak(currentStreak);
 
-            // Determine peak year by finding max date
-            const dates = Object.keys(historyMap).sort();
-            let latestDateStr = dates[dates.length - 1];
-            if (!latestDateStr) latestDateStr = new Date().toISOString().split('T')[0];
-
-            const maxDate = new Date(latestDateStr);
+            // Show precisely the last 12 months from today
+            const maxDate = new Date();
             const oneYearAgo = new Date(maxDate);
             oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-            const result = [];
             const d = new Date(oneYearAgo);
-            d.setDate(d.getDate() - d.getDay()); // align Sunday
+            const dayOfWeek = d.getDay();
+            const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            d.setDate(d.getDate() - mondayOffset);
+
+            const result = [];
+            let currentYearSubs = 0;
+            let currentYearDays = 0;
 
             while (d <= maxDate) {
                 const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                 const count = historyMap[key] || 0;
-                result.push({ date: new Date(d), count });
+                const isEmpty = d < oneYearAgo || d > maxDate;
+                result.push({ date: new Date(d), count, isEmpty });
+
+                if (!isEmpty && count > 0) {
+                    currentYearSubs += count;
+                    currentYearDays += 1;
+                }
                 d.setDate(d.getDate() + 1);
+            }
+
+            setTotalSubs(currentYearSubs);
+            setTotalDays(currentYearDays);
+
+            const lastDay = result[result.length - 1].date;
+            const lastDayOfWeek = lastDay.getDay();
+            const remaining = lastDayOfWeek === 0 ? 0 : 7 - lastDayOfWeek;
+            for (let i = 0; i < remaining; i++) {
+                const pad = new Date(lastDay);
+                pad.setDate(pad.getDate() + i + 1);
+                result.push({ date: pad, count: 0, isEmpty: true });
             }
             setCells(result);
         } catch { /* ignore */ }
@@ -176,42 +219,119 @@ function SubmissionHeatmap({ historyMap }) {
     if (cells.length === 0) return null;
 
     const weeks = [];
-    let currentWeek = [];
-    cells.forEach((cell, i) => {
-        currentWeek.push(cell);
-        if (currentWeek.length === 7 || i === cells.length - 1) {
-            weeks.push(currentWeek);
-            currentWeek = [];
+    for (let i = 0; i < cells.length; i += 7) {
+        weeks.push(cells.slice(i, i + 7));
+    }
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    let previousMonth = -1;
+    const columns = [];
+    weeks.forEach(week => {
+        const realCells = week.filter(c => !c.isEmpty);
+        const monthsInWeek = [...new Set(realCells.map(c => c.date.getMonth()))];
+
+        if (monthsInWeek.length === 2 && previousMonth !== -1) {
+            const oldMonth = previousMonth;
+            const newMonth = monthsInWeek.find(m => m !== oldMonth);
+            columns.push({
+                week, monthNum: oldMonth, isNewMonth: false, monthLabel: null
+            });
+            columns.push({
+                week, monthNum: newMonth, isNewMonth: true,
+                monthLabel: monthNames[newMonth]
+            });
+            previousMonth = newMonth;
+        } else {
+            const m = monthsInWeek[0] ?? previousMonth;
+            const isNew = m !== previousMonth && previousMonth !== -1;
+            const showLabel = isNew || previousMonth === -1;
+            columns.push({
+                week, monthNum: m,
+                isNewMonth: isNew,
+                monthLabel: showLabel ? monthNames[m] : null
+            });
+            previousMonth = m;
         }
     });
 
+    for (let i = 0; i < columns.length; i++) {
+        if (columns[i].monthLabel) {
+            const m = columns[i].monthNum;
+            let count = 0;
+            for (let j = i; j < columns.length && columns[j].monthNum === m; j++) {
+                count++;
+            }
+            columns[i].labelOffset = (count * 16) / 2;
+        }
+    }
+
     return (
-        <div className="hr__heatmap-section">
+        <div className="hr__heatmap-section" style={{ position: 'relative' }}>
             <div className="hr__heatmap-header">
-                <span><strong>{totalSubs}</strong> submissions recorded all-time</span>
+                <span><strong>{totalSubs}</strong> submissions in the past year</span>
+                <span className="hr__heatmap-meta">Active: <strong>{totalDays}</strong>d &nbsp; Streak: <strong>{streak}</strong></span>
             </div>
-            <div className="hr__heatmap-scroll">
-                <div className="hr__heatmap-grid">
-                    {weeks.map((week, wi) => (
-                        <div key={wi} className="hr__heatmap-col">
-                            {week.map((cell, ci) => {
-                                let level = 0;
-                                if (cell.count >= 1) level = 1;
-                                if (cell.count >= 3) level = 2;
-                                if (cell.count >= 5) level = 3;
-                                if (cell.count >= 8) level = 4;
-                                return (
-                                    <div
-                                        key={ci}
-                                        className={`hr__heatmap-cell hr__heatmap-cell--${level}`}
-                                        title={`${cell.date.toLocaleDateString()}: ${cell.count} submissions`}
-                                    />
-                                );
-                            })}
+            <div className="hr__heatmap-scroll" ref={scrollRef}>
+                <div className="hr__heatmap-day-labels">
+                    {dayLabels.map(d => <span key={d}>{d}</span>)}
+                </div>
+                <div className="hr__heatmap-grid" onMouseLeave={() => setHoveredCell(null)}>
+                    {columns.map(({ week, isNewMonth, monthLabel, monthNum, labelOffset }, wi) => (
+                        <div key={wi} className="hr__heatmap-col-wrapper">
+                            {monthLabel && (
+                                <span className="hr__heatmap-month-label" style={{ left: labelOffset || 0 }}>{monthLabel}</span>
+                            )}
+                            <div className={`hr__heatmap-col ${isNewMonth && wi !== 0 ? 'hr__heatmap-col--new-month' : ''}`}>
+                                {week.map((cell, ci) => {
+                                    if (cell.isEmpty || cell.date.getMonth() !== monthNum) {
+                                        return <div key={ci} className="hr__heatmap-cell hr__heatmap-cell--empty" onMouseEnter={() => setHoveredCell(null)} />;
+                                    }
+                                    let level = 0;
+                                    if (cell.count >= 1) level = 1;
+                                    if (cell.count >= 3) level = 2;
+                                    if (cell.count >= 5) level = 3;
+                                    if (cell.count >= 8) level = 4;
+
+                                    const handleMouseEnter = (e) => {
+                                        const rect = e.target.getBoundingClientRect();
+                                        const sectionRect = document.querySelector('.hr__heatmap-section').getBoundingClientRect();
+                                        const x = rect.left - sectionRect.left + rect.width / 2;
+                                        const y = rect.top - sectionRect.top - 10;
+                                        const positionClass = x > sectionRect.width / 2 ? 'right' : '';
+                                        setHoveredCell({
+                                            count: cell.count,
+                                            date: cell.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                                            x, y, positionClass
+                                        });
+                                    };
+
+                                    return (
+                                        <div
+                                            key={ci}
+                                            className={`hr__heatmap-cell hr__heatmap-cell--${level}`}
+                                            onMouseEnter={handleMouseEnter}
+                                        />
+                                    );
+                                })}
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
+            {hoveredCell && (
+                <div
+                    className={`hr__heatmap-tooltip ${hoveredCell.positionClass || ''}`}
+                    style={{
+                        left: hoveredCell.x,
+                        top: hoveredCell.y
+                    }}
+                >
+                    {hoveredCell.count} submission{hoveredCell.count !== 1 ? 's' : ''} on {hoveredCell.date}
+                    <div className="hr__heatmap-tooltip-arrow"></div>
+                </div>
+            )}
         </div>
     );
 }
