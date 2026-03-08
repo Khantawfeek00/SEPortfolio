@@ -396,13 +396,6 @@
     background: #39d353;
 }
 
-/* Badges */
-.hr__section-title {
-    color: #fff;
-    font-size: 1.1rem;
-    margin: 0 0 1rem 0;
-    font-weight: 600;
-}
 
 .hr__carousel {
     position: relative;
@@ -551,7 +544,17 @@
 
 /* Recent AC */
 .hr__recent {
-    margin-top: 0.5rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+}
+
+.hr__recent-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
 }
 
 .hr__recent-list {
@@ -618,8 +621,9 @@
 }
 
 .hr__recent-time {
-    color: #64748b;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    white-space: nowrap;
 }
 
 @media (max-width: 600px) {

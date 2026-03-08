@@ -270,9 +270,16 @@ export default function LeetCodeModal({ onClose }) {
 
     function timeAgo(timestamp) {
         const diff = Date.now() / 1000 - Number(timestamp);
-        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-        return `${Math.floor(diff / 86400)}d ago`;
+        if (diff < 3600) {
+            const mins = Math.max(1, Math.floor(diff / 60));
+            return `${mins} minute${mins !== 1 ? 's' : ''} ago`;
+        }
+        if (diff < 86400) {
+            const hrs = Math.floor(diff / 3600);
+            return `${hrs} hour${hrs !== 1 ? 's' : ''} ago`;
+        }
+        const days = Math.floor(diff / 86400);
+        return `${days} day${days !== 1 ? 's' : ''} ago`;
     }
 
     return (

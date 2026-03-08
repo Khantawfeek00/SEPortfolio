@@ -530,6 +530,12 @@
     flex: 1;
 }
 
+.gfg__recent-time {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
 /* Heatmap */
 .gfg__heatmap-section {
     padding: 0.75rem 0.875rem;

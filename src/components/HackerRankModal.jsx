@@ -305,6 +305,20 @@ export default function HackerRankModal({ onClose }) {
         };
     }, [handleEsc]);
 
+    function timeAgo(dateString) {
+        const diff = (Date.now() - new Date(dateString).getTime()) / 1000;
+        if (diff < 3600) {
+            const mins = Math.max(1, Math.floor(diff / 60));
+            return `${mins} minute${mins !== 1 ? 's' : ''} ago`;
+        }
+        if (diff < 86400) {
+            const hrs = Math.floor(diff / 3600);
+            return `${hrs} hour${hrs !== 1 ? 's' : ''} ago`;
+        }
+        const days = Math.floor(diff / 86400);
+        return `${days} day${days !== 1 ? 's' : ''} ago`;
+    }
+
     function renderStars(count) {
         const stars = [];
         for (let i = 0; i < 5; i++) {
@@ -412,7 +426,7 @@ export default function HackerRankModal({ onClose }) {
 
                             {/* Recent AC */}
                             <div className="hr__recent">
-                                <h4 className="hr__section-title">Recent Accepted</h4>
+                                <h4 className="hr__recent-title">Recent Accepted</h4>
                                 <div
                                     className="hr__recent-list"
                                     tabIndex={0}
@@ -439,7 +453,7 @@ export default function HackerRankModal({ onClose }) {
                                                 </svg>
                                             </span>
                                             <span className="hr__recent-name">{sub.name}</span>
-                                            <span className="hr__recent-time">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(sub.time))}</span>
+                                            <span className="hr__recent-time">{timeAgo(sub.time)}</span>
                                         </a>
                                     ))}
                                 </div>
