@@ -158,9 +158,16 @@ async function fetchGFGLive(username) {
     try {
         let schoolList = [], basicList = [], easyList = [], mediumList = [], hardList = [];
         const body = JSON.stringify({ handle: username, requestType: "", year: "", month: "" });
-        const problemRes = await fetch('/api/gfg/api/v1/user/problems/submissions/', {
+
+        // Use corsproxy.io instead of a local vite proxy to ensure it works anywhere
+        const gfgApiUrl = 'https://practiceapi.geeksforgeeks.org/api/v1/user/problems/submissions/';
+        const problemRes = await fetch(`https://corsproxy.io/?${encodeURIComponent(gfgApiUrl)}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'origin': 'https://www.geeksforgeeks.org',
+                'referer': 'https://www.geeksforgeeks.org/'
+            },
             body
         });
 
@@ -189,9 +196,13 @@ async function fetchGFGLive(username) {
 
         const fetchYearHeatmap = async (yr) => {
             try {
-                const res = await fetch('/api/gfg/api/v1/user/problems/submissions/', {
+                const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(gfgApiUrl)}`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'origin': 'https://www.geeksforgeeks.org',
+                        'referer': 'https://www.geeksforgeeks.org/'
+                    },
                     body: JSON.stringify({ handle: username, requestType: "getYearwiseUserSubmissions", year: yr.toString(), month: "" })
                 });
                 if (res.ok) {

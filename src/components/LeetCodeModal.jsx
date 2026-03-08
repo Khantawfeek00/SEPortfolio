@@ -215,6 +215,7 @@ export default function LeetCodeModal({ onClose }) {
     const [calendar, setCalendar] = useState(null);
     const [recentAC, setRecentAC] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeBadgeIndex, setActiveBadgeIndex] = useState(0);
 
     const handleEsc = useCallback((e) => { if (e.key === 'Escape') onClose(); }, [onClose]);
 
@@ -245,6 +246,15 @@ export default function LeetCodeModal({ onClose }) {
             setLoading(false);
         });
     }, []);
+
+    // Carousel Timer
+    useEffect(() => {
+        if (badges.length <= 1) return;
+        const timer = setInterval(() => {
+            setActiveBadgeIndex(prev => (prev + 1) % badges.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [badges]);
 
     let easy = 0, medium = 0, hard = 0, total = 0;
     if (solved) {
@@ -349,25 +359,29 @@ export default function LeetCodeModal({ onClose }) {
 
                             {badges.length > 0 && (
                                 <div className="lc__badges-card">
-                                    <div className="lc__badges-header">
-                                        <span className="lc__badges-title">Badges</span>
-                                        <span className="lc__badges-count">{badges.length}</span>
-                                    </div>
-                                    <div className="lc__badges-list">
-                                        {badges.slice(0, 6).map((badge) => {
-                                            const label = badge.displayName + (badge.creationDate ? ` (${badge.creationDate.slice(0, 10)})` : '');
-                                            return (
-                                                <div key={badge.id} className="lc__badge" data-tooltip={label}>
-                                                    {badge.icon ? (
-                                                        <img src={badge.icon} alt={badge.displayName} className="lc__badge-icon" />
-                                                    ) : (
-                                                        <span className="lc__badge-placeholder">🏆</span>
-                                                    )}
+                                    <div className="lc__carousel">
+                                        {badges.map((badge, idx) => (
+                                            <div key={badge.id} className={`lc__carousel-slide ${idx === activeBadgeIndex ? 'active' : ''}`}>
+                                                <div className="lc__badge-card">
+                                                    <div className="lc__badge-icon-wrap">
+                                                        {badge.icon ? (
+                                                            <img src={badge.icon} alt={badge.displayName} />
+                                                        ) : (
+                                                            <span>🏆</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="lc__badge-info">
+                                                        <span className="lc__badge-name" title={badge.displayName}>{badge.displayName}</span>
+                                                    </div>
                                                 </div>
-                                            );
-                                        })}
+                                            </div>
+                                        ))}
                                     </div>
-                                    <p className="lc__badge-latest">Latest: <strong>{badges[0]?.displayName}</strong></p>
+                                    <div className="lc__carousel-dots">
+                                        {badges.map((_, idx) => (
+                                            <div key={idx} className={`lc__carousel-dot ${idx === activeBadgeIndex ? 'active' : ''}`} />
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>

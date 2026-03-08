@@ -381,9 +381,6 @@ export default function HackerRankModal({ onClose }) {
 
                                 {/* Skill Badges Area */}
                                 <div className="hr__badges-container">
-                                    <div className="hr__badges-header">
-                                        <span className="hr__badges-header-title">Verified Badges</span>
-                                    </div>
                                     <div className="hr__carousel">
                                         {badges.map((badge, idx) => {
                                             const badgeColor = getBadgeColor(badge.stars);
