@@ -501,17 +501,45 @@
 
 .lc__heatmap-scroll {
     overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 24px;
     scrollbar-width: none;
+    display: flex;
+    align-items: flex-start;
 }
 
 .lc__heatmap-scroll::-webkit-scrollbar {
     display: none;
 }
 
+.lc__heatmap-day-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-right: 4px;
+    flex-shrink: 0;
+    padding-top: 0;
+}
+
+.lc__heatmap-day-labels span {
+    height: 14px;
+    line-height: 14px;
+    font-size: 0.55rem;
+    color: #64748b;
+    text-align: right;
+    min-width: 22px;
+}
+
 .lc__heatmap-grid {
     display: flex;
     gap: 2px;
     min-width: 560px;
+}
+
+.lc__heatmap-col-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .lc__heatmap-col {
@@ -529,6 +557,11 @@
 
 .lc__heatmap-cell:hover {
     transform: scale(1.5);
+}
+
+.lc__heatmap-cell--empty {
+    opacity: 0;
+    pointer-events: auto;
 }
 
 .lc__heatmap-cell--0 {
@@ -551,17 +584,61 @@
     background: #39d353;
 }
 
-.lc__heatmap-months {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.25rem;
-    min-width: 560px;
-    padding: 0 2px;
+.lc__heatmap-col--new-month {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 2px;
 }
 
-.lc__heatmap-months span {
-    font-size: 0.5rem;
-    color: #475569;
+.lc__heatmap-month-label {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #94a3b8;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    transform: translateX(-50%);
+}
+
+.lc__heatmap-col-wrapper:hover .lc__heatmap-month-label {
+    color: #ffffff;
+}
+
+/* Heatmap Tooltip */
+.lc__heatmap-tooltip {
+    position: absolute;
+    background: #1f2937;
+    color: #e2e8f0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    z-index: 100;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    margin-top: -6px;
+}
+
+.lc__heatmap-tooltip-arrow {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1f2937;
+}
+
+.lc__heatmap-tooltip.right {
+    transform: translate(-85%, -100%);
+}
+
+.lc__heatmap-tooltip.right .lc__heatmap-tooltip-arrow {
+    left: 85%;
 }
 
 /* Recent AC */

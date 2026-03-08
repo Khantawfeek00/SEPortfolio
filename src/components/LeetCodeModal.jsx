@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import './LeetCodeModal.css';
 
 const USERNAME = 'TawfeekKhan';
@@ -124,6 +124,14 @@ function SolvedDonut({ easy, medium, hard, total, totalQ }) {
 function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
     const [cells, setCells] = useState([]);
     const [totalSubs, setTotalSubs] = useState(0);
+    const [hoveredCell, setHoveredCell] = useState(null);
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+        }
+    }, [cells]);
 
     useEffect(() => {
         if (!calendarJson) return;
@@ -144,15 +152,27 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
             const oneYearAgo = new Date(now);
             oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-            const result = [];
+            // Align start to previous Monday (Mon=1 in getDay, Sun=0)
             const d = new Date(oneYearAgo);
-            d.setDate(d.getDate() - d.getDay());
+            const dayOfWeek = d.getDay(); // 0=Sun,1=Mon,...6=Sat
+            const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // how far back to Monday
+            d.setDate(d.getDate() - mondayOffset);
 
+            const result = [];
             while (d <= now) {
                 const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                 const count = dayMap[key] || 0;
-                result.push({ date: new Date(d), count });
+                result.push({ date: new Date(d), count, isEmpty: d < oneYearAgo || d > now });
                 d.setDate(d.getDate() + 1);
+            }
+            // Pad the last week to 7 days if needed
+            const lastDay = result[result.length - 1].date;
+            const lastDayOfWeek = lastDay.getDay();
+            const remaining = lastDayOfWeek === 0 ? 0 : 7 - lastDayOfWeek; // days until Sunday
+            for (let i = 0; i < remaining; i++) {
+                const pad = new Date(lastDay);
+                pad.setDate(pad.getDate() + i + 1);
+                result.push({ date: pad, count: 0, isEmpty: true });
             }
             setCells(result);
         } catch { /* ignore */ }
@@ -160,49 +180,129 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
 
     if (cells.length === 0) return null;
 
+    // Group into weeks of 7 (Mon–Sun per column)
     const weeks = [];
-    let currentWeek = [];
-    cells.forEach((cell, i) => {
-        currentWeek.push(cell);
-        if (currentWeek.length === 7 || i === cells.length - 1) {
-            weeks.push(currentWeek);
-            currentWeek = [];
+    for (let i = 0; i < cells.length; i += 7) {
+        weeks.push(cells.slice(i, i + 7));
+    }
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    // Build columns, splitting transition weeks into two visual columns
+    let previousMonth = -1;
+    const columns = [];
+    weeks.forEach(week => {
+        const realCells = week.filter(c => !c.isEmpty);
+        const monthsInWeek = [...new Set(realCells.map(c => c.date.getMonth()))];
+
+        if (monthsInWeek.length === 2 && previousMonth !== -1) {
+            // Transition week: split into old-month tail + new-month head
+            const oldMonth = previousMonth;
+            const newMonth = monthsInWeek.find(m => m !== oldMonth);
+
+            // Column for old month's last days
+            columns.push({
+                week, monthNum: oldMonth, isNewMonth: false, monthLabel: null
+            });
+            // Column for new month's first days (with separator)
+            columns.push({
+                week, monthNum: newMonth, isNewMonth: true,
+                monthLabel: monthNames[newMonth]
+            });
+            previousMonth = newMonth;
+        } else {
+            // Single-month week
+            const m = monthsInWeek[0] ?? previousMonth;
+            const isNew = m !== previousMonth && previousMonth !== -1;
+            const showLabel = isNew || previousMonth === -1;
+            columns.push({
+                week, monthNum: m,
+                isNewMonth: isNew,
+                monthLabel: showLabel ? monthNames[m] : null
+            });
+            previousMonth = m;
         }
     });
 
-    const months = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
+    // Second pass: calculate centered label offset for each month
+    for (let i = 0; i < columns.length; i++) {
+        if (columns[i].monthLabel) {
+            const m = columns[i].monthNum;
+            let count = 0;
+            for (let j = i; j < columns.length && columns[j].monthNum === m; j++) {
+                count++;
+            }
+            columns[i].labelOffset = (count * 16) / 2; // 14px cell + 2px gap = 16px per col
+        }
+    }
 
     return (
-        <div className="lc__heatmap-section">
+        <div className="lc__heatmap-section" style={{ position: 'relative' }}>
             <div className="lc__heatmap-header">
                 <span><strong>{totalSubs}</strong> submissions in the past year</span>
                 <span className="lc__heatmap-meta">Active: <strong>{totalDays}</strong>d &nbsp; Streak: <strong>{streak}</strong></span>
             </div>
-            <div className="lc__heatmap-scroll">
-                <div className="lc__heatmap-grid">
-                    {weeks.map((week, wi) => (
-                        <div key={wi} className="lc__heatmap-col">
-                            {week.map((cell, ci) => {
-                                let level = 0;
-                                if (cell.count >= 1) level = 1;
-                                if (cell.count >= 3) level = 2;
-                                if (cell.count >= 5) level = 3;
-                                if (cell.count >= 8) level = 4;
-                                return (
-                                    <div
-                                        key={ci}
-                                        className={`lc__heatmap-cell lc__heatmap-cell--${level}`}
-                                        title={`${cell.date.toLocaleDateString()}: ${cell.count} submissions`}
-                                    />
-                                );
-                            })}
+            <div className="lc__heatmap-scroll" ref={scrollRef}>
+                {/* Day labels on the left */}
+                <div className="lc__heatmap-day-labels">
+                    {dayLabels.map(d => <span key={d}>{d}</span>)}
+                </div>
+                <div className="lc__heatmap-grid" onMouseLeave={() => setHoveredCell(null)}>
+                    {columns.map(({ week, isNewMonth, monthLabel, monthNum, labelOffset }, wi) => (
+                        <div key={wi} className="lc__heatmap-col-wrapper">
+                            {monthLabel && (
+                                <span className="lc__heatmap-month-label" style={{ left: labelOffset || 0 }}>{monthLabel}</span>
+                            )}
+                            <div className={`lc__heatmap-col ${isNewMonth && wi !== 0 ? 'lc__heatmap-col--new-month' : ''}`}>
+                                {week.map((cell, ci) => {
+                                    if (cell.isEmpty || cell.date.getMonth() !== monthNum) {
+                                        return <div key={ci} className="lc__heatmap-cell lc__heatmap-cell--empty" onMouseEnter={() => setHoveredCell(null)} />;
+                                    }
+                                    let level = 0;
+                                    if (cell.count >= 1) level = 1;
+                                    if (cell.count >= 3) level = 2;
+                                    if (cell.count >= 5) level = 3;
+                                    if (cell.count >= 8) level = 4;
+
+                                    const handleMouseEnter = (e) => {
+                                        const rect = e.target.getBoundingClientRect();
+                                        const sectionRect = document.querySelector('.lc__heatmap-section').getBoundingClientRect();
+                                        const x = rect.left - sectionRect.left + rect.width / 2;
+                                        const y = rect.top - sectionRect.top - 10;
+                                        const positionClass = x > sectionRect.width / 2 ? 'right' : '';
+                                        setHoveredCell({
+                                            count: cell.count,
+                                            date: cell.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                                            x, y, positionClass
+                                        });
+                                    };
+
+                                    return (
+                                        <div
+                                            key={ci}
+                                            className={`lc__heatmap-cell lc__heatmap-cell--${level}`}
+                                            onMouseEnter={handleMouseEnter}
+                                        />
+                                    );
+                                })}
+                            </div>
                         </div>
                     ))}
                 </div>
-                <div className="lc__heatmap-months">
-                    {months.map((m) => <span key={m}>{m}</span>)}
-                </div>
             </div>
+            {hoveredCell && (
+                <div
+                    className={`lc__heatmap-tooltip ${hoveredCell.positionClass || ''}`}
+                    style={{
+                        left: hoveredCell.x,
+                        top: hoveredCell.y
+                    }}
+                >
+                    {hoveredCell.count} submission{hoveredCell.count !== 1 ? 's' : ''} on {hoveredCell.date}
+                    <div className="lc__heatmap-tooltip-arrow"></div>
+                </div>
+            )}
         </div>
     );
 }

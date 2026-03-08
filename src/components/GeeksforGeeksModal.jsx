@@ -51,6 +51,13 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
     const [cells, setCells] = useState([]);
     const [totalSubs, setTotalSubs] = useState(0);
     const [hoveredCell, setHoveredCell] = useState(null);
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+        }
+    }, [cells]);
 
     // Format date like the screenshot: "Monday, February 2, 2026"
     const formatDate = (date) => {
@@ -84,15 +91,27 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
             const oneYearAgo = new Date(now);
             oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-            const result = [];
+            // Align start to previous Monday
             const d = new Date(oneYearAgo);
-            d.setDate(d.getDate() - d.getDay());
+            const dayOfWeek = d.getDay();
+            const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+            d.setDate(d.getDate() - mondayOffset);
 
+            const result = [];
             while (d <= now) {
                 const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
                 const count = dayMap[key] || 0;
-                result.push({ date: new Date(d), count });
+                result.push({ date: new Date(d), count, isEmpty: d < oneYearAgo || d > now });
                 d.setDate(d.getDate() + 1);
+            }
+            // Pad the last week to 7 days if needed
+            const lastDay = result[result.length - 1].date;
+            const lastDayOfWeek = lastDay.getDay();
+            const remaining = lastDayOfWeek === 0 ? 0 : 7 - lastDayOfWeek;
+            for (let i = 0; i < remaining; i++) {
+                const pad = new Date(lastDay);
+                pad.setDate(pad.getDate() + i + 1);
+                result.push({ date: pad, count: 0, isEmpty: true });
             }
             setCells(result);
         } catch { /* ignore */ }
@@ -100,17 +119,57 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
 
     if (cells.length === 0) return null;
 
+    // Group into weeks of 7 (Mon–Sun per column)
     const weeks = [];
-    let currentWeek = [];
-    cells.forEach((cell, i) => {
-        currentWeek.push(cell);
-        if (currentWeek.length === 7 || i === cells.length - 1) {
-            weeks.push(currentWeek);
-            currentWeek = [];
+    for (let i = 0; i < cells.length; i += 7) {
+        weeks.push(cells.slice(i, i + 7));
+    }
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    // Build columns, splitting transition weeks into two visual columns
+    let previousMonth = -1;
+    const columns = [];
+    weeks.forEach(week => {
+        const realCells = week.filter(c => !c.isEmpty);
+        const monthsInWeek = [...new Set(realCells.map(c => c.date.getMonth()))];
+
+        if (monthsInWeek.length === 2 && previousMonth !== -1) {
+            const oldMonth = previousMonth;
+            const newMonth = monthsInWeek.find(m => m !== oldMonth);
+            columns.push({
+                week, monthNum: oldMonth, isNewMonth: false, monthLabel: null
+            });
+            columns.push({
+                week, monthNum: newMonth, isNewMonth: true,
+                monthLabel: monthNames[newMonth]
+            });
+            previousMonth = newMonth;
+        } else {
+            const m = monthsInWeek[0] ?? previousMonth;
+            const isNew = m !== previousMonth && previousMonth !== -1;
+            const showLabel = isNew || previousMonth === -1;
+            columns.push({
+                week, monthNum: m,
+                isNewMonth: isNew,
+                monthLabel: showLabel ? monthNames[m] : null
+            });
+            previousMonth = m;
         }
     });
 
-    const months = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'];
+    // Second pass: calculate centered label offset for each month
+    for (let i = 0; i < columns.length; i++) {
+        if (columns[i].monthLabel) {
+            const m = columns[i].monthNum;
+            let count = 0;
+            for (let j = i; j < columns.length && columns[j].monthNum === m; j++) {
+                count++;
+            }
+            columns[i].labelOffset = (count * 16) / 2;
+        }
+    }
 
     return (
         <div className="gfg__heatmap-section" style={{ position: 'relative' }}>
@@ -118,35 +177,37 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
                 <span><strong>{totalSubs}</strong> submissions in the past year</span>
                 <span className="gfg__heatmap-meta">Active: <strong>{totalDays}</strong>d &nbsp; Streak: <strong>{streak}</strong></span>
             </div>
-            <div className="gfg__heatmap-scroll">
-                <div className="gfg__heatmap-grid-wrapper">
-                    <div className="gfg__heatmap-grid" onMouseLeave={() => setHoveredCell(null)}>
-                        {weeks.map((week, wi) => (
-                            <div key={wi} className="gfg__heatmap-col">
+            <div className="gfg__heatmap-scroll" ref={scrollRef}>
+                <div className="gfg__heatmap-day-labels">
+                    {dayLabels.map(d => <span key={d}>{d}</span>)}
+                </div>
+                <div className="gfg__heatmap-grid" onMouseLeave={() => setHoveredCell(null)}>
+                    {columns.map(({ week, isNewMonth, monthLabel, monthNum, labelOffset }, wi) => (
+                        <div key={wi} className="gfg__heatmap-col-wrapper">
+                            {monthLabel && (
+                                <span className="gfg__heatmap-month-label" style={{ left: labelOffset || 0 }}>{monthLabel}</span>
+                            )}
+                            <div className={`gfg__heatmap-col ${isNewMonth && wi !== 0 ? 'gfg__heatmap-col--new-month' : ''}`}>
                                 {week.map((cell, ci) => {
+                                    if (cell.isEmpty || cell.date.getMonth() !== monthNum) {
+                                        return <div key={ci} className="gfg__heatmap-cell gfg__heatmap-cell--empty" onMouseEnter={() => setHoveredCell(null)} />;
+                                    }
                                     let level = 0;
-                                    if (cell.count >= 1) level = 1;
-                                    if (cell.count >= 3) level = 2;
-                                    if (cell.count >= 5) level = 3;
-                                    if (cell.count >= 8) level = 4;
+                                    if (cell.count > 0 && cell.count <= 2) level = 1;
+                                    else if (cell.count > 2 && cell.count <= 5) level = 2;
+                                    else if (cell.count > 5 && cell.count <= 8) level = 3;
+                                    else if (cell.count > 8) level = 4;
 
                                     const handleMouseEnter = (e) => {
                                         const rect = e.target.getBoundingClientRect();
-                                        const containerRect = e.target.closest('.gfg__heatmap-section').getBoundingClientRect();
-                                        const xPos = rect.left - containerRect.left;
-
-                                        let positionClass = '';
-                                        // If cell is near right edge, shift tooltip left
-                                        if (xPos > containerRect.width - 120) positionClass = 'gfg__heatmap-tooltip--right';
-                                        // If cell is near left edge, shift tooltip right
-                                        else if (xPos < 60) positionClass = 'gfg__heatmap-tooltip--left';
-
+                                        const gridRect = document.querySelector('.gfg__heatmap-section').getBoundingClientRect();
+                                        const x = rect.left - gridRect.left + rect.width / 2;
+                                        const y = rect.top - gridRect.top - 10;
+                                        const positionClass = x > gridRect.width / 2 ? 'right' : '';
                                         setHoveredCell({
                                             count: cell.count,
-                                            date: formatDate(cell.date),
-                                            x: xPos + (rect.width / 2),
-                                            y: rect.top - containerRect.top - 8,
-                                            positionClass
+                                            date: cell.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                                            x, y, positionClass
                                         });
                                     };
 
@@ -159,11 +220,8 @@ function SubmissionHeatmap({ calendarJson, totalDays, streak }) {
                                     );
                                 })}
                             </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="gfg__heatmap-months">
-                    {months.map((m) => <span key={m}>{m}</span>)}
+                        </div>
+                    ))}
                 </div>
             </div>
             {hoveredCell && (
