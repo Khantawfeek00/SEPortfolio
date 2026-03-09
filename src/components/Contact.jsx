@@ -1,23 +1,98 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
+// ──────────────────────────────────────────────
+// EmailJS Configuration
+// Sign up at https://www.emailjs.com and fill these in:
+const EMAILJS_SERVICE_ID = 'service_69zbrqs';
+const EMAILJS_TEMPLATE_ID = 'template_3erh59j';
+const EMAILJS_PUBLIC_KEY = 'PDgD7l4QXcPOwY1Qv';
+// ──────────────────────────────────────────────
+
 export default function Contact() {
+    const formRef = useRef(null);
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [honeypot, setHoneypot] = useState('');
     const [sending, setSending] = useState(false);
+    const [lastSentAt, setLastSentAt] = useState(0);
+    const [toast, setToast] = useState({ show: false, type: '', message: '' });
+
+    // Math CAPTCHA
+    const [captcha, setCaptcha] = useState({ a: 0, b: 0 });
+    const [captchaInput, setCaptchaInput] = useState('');
+
+    // Timing — track when the form was first interacted with
+    const [formLoadedAt] = useState(Date.now());
+
+    const generateCaptcha = useCallback(() => {
+        setCaptcha({
+            a: Math.floor(Math.random() * 10) + 1,
+            b: Math.floor(Math.random() * 10) + 1
+        });
+        setCaptchaInput('');
+    }, []);
+
+    useEffect(() => {
+        generateCaptcha();
+    }, [generateCaptcha]);
+
+    const showToast = (type, message) => {
+        setToast({ show: true, type, message });
+        setTimeout(() => setToast({ show: false, type: '', message: '' }), 5000);
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSending(true);
-        // Simulate send — in production, wire up to a backend or email service
-        setTimeout(() => {
-            setSending(false);
-            alert('Message sent! I\'ll get back to you soon.');
+
+        // 🛡️ Anti-Spam: Honeypot check
+        if (honeypot) {
+            showToast('success', 'Message sent! I\'ll get back to you soon.');
             setFormData({ name: '', email: '', message: '' });
-        }, 1500);
+            return;
+        }
+
+        // 🛡️ Anti-Spam: Math CAPTCHA check
+        if (parseInt(captchaInput, 10) !== captcha.a + captcha.b) {
+            showToast('error', 'Incorrect answer. Please solve the math question.');
+            generateCaptcha();
+            return;
+        }
+
+        // 🛡️ Anti-Spam: Rate limiting (60s cooldown)
+        const now = Date.now();
+        const cooldown = 60000;
+        if (now - lastSentAt < cooldown) {
+            const remaining = Math.ceil((cooldown - (now - lastSentAt)) / 1000);
+            showToast('error', `Please wait ${remaining}s before sending another message.`);
+            return;
+        }
+
+        setSending(true);
+
+        try {
+            await emailjs.sendForm(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                formRef.current,
+                EMAILJS_PUBLIC_KEY
+            );
+            setLastSentAt(Date.now());
+            showToast('success', 'Message sent! I\'ll get back to you soon.');
+            setFormData({ name: '', email: '', message: '' });
+            generateCaptcha();
+        } catch (error) {
+            console.error('EmailJS error:', error);
+            // Show more descriptive error if possible
+            const errorMsg = error?.text || error?.message || 'Check your Template ID or Service ID.';
+            showToast('error', `Failed: ${errorMsg}`);
+        } finally {
+            setSending(false);
+        }
     };
 
     return (
@@ -84,7 +159,17 @@ export default function Contact() {
                     </div>
 
                     {/* Contact Form */}
-                    <form className="contact__form glass-card fade-in-right" onSubmit={handleSubmit}>
+                    <form className="contact__form glass-card fade-in-right" ref={formRef} onSubmit={handleSubmit}>
+                        {/* Honeypot — invisible to humans, bots fill this */}
+                        <input
+                            type="text"
+                            name="hp_field"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                            style={{ position: 'absolute', opacity: 0, height: 0, width: 0, zIndex: -1 }}
+                            tabIndex={-1}
+                            autoComplete="new-password"
+                        />
                         <div className="contact__field">
                             <label htmlFor="name">Your Name</label>
                             <input
@@ -121,15 +206,52 @@ export default function Contact() {
                                 required
                             ></textarea>
                         </div>
+                        <div className="contact__captcha">
+                            <label htmlFor="captcha">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                                What is {captcha.a} + {captcha.b}?
+                            </label>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                id="captcha"
+                                name="captcha_quiz"
+                                value={captchaInput}
+                                onChange={(e) => setCaptchaInput(e.target.value.replace(/\D/g, ''))}
+                                placeholder="?"
+                                required
+                                autoComplete="off"
+                            />
+                        </div>
                         <button type="submit" className="btn-primary contact__submit" disabled={sending}>
                             <span>{sending ? 'Sending...' : 'Send Message'}</span>
                             {!sending && (
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'relative', zIndex: 1 }}><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
                             )}
+                            {sending && (
+                                <span className="contact__spinner"></span>
+                            )}
                         </button>
                     </form>
                 </div>
             </div>
+
+            {/* Toast Notification */}
+            {toast.show && (
+                <div className={`contact__toast contact__toast--${toast.type}`}>
+                    <div className="contact__toast-icon">
+                        {toast.type === 'success' ? (
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+                        ) : (
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" /></svg>
+                        )}
+                    </div>
+                    <span>{toast.message}</span>
+                </div>
+            )}
         </section>
     );
 }
