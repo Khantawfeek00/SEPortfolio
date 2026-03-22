@@ -31,7 +31,8 @@
         "skills": [
             "PostgreSQL",
             "MySQL",
-            "MongoDB"
+            "MongoDB",
+            "Redis"
         ]
     },
     {

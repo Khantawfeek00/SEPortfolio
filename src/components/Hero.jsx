@@ -59,7 +59,7 @@ export default function Hero() {
 
                 <p className="hero__description fade-in">
                     Building scalable microservices and robust backend systems with
-                    <strong> Java</strong>, <strong>Spring Boot</strong>, <strong>GraphQL</strong>, and <strong>AWS</strong>.
+                    <strong> Java</strong>, <strong>Spring Boot</strong>, <strong>GraphQL</strong>, <strong>Redis</strong>, and <strong>AWS</strong>.
                     Passionate about clean architecture, test-driven development, and delivering
                     high-performance solutions.
                 </p>

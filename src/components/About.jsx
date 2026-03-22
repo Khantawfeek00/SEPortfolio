@@ -17,7 +17,7 @@ export default function About() {
                             I'm a <strong>Senior Software Engineer</strong> at <strong>Persistent Systems</strong>,
                             working on <strong>QuickBooks Online (QBO)</strong> for <strong>Intuit</strong>. I specialize
                             in designing and building scalable microservices using <strong>Java</strong>, <strong>Spring Boot</strong>,
-                            <strong> GraphQL</strong>, and <strong>REST APIs</strong>.
+                            <strong> GraphQL</strong>, <strong>Redis</strong>, and <strong>REST APIs</strong>.
                         </p>
                         <p>
                             With a strong focus on <strong>clean architecture</strong> and <strong>test-driven development</strong>,

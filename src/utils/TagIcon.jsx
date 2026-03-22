@@ -55,7 +55,8 @@ export default function TagIcon({ name, size = 22 }) {
         'react': 'react/react-original',
         'postman': 'postman/postman-original',
         'jira': 'jira/jira-original',
-        'kubernetes': 'kubernetes/kubernetes-plain'
+        'kubernetes': 'kubernetes/kubernetes-plain',
+        'redis': 'redis/redis-original'
     };
 
     let iconPath = devicons[key];
