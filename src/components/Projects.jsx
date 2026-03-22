@@ -6,7 +6,7 @@ const projects = [
         title: 'Airbnb Backend Clone',
         description:
             'A production-grade backend system for an Airbnb-like platform built with clean architecture and SOLID principles, serving 100+ concurrent users.',
-        techStack: ['Java', 'Spring Boot', 'Spring Security', 'MySQL', 'JPA', 'Hibernate', 'REST APIs'],
+        techStack: ['Java', 'Spring Boot', 'Spring', 'MySQL', 'JPA', 'Hibernate', 'REST APIs'],
         highlights: [
             'JWT authentication & role-based access control with Spring Security across 15+ endpoints',
             'Optimized ORM-based data access, reducing query response time by 40%',
