@@ -1,7 +1,7 @@
 .skills {
     position: relative;
     overflow: hidden;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 
 .skills__grid {
@@ -50,8 +50,8 @@
     justify-content: center;
     gap: 0.75rem;
     padding: 1.25rem 0.5rem;
-    background: rgba(var(--glow-rgb), 0.05);
-    border: 1px solid rgba(var(--glow-rgb), 0.1);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-outer);
     border-radius: var(--radius-md);
     transition: all var(--transition-short);
     text-align: center;
@@ -59,10 +59,8 @@
 }
 
 .skills__item:hover {
-    background: rgba(var(--glow-rgb), 0.12);
-    border-color: rgba(var(--accent-rgb), 0.4);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px -10px rgba(var(--glow-rgb), 0.3);
+    box-shadow: var(--shadow-light-inner);
+    transform: translateY(2px);
 }
 
 .skills__item-icon {

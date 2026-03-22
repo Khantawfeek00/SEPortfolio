@@ -65,11 +65,11 @@ export default function Hero() {
                 </p>
 
                 <div className="hero__cta fade-in">
-                    <a href="#projects" className="btn-primary">
+                    <a href="#projects" className="neo-btn">
                         <span>View My Work</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'relative', zIndex: 1 }}><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                     </a>
-                    <a href="#contact" className="btn-outline">
+                    <a href="#contact" className="neo-btn">
                         Contact Me
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                     </a>

@@ -305,7 +305,7 @@ function Modal({ profile, stats, isLive, onClose }) {
 
     return (
         <div className="cp__overlay" onClick={onClose}>
-            <div className="cp__modal glass-card" onClick={(e) => e.stopPropagation()}>
+            <div className="cp__modal neo-card" onClick={(e) => e.stopPropagation()}>
                 <div className="cp__modal-header">
                     <div className="cp__modal-identity">
                         <span className="cp__modal-icon" style={{ background: `${profile.color}18`, color: profile.color }}>
@@ -406,7 +406,7 @@ function ProfileCard({ profile, onClick }) {
     const hasBreakdown = stats.easy != null;
 
     return (
-        <div className="cp__card glass-card fade-in" style={{ '--comp-color': profile.color }}>
+        <div className="cp__card neo-card fade-in" style={{ '--comp-color': profile.color }}>
             <div className="cp__card-glow" style={{ background: `radial-gradient(circle at top right, ${profile.color}20 0%, transparent 60%)` }}></div>
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%' }}>
                 <div className="cp__card-header">

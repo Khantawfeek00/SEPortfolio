@@ -1,7 +1,7 @@
 .projects {
     position: relative;
     overflow: hidden;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 
 .projects__grid {
@@ -17,8 +17,8 @@
 }
 
 .projects__card--featured {
-    border-color: rgba(var(--glow-rgb), 0.15);
-    background: rgba(var(--glow-rgb), 0.03);
+    box-shadow: var(--shadow-light-inner);
+    background: var(--bg-card);
 }
 
 .projects__card-header {
@@ -46,7 +46,8 @@
 
 .projects__link:hover {
     color: var(--accent-theme);
-    background: rgba(var(--glow-rgb), 0.08);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-inner);
 }
 
 .projects__card-title {
@@ -83,7 +84,7 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border-glass);
+    border-top: 1px solid transparent;
 }
 
 @media (max-width: 768px) {

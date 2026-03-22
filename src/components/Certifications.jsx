@@ -76,7 +76,7 @@ export default function Certifications() {
                 <div className="certs__grid">
                     {certifications.map((cert, i) => (
                         <div
-                            className="certs__card glass-card fade-in"
+                            className="certs__card neo-card fade-in"
                             key={i}
                             style={{
                                 transitionDelay: `${i * 0.15}s`,
@@ -127,7 +127,7 @@ export default function Certifications() {
                     <button className="certs__modal-close" onClick={() => setSelectedCert(null)}>
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
-                    <div className="certs__modal glass-card" onClick={(e) => e.stopPropagation()}>
+                    <div className="certs__modal neo-card" onClick={(e) => e.stopPropagation()}>
                         {isLoading ? (
                             <div className="global-loader-container">
                                 <div className="global-spinner"></div>

@@ -106,7 +106,7 @@ export default function Experience() {
                                 </div>
                                 {i < experiencesData.length - 1 && <div className="experience__line"></div>}
                             </div>
-                            <div className="experience__card glass-card">
+                            <div className="experience__card neo-card">
                                 <div className="experience__glow"></div>
                                 <div className="experience__card-header" style={{ position: 'relative', zIndex: 1 }}>
                                     <div>
@@ -153,7 +153,7 @@ export default function Experience() {
                     <button className="experience__modal-close" onClick={() => setSelectedExp(null)}>
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
-                    <div className="experience__modal glass-card" onClick={(e) => e.stopPropagation()}>
+                    <div className="experience__modal neo-card" onClick={(e) => e.stopPropagation()}>
                         {isLoading ? (
                             <div className="global-loader-container">
                                 <div className="global-spinner"></div>

@@ -3,32 +3,29 @@
    ============================================ */
 
 :root {
-  /* ---- Colors ---- */
-  --bg-primary: #0a0a1a;
-  --bg-secondary: #111827;
-  --bg-card: rgba(17, 24, 39, 0.7);
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --border-glass: rgba(255, 255, 255, 0.08);
+  /* LIGHT MODE (Default) */
+  --bg-primary: #e0e5ec;
+  --bg-secondary: #eef2f7;
+  --bg-card: #e0e5ec;
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
 
-  /* Theme-aware colors (set dynamically by theme.js) */
-  --accent-theme: #06b6d4;
-  --accent-theme-2: #3b82f6;
-  --accent-theme-3: #8b5cf6;
-  --glow-rgb: 6, 182, 212;
+  /* Neumorphic Shadows (Light Mode) */
+  --shadow-light-outer: -8px -8px 16px rgba(255, 255, 255, 0.9), 8px 8px 16px rgba(163, 177, 198, 0.6);
+  --shadow-light-inner: inset -4px -4px 8px rgba(255, 255, 255, 0.9), inset 4px 4px 8px rgba(163, 177, 198, 0.6);
+  --shadow-light-hover: -4px -4px 8px rgba(255, 255, 255, 0.9), 4px 4px 8px rgba(163, 177, 198, 0.6);
 
-  /* Static accent colors */
-  --accent-green: #10b981;
-  --accent-orange: #f59e0b;
-  --accent-pink: #ec4899;
+  /* Shared Accents (Adaptable for Light Mode) */
+  --accent-theme: #3182ce;
+  --accent-theme-2: #4299e1;
+  --accent-theme-3: #805ad5;
+  --glow-rgb: 49, 130, 206;
 
-  --gradient-primary: linear-gradient(135deg, #06b6d4, #3b82f6);
-  --gradient-secondary: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  --gradient-accent: linear-gradient(135deg, #06b6d4, #8b5cf6);
-  --gradient-hero: linear-gradient(135deg, #0a0a1a 0%, #111827 40%, #0f172a 100%);
+  --gradient-primary: linear-gradient(135deg, #4299e1, #805ad5);
+  --gradient-secondary: linear-gradient(135deg, #805ad5, #4299e1);
+  --gradient-accent: linear-gradient(135deg, #3182ce, #805ad5);
 
   /* ---- Typography ---- */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -55,11 +52,32 @@
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
+}
 
-  /* ---- Shadows ---- */
-  --shadow-glow: 0 0 20px rgba(var(--glow-rgb), 0.15);
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.3);
-  --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.4);
+[data-theme='dark'] {
+  /* DARK MODE */
+  --bg-primary: #1a1b1e;
+  --bg-secondary: #22252a;
+  --bg-card: #1a1b1e;
+
+  --text-primary: #e2e8f0;
+  --text-secondary: #a0aec0;
+  --text-muted: #718096;
+
+  /* Neumorphic Shadows (Dark Mode) */
+  --shadow-light-outer: -8px -8px 16px rgba(45, 48, 54, 0.4), 8px 8px 16px rgba(10, 10, 12, 0.8);
+  --shadow-light-inner: inset -4px -4px 8px rgba(45, 48, 54, 0.4), inset 4px 4px 8px rgba(10, 10, 12, 0.8);
+  --shadow-light-hover: -4px -4px 8px rgba(45, 48, 54, 0.4), 4px 4px 8px rgba(10, 10, 12, 0.8);
+
+  /* Shared Accents (Dark Mode) */
+  --accent-theme: #63b3ed;
+  --accent-theme-2: #4299e1;
+  --accent-theme-3: #9f7aea;
+  --glow-rgb: 99, 179, 237;
+
+  --gradient-primary: linear-gradient(135deg, #63b3ed, #9f7aea);
+  --gradient-secondary: linear-gradient(135deg, #9f7aea, #63b3ed);
+  --gradient-accent: linear-gradient(135deg, #63b3ed, #9f7aea);
 }
 
 /* ---- Reset ---- */
@@ -157,41 +175,44 @@ button {
   margin-bottom: 3.5rem;
 }
 
-/* ---- Glass Card ---- */
-.glass-card {
-  background: var(--bg-glass);
-  border: 1px solid var(--border-glass);
+/* ---- Neumorphic Utilities ---- */
+.neo-card {
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  cursor: default;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
-  /* Hardware acceleration for smooth scrolling with backdrop-filter */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform, box-shadow;
+  box-shadow: var(--shadow-light-outer);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
 }
 
-.glass-card:hover {
-  transform: translateY(-6px) scale(1.01) !important;
-  border-color: rgba(var(--glow-rgb), 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(var(--glow-rgb), 0.05) inset;
+.neo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-light-hover);
 }
 
-/* ---- Card Radial Glow ---- */
-.card__glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(var(--glow-rgb), 0.15), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 0;
+.neo-inset {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-light-inner);
 }
 
-.glass-card:hover .card__glow {
-  opacity: 1;
+.neo-btn {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-light-outer);
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  cursor: pointer;
+}
+
+.neo-btn:active,
+.neo-btn.active {
+  box-shadow: var(--shadow-light-inner);
+  transform: translateY(2px);
 }
 
 /* ---- Gradient Text ---- */

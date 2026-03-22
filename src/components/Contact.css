@@ -5,7 +5,7 @@
 .contact {
     position: relative;
     overflow: hidden;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 
 /* --- 2-Column Grid --- */
@@ -46,14 +46,12 @@ a.contact__channel {
     gap: 1rem;
     padding: 1.1rem 1.25rem;
     border-radius: 14px;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-outer);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow: hidden;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 }
 
 /* Left accent bar */
@@ -71,10 +69,8 @@ a.contact__channel {
 
 .contact__channel:hover {
     transform: translateX(6px);
-    border-color: rgba(var(--glow-rgb), 0.2);
-    background: rgba(15, 23, 42, 0.7);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2),
-        0 0 20px -5px rgba(var(--glow-rgb), 0.1);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-hover);
 }
 
 .contact__channel:hover::after {
@@ -141,46 +137,12 @@ a.contact__channel {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-card);
     border-radius: 20px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-light-outer);
 }
 
-/* Animated gradient top border */
-.contact__form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 5%;
-    right: 5%;
-    height: 2px;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(var(--glow-rgb), 0.5),
-            rgba(139, 92, 246, 0.4),
-            rgba(6, 182, 212, 0.4),
-            rgba(var(--glow-rgb), 0.5),
-            transparent);
-    background-size: 200% 100%;
-    animation: formGradient 4s ease infinite;
-    border-radius: 2px;
-}
-
-@keyframes formGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/* Animated gradient top border removed for soft UI look */
 
 /* Form Field */
 .contact__field {
@@ -200,8 +162,9 @@ a.contact__channel {
 .contact__field textarea {
     width: 100%;
     padding: 0.9rem 1.15rem;
-    background: #141c2e;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-card);
+    border: none;
+    box-shadow: var(--shadow-light-inner);
     border-radius: 12px;
     color: var(--text-primary);
     font-family: var(--font-family);
@@ -223,7 +186,7 @@ a.contact__channel {
 .contact__field textarea:-webkit-autofill,
 .contact__field textarea:-webkit-autofill:hover,
 .contact__field textarea:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px #141c2e inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset !important;
     -webkit-text-fill-color: var(--text-primary) !important;
     border-color: rgba(255, 255, 255, 0.08) !important;
     transition: background-color 5000s ease-in-out 0s;
@@ -268,8 +231,9 @@ a.contact__channel {
     width: 100%;
     max-width: 120px;
     padding: 0.5rem 0.75rem;
-    background: #141c2e;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-card);
+    border: none;
+    box-shadow: var(--shadow-light-inner);
     border-radius: 8px;
     color: var(--text-primary);
     font-family: var(--font-family);
@@ -300,7 +264,7 @@ a.contact__channel {
 .contact__captcha input:-webkit-autofill,
 .contact__captcha input:-webkit-autofill:hover,
 .contact__captcha input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px #141c2e inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset !important;
     -webkit-text-fill-color: var(--text-primary) !important;
 }
 

@@ -37,7 +37,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(var(--glow-rgb), 0.1);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-inner);
     border-radius: var(--radius-md);
     color: var(--accent-theme);
 }

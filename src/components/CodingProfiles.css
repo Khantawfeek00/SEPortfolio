@@ -1,5 +1,5 @@
 .cp {
-    background: var(--bg-primary);
+    background: transparent;
 }
 
 .cp__grid {
@@ -15,6 +15,15 @@
     flex-direction: column;
     gap: 1.25rem;
     position: relative;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-outer);
+    border-radius: var(--radius-lg);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.cp__card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-light-hover);
 }
 
 .cp__card-glow {
@@ -245,8 +254,10 @@
     flex-direction: column;
     gap: 1.5rem;
     animation: cp-slide-up 0.3s ease-out;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    background: rgba(17, 24, 39, 0.95) !important;
+    border: none;
+    box-shadow: var(--shadow-light-outer);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card) !important;
 }
 
 .cp__modal:hover {

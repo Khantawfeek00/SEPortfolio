@@ -1,5 +1,5 @@
 .education {
-    background: var(--bg-primary);
+    background: transparent;
 }
 
 .education__timeline {
@@ -43,20 +43,19 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--bg-secondary);
-    border: 2px solid rgba(var(--glow-rgb), 0.3);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-light-outer);
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: translateX(-50%);
-    box-shadow: 0 0 15px rgba(var(--glow-rgb), 0.2);
     z-index: 2;
     transition: all var(--transition-base);
 }
 
 .education__item:hover .education__dot {
-    border-color: var(--accent-theme);
-    box-shadow: 0 0 20px rgba(var(--glow-rgb), 0.4);
+    box-shadow: var(--shadow-light-hover);
     transform: translateX(-50%) scale(1.1);
 }
 
@@ -81,7 +80,7 @@
     /* For mobile stacking context */
 }
 
-/* Remove the override of .glass-card hover from index.css to restore the pop-out animation */
+/* Remove the override of .neo-card hover from index.css to restore the pop-out animation */
 
 .education__glow {
     position: absolute;

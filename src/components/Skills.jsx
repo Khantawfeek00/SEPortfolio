@@ -17,7 +17,7 @@ export default function Skills() {
                 <div className="skills__grid">
                     {skillsData.map((cat, i) => (
                         <div
-                            className="skills__card glass-card fade-in"
+                            className="skills__card neo-card fade-in"
                             key={cat.title}
                             style={{ transitionDelay: `${i * 0.1}s` }}
                         >

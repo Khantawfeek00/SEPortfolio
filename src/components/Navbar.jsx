@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ResumeViewer from './ResumeViewer';
+import ThemeToggle from './ThemeToggle';
 import './Navbar.css';
 
 const navLinks = [
@@ -13,7 +14,7 @@ const navLinks = [
     { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ theme, toggleTheme }) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
@@ -99,8 +100,9 @@ export default function Navbar() {
                             {link.label}
                         </a>
                     ))}
+                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
                     <button
-                        className="btn-primary navbar__resume-btn"
+                        className="neo-btn navbar__resume-btn"
                         onClick={() => { setMobileOpen(false); setResumeOpen(true); }}
                     >
                         <span>Resume</span>
@@ -130,7 +132,7 @@ export default function Navbar() {
                                 <div className="resume-modal__header">
                                     <h3>Resume Preview</h3>
                                     <div className="resume-modal__actions">
-                                        <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="btn-primary navbar__download-btn" onClick={() => setResumeOpen(false)}>
+                                        <a href="/Resume.pdf" download="Tawfeek_Khan_Resume.pdf" className="neo-btn navbar__download-btn" onClick={() => setResumeOpen(false)}>
                                             <span>Download</span>
                                         </a>
                                         <button className="resume-modal__close" onClick={() => setResumeOpen(false)} aria-label="Close modal">&times;</button>

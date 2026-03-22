@@ -40,7 +40,7 @@ export default function Education() {
                             </div>
 
                             {/* Card Content */}
-                            <div className="education__card glass-card">
+                            <div className="education__card neo-card">
                                 <div className="education__glow"></div>
 
                                 <div className="education__card-content">

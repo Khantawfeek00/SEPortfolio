@@ -34,7 +34,7 @@ export default function Projects() {
                 <div className="projects__grid">
                     {projects.map((project, i) => (
                         <div
-                            className={`projects__card glass-card fade-in ${project.featured ? 'projects__card--featured' : ''}`}
+                            className={`projects__card neo-card fade-in ${project.featured ? 'projects__card--featured' : ''}`}
                             key={i}
                         >
                             <div className="card__glow"></div>
