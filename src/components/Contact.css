@@ -195,7 +195,7 @@ a.contact__channel {
 .contact__field input:focus,
 .contact__field textarea:focus {
     border-color: rgba(var(--glow-rgb), 0.5);
-    background: #1a2438;
+    background: var(--bg-card);
     box-shadow: 0 0 0 3px rgba(var(--glow-rgb), 0.08),
         0 4px 16px rgba(0, 0, 0, 0.1);
 }
