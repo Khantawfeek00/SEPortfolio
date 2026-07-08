@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import './LeetCodeModal.css';
 
 const USERNAME = 'TawfeekKhan';
-const TOTAL_QUESTIONS = { EASY: 927, MEDIUM: 2010, HARD: 909 }; // approx totals on LeetCode
+// Live total counts fetched from LeetCode API
 
 // ---- GraphQL helper ----
 async function lcQuery(query, variables, operationName) {
@@ -22,15 +22,24 @@ async function lcQuery(query, variables, operationName) {
 // ---- Queries ----
 async function fetchSolvedProgress() {
     const data = await lcQuery(
-        `query userProfileUserQuestionProgressV2($userSlug: String!) {
-      userProfileUserQuestionProgressV2(userSlug: $userSlug) {
-        numAcceptedQuestions { count difficulty }
+        `query userSessionProgress($username: String!) {
+      allQuestionsCount {
+        difficulty
+        count
+      }
+      matchedUser(username: $username) {
+        submitStats {
+          acSubmissionNum {
+            difficulty
+            count
+          }
+        }
       }
     }`,
-        { userSlug: USERNAME },
-        'userProfileUserQuestionProgressV2'
+        { username: USERNAME },
+        'userSessionProgress'
     );
-    return data?.data?.userProfileUserQuestionProgressV2?.numAcceptedQuestions || null;
+    return data?.data || null;
 }
 
 async function fetchContestRanking() {
@@ -315,8 +324,6 @@ export default function LeetCodeModal({ onClose }) {
     const [calendar, setCalendar] = useState(null);
     const [recentAC, setRecentAC] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeBadgeIndex, setActiveBadgeIndex] = useState(0);
-
     const handleEsc = useCallback((e) => { if (e.key === 'Escape') onClose(); }, [onClose]);
 
     useEffect(() => {
@@ -347,26 +354,35 @@ export default function LeetCodeModal({ onClose }) {
         });
     }, []);
 
-    // Carousel Timer
-    useEffect(() => {
-        if (badges.length <= 1) return;
-        const timer = setInterval(() => {
-            setActiveBadgeIndex(prev => (prev + 1) % badges.length);
-        }, 3000);
-        return () => clearInterval(timer);
-    }, [badges]);
-
     let easy = 0, medium = 0, hard = 0, total = 0;
+    let totalEasyQ = 973, totalMedQ = 2010, totalHardQ = 909; // fallback approx totals
+    
     if (solved) {
-        for (const q of solved) {
-            if (q.difficulty === 'EASY') easy = q.count;
-            else if (q.difficulty === 'MEDIUM') medium = q.count;
-            else if (q.difficulty === 'HARD') hard = q.count;
+        // Parse user solved counts
+        const acNum = solved.matchedUser?.submitStats?.acSubmissionNum;
+        if (acNum) {
+            for (const q of acNum) {
+                const diff = q.difficulty.toUpperCase();
+                if (diff === 'EASY') easy = q.count;
+                else if (diff === 'MEDIUM') medium = q.count;
+                else if (diff === 'HARD') hard = q.count;
+                else if (diff === 'ALL') total = q.count;
+            }
         }
-        total = easy + medium + hard;
+        
+        // Parse live total question counts
+        const qCount = solved.allQuestionsCount;
+        if (qCount) {
+            for (const q of qCount) {
+                const diff = q.difficulty.toUpperCase();
+                if (diff === 'EASY') totalEasyQ = q.count;
+                else if (diff === 'MEDIUM') totalMedQ = q.count;
+                else if (diff === 'HARD') totalHardQ = q.count;
+            }
+        }
     }
 
-    const totalQ = TOTAL_QUESTIONS.EASY + TOTAL_QUESTIONS.MEDIUM + TOTAL_QUESTIONS.HARD;
+    const totalQ = totalEasyQ + totalMedQ + totalHardQ;
 
     function timeAgo(timestamp) {
         const diff = Date.now() / 1000 - Number(timestamp);
@@ -449,44 +465,37 @@ export default function LeetCodeModal({ onClose }) {
                                     <div className="lc__diff-item">
                                         <span className="lc__diff-dot" style={{ background: '#10b981' }}></span>
                                         <span className="lc__diff-label">Easy</span>
-                                        <span className="lc__diff-count" style={{ color: '#10b981' }}>{easy}<span className="lc__diff-total">/{TOTAL_QUESTIONS.EASY}</span></span>
+                                        <span className="lc__diff-count" style={{ color: '#10b981' }}>{easy}<span className="lc__diff-total">/{totalEasyQ}</span></span>
                                     </div>
                                     <div className="lc__diff-item">
                                         <span className="lc__diff-dot" style={{ background: '#f59e0b' }}></span>
                                         <span className="lc__diff-label">Med</span>
-                                        <span className="lc__diff-count" style={{ color: '#f59e0b' }}>{medium}<span className="lc__diff-total">/{TOTAL_QUESTIONS.MEDIUM}</span></span>
+                                        <span className="lc__diff-count" style={{ color: '#f59e0b' }}>{medium}<span className="lc__diff-total">/{totalMedQ}</span></span>
                                     </div>
                                     <div className="lc__diff-item">
                                         <span className="lc__diff-dot" style={{ background: '#ef4444' }}></span>
                                         <span className="lc__diff-label">Hard</span>
-                                        <span className="lc__diff-count" style={{ color: '#ef4444' }}>{hard}<span className="lc__diff-total">/{TOTAL_QUESTIONS.HARD}</span></span>
+                                        <span className="lc__diff-count" style={{ color: '#ef4444' }}>{hard}<span className="lc__diff-total">/{totalHardQ}</span></span>
                                     </div>
                                 </div>
                             </div>
 
                             {badges.length > 0 && (
                                 <div className="lc__badges-card">
-                                    <div className="lc__carousel">
-                                        {badges.map((badge, idx) => (
-                                            <div key={badge.id} className={`lc__carousel-slide ${idx === activeBadgeIndex ? 'active' : ''}`}>
-                                                <div className="lc__badge-card">
-                                                    <div className="lc__badge-icon-wrap">
-                                                        {badge.icon ? (
-                                                            <img src={badge.icon} alt={badge.displayName} />
-                                                        ) : (
-                                                            <span>🏆</span>
-                                                        )}
-                                                    </div>
-                                                    <div className="lc__badge-info">
-                                                        <span className="lc__badge-name" title={badge.displayName}>{badge.displayName}</span>
-                                                    </div>
+                                    <div className="lc__badges-list">
+                                        {badges.map((badge) => (
+                                            <div key={badge.id} className="lc__badge-item">
+                                                <div className="lc__badge-icon-wrap">
+                                                    {badge.icon ? (
+                                                        <img src={badge.icon} alt={badge.displayName} />
+                                                    ) : (
+                                                        <span>🏆</span>
+                                                    )}
+                                                </div>
+                                                <div className="lc__badge-tooltip">
+                                                    {badge.displayName}
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
-                                    <div className="lc__carousel-dots">
-                                        {badges.map((_, idx) => (
-                                            <div key={idx} className={`lc__carousel-dot ${idx === activeBadgeIndex ? 'active' : ''}`} />
                                         ))}
                                     </div>
                                 </div>

@@ -28,7 +28,7 @@
 
 .lc__modal {
     width: 100%;
-    max-width: 900px;
+    max-width: 960px;
     max-height: 92vh;
     overflow: hidden;
     background: var(--bg-secondary);
@@ -255,11 +255,9 @@
 /* Main Row: Solved + Badges */
 .lc__main-row {
     display: grid;
-    /* Use minmax to ensure columns stay strictly 50/50 and don't expand based on content width */
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1.1fr 1fr;
     gap: 0.75rem;
     align-items: stretch;
-    /* Make both cards equal height */
 }
 
 /* Solved Card */
@@ -358,7 +356,8 @@
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.75rem;
     min-width: 0;
     /* Prevent grid blowout from long content */
     height: 100%;
@@ -366,70 +365,23 @@
     box-shadow: var(--shadow-light-inner);
 }
 
-.lc__carousel {
-    position: relative;
-    width: 100%;
-    flex: 1;
-    min-height: 120px;
+.lc__badges-list {
     display: flex;
-}
-
-.lc__carousel-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 0.5s ease-in-out;
-    pointer-events: none;
-}
-
-.lc__carousel-slide.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-}
-
-.lc__badge-card {
-    width: 100%;
-    height: 100%;
-    background: var(--bg-secondary);
-    border: 1px solid rgba(var(--glow-rgb), 0.05);
-    border-radius: 10px;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    gap: 0.125rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    flex: 1;
 }
 
-.lc__badge-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(var(--glow-rgb), 0.2);
-    background: var(--bg-card);
-    box-shadow: var(--shadow-light-hover);
+.lc__badge-item {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.lc__carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 3px;
-    margin-top: 0.25rem;
-}
-
-.lc__carousel-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: rgba(var(--glow-rgb), 0.25);
-    transition: all 0.3s ease;
-}
-
-.lc__carousel-dot.active {
-    background: #f59e0b;
-    width: 10px;
-    border-radius: 2px;
+.lc__badge-item:hover {
+    transform: translateY(-4px);
 }
 
 .lc__badge-icon-wrap {
@@ -438,37 +390,70 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    border-radius: 12px;
+    border-radius: 18px;
     flex-shrink: 0;
-    background: rgba(245, 158, 11, 0.15);
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.15);
     color: #f59e0b;
+    transition: all 0.25s ease;
+}
+
+.lc__badge-item:hover .lc__badge-icon-wrap {
+    background: rgba(245, 158, 11, 0.16);
+    border-color: rgba(245, 158, 11, 0.45);
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    transform: scale(1.06);
 }
 
 .lc__badge-icon-wrap img {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    width: 68px;
-    height: 68px;
+    width: 66px;
+    height: 66px;
     object-fit: contain;
 }
 
 .lc__badge-icon-wrap span {
-    font-size: 24px;
+    font-size: 26px;
 }
 
-.lc__badge-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.125rem;
-}
-
-.lc__badge-name {
-    font-size: 1rem;
+/* Tooltip */
+.lc__badge-tooltip {
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(17, 24, 39, 0.95);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.2;
-    text-align: center;
-    margin-top: 0.25rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    backdrop-filter: blur(4px);
+}
+
+.lc__badge-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(17, 24, 39, 0.95) transparent transparent transparent;
+}
+
+.lc__badge-item:hover .lc__badge-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Heatmap */
