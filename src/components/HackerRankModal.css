@@ -362,23 +362,44 @@
 .hr__heatmap-scroll {
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: 24px;
-    scrollbar-width: none;
+    padding-bottom: 12px;
     display: flex;
     align-items: flex-start;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--glow-rgb), 0.25) transparent;
 }
 
 .hr__heatmap-scroll::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+    display: block;
+}
+
+.hr__heatmap-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.hr__heatmap-scroll::-webkit-scrollbar-thumb {
+    background: rgba(var(--glow-rgb), 0.25);
+    border-radius: 4px;
+}
+
+.hr__heatmap-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--glow-rgb), 0.45);
 }
 
 .hr__heatmap-day-labels {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    padding-right: 6px;
     margin-right: 4px;
     flex-shrink: 0;
-    padding-top: 0;
+    padding-top: 16px;
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: var(--bg-card);
+    box-shadow: 4px 0 8px -4px rgba(0, 0, 0, 0.4);
 }
 
 .hr__heatmap-day-labels span {
@@ -388,6 +409,7 @@
     color: var(--text-muted);
     text-align: right;
     min-width: 22px;
+    background: var(--bg-card);
 }
 
 .hr__heatmap-grid {
@@ -396,10 +418,18 @@
     min-width: 560px;
 }
 
+.hr__heatmap-grid::after {
+    content: '';
+    display: block;
+    width: 6px;
+    flex-shrink: 0;
+}
+
 .hr__heatmap-col-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
+    padding-top: 16px;
 }
 
 .hr__heatmap-col {
@@ -416,8 +446,9 @@
 }
 
 .hr__heatmap-cell:hover {
-    transform: scale(1.5);
-    z-index: 10;
+    outline: 1.5px solid #3b82f6;
+    outline-offset: 1px;
+    z-index: 2;
 }
 
 .hr__heatmap-cell--empty {
@@ -426,7 +457,7 @@
 }
 
 .hr__heatmap-cell--0 {
-    background: rgba(255, 255, 255, 0.04);
+    background: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 
 .hr__heatmap-cell--1 {
@@ -446,13 +477,13 @@
 }
 
 .hr__heatmap-col--new-month {
-    border-left: 1px solid rgba(var(--glow-rgb), 0.12);
+    border-left: 1px solid color-mix(in srgb, var(--text-primary) 15%, transparent);
     padding-left: 2px;
 }
 
 .hr__heatmap-month-label {
     position: absolute;
-    bottom: -20px;
+    top: 0;
     font-size: 0.65rem;
     font-weight: 500;
     color: var(--text-secondary);
@@ -494,13 +525,7 @@
     border-top: 5px solid #1f2937;
 }
 
-.hr__heatmap-tooltip.right {
-    transform: translate(-85%, -100%);
-}
-
-.hr__heatmap-tooltip.right .hr__heatmap-tooltip-arrow {
-    left: 85%;
-}
+/* Tooltip edge collision classes handled in JS */
 
 .hr__carousel {
     position: relative;

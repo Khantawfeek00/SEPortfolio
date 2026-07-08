@@ -258,13 +258,23 @@ function SubmissionHeatmap({ historyMap }) {
                                     const handleMouseEnter = (e) => {
                                         const rect = e.target.getBoundingClientRect();
                                         const sectionRect = document.querySelector('.hr__heatmap-section').getBoundingClientRect();
-                                        const x = rect.left - sectionRect.left + rect.width / 2;
+                                        
+                                        const cellX = rect.left - sectionRect.left + rect.width / 2;
                                         const y = rect.top - sectionRect.top - 10;
-                                        const positionClass = x > sectionRect.width / 2 ? 'right' : '';
+                                        
+                                        // Tooltip is approx 220px wide (110px half-width). Clamp to keep inside modal bounds
+                                        const tooltipHalfWidth = 110;
+                                        const padding = 12;
+                                        const minX = tooltipHalfWidth + padding;
+                                        const maxX = sectionRect.width - tooltipHalfWidth - padding;
+                                        
+                                        const x = Math.max(minX, Math.min(maxX, cellX));
+                                        const arrowOffset = cellX - x;
+
                                         setHoveredCell({
                                             count: cell.count,
                                             date: cell.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                                            x, y, positionClass
+                                            x, y, arrowOffset
                                         });
                                     };
 
@@ -283,14 +293,14 @@ function SubmissionHeatmap({ historyMap }) {
             </div>
             {hoveredCell && (
                 <div
-                    className={`hr__heatmap-tooltip ${hoveredCell.positionClass || ''}`}
+                    className="hr__heatmap-tooltip"
                     style={{
                         left: hoveredCell.x,
                         top: hoveredCell.y
                     }}
                 >
                     {hoveredCell.count} submission{hoveredCell.count !== 1 ? 's' : ''} on {hoveredCell.date}
-                    <div className="hr__heatmap-tooltip-arrow"></div>
+                    <div className="hr__heatmap-tooltip-arrow" style={{ transform: `translateX(calc(-50% + ${hoveredCell.arrowOffset}px))` }}></div>
                 </div>
             )}
         </div>
