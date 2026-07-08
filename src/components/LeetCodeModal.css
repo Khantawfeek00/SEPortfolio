@@ -491,23 +491,44 @@
 .lc__heatmap-scroll {
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: 24px;
-    scrollbar-width: none;
+    padding-bottom: 12px;
     display: flex;
     align-items: flex-start;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--glow-rgb), 0.25) transparent;
 }
 
 .lc__heatmap-scroll::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+    display: block;
+}
+
+.lc__heatmap-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lc__heatmap-scroll::-webkit-scrollbar-thumb {
+    background: rgba(var(--glow-rgb), 0.25);
+    border-radius: 4px;
+}
+
+.lc__heatmap-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--glow-rgb), 0.45);
 }
 
 .lc__heatmap-day-labels {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    padding-right: 6px;
     margin-right: 4px;
     flex-shrink: 0;
-    padding-top: 0;
+    padding-top: 16px; /* Align with cells below the top month labels */
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: var(--bg-card);
+    box-shadow: 4px 0 8px -4px rgba(0, 0, 0, 0.4);
 }
 
 .lc__heatmap-day-labels span {
@@ -517,6 +538,7 @@
     color: var(--text-muted);
     text-align: right;
     min-width: 22px;
+    background: var(--bg-card);
 }
 
 .lc__heatmap-grid {
@@ -525,10 +547,18 @@
     min-width: 560px;
 }
 
+.lc__heatmap-grid::after {
+    content: '';
+    display: block;
+    width: 6px;
+    flex-shrink: 0;
+}
+
 .lc__heatmap-col-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
+    padding-top: 16px; /* Make space at top for month labels */
 }
 
 .lc__heatmap-col {
@@ -545,7 +575,9 @@
 }
 
 .lc__heatmap-cell:hover {
-    transform: scale(1.5);
+    outline: 1.5px solid #f59e0b;
+    outline-offset: 1px;
+    z-index: 2;
 }
 
 .lc__heatmap-cell--empty {
@@ -580,7 +612,7 @@
 
 .lc__heatmap-month-label {
     position: absolute;
-    bottom: -20px;
+    top: 0; /* Position at the top instead of bottom */
     font-size: 0.65rem;
     font-weight: 500;
     color: var(--text-secondary);
@@ -622,13 +654,7 @@
     border-top: 5px solid #1f2937;
 }
 
-.lc__heatmap-tooltip.right {
-    transform: translate(-85%, -100%);
-}
-
-.lc__heatmap-tooltip.right .lc__heatmap-tooltip-arrow {
-    left: 85%;
-}
+/* Arrow pointing position is now calculated dynamically */
 
 /* Recent AC */
 .lc__recent {
